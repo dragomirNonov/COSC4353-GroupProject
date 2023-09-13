@@ -1,0 +1,136 @@
+.gradient-background {
+    background: linear-gradient(to bottom, #FD3438, white);
+    width: 100%;
+    height: 230px;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#logo {
+    width: 140px;
+    height: 80px;
+    left: 15%;
+    transform: translate(15%, 5%);
+}
+
+.main-container {
+    border: none;
+    display: flex;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    background-color: white;
+    height: 75%;
+    width: 90%;
+    border-radius: 30px;
+
+    padding: none;
+    margin: none;
+    justify-content: space-between;
+
+}
+
+#settings-tabs {
+    position: absolute;
+    padding: 15px 0px;
+    width: 20%;
+    font-family: Arial;
+}
+
+#settings {
+
+    font-size: 18pt;
+    color: #A5A5A5;
+    padding: 0px 0px 8px 0px;
+    margin: none;
+}
+
+.no-bullets {
+    list-style: none;
+}
+
+.button {
+    display: inline-block;
+    padding: 8px 15px;
+    background-color: white;
+    color: #5B5B5B;
+    font-size: 14pt;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+
+    height: 20px;
+    width: 60%;
+}
+
+.button:hover {
+    background-color: #CDCDCD;
+    color: white;
+}
+
+
+#form-container {
+    border-left: 2px solid rgb(177, 177, 177);
+    position: absolute;
+    left: 18%;
+    top: 6.5%;
+    height: 100%;
+    width: 70%;
+    padding: 0% 4%;
+    margin: none;
+
+}
+
+#form-container h1 {
+    position: absolute;
+    font-family: Arial;
+    font-size: 24pt;
+    font-weight: normal;
+
+    transform: translate(0%, -75%);
+}
+
+#form-container form {
+    position: absolute;
+    font-size: 14pt;
+    font-weight: normal;
+    color: #5B5B5B;
+    padding: none;
+    width: 800px;
+
+}
+
+label {
+
+    display: block;
+    text-align: left;
+    margin-bottom: 0px;
+    padding: none;
+}
+
+input[type=text] {
+    width: 100%;
+    height: 30px;
+    border-radius: 5px;
+    border: 2px solid #acacac;
+
+    top: 50px;
+}
+
+input[type=submit] {
+    background-color: #FD3438;
+    color: white;
+    border: none;
+    height: 40px;
+    width: 100px;
+    border-radius: 8px;
+
+    font-size: 14pt;
+}
