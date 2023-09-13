@@ -1,0 +1,51 @@
+body {
+  background: #ff0000;
+  background: linear-gradient(to bottom, #f15c5c, #fafafa);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+.form {
+  width: 25vmax;
+  margin: 0 auto;
+  margin-top: 10%;
+  padding-top: 3vmax;
+  padding-bottom: 3vmax;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.textarea {
+  width: 20vmax; /* Make the input fields take up 100% of their container */
+  padding: 10px; /* Add some padding for spacing inside the input fields */
+  border-radius: 10px; /* Rounded corners */
+  border: 1px solid #ccc; /* Add a border for clarity */
+  margin-bottom: 5px;
+}
+.button {
+  margin-bottom: 5px;
+  width: 100%;
+  background-color: rgb(250, 106, 106); /* Background color */
+  color: white; /* Text color */
+  padding: 10px 20px; /* Adjust padding for width and height */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Add a pointer cursor on hover */
+  text-align: center; /* Center text horizontally */
+  text-decoration: none; /* Remove underline on text (if used as a link) */
+  display: inline-block; /* Make the button an inline-block element */
+}
+.button:hover {
+  background-color: darkred; /* Change background color on hover */
+}
+.text {
+  margin: auto;
+  margin-bottom: 10px;
+  font-size: smaller;
+  font-weight: 400;
+  color: #a09f9f;
+}
