@@ -20,27 +20,28 @@ body {
 }
 
 .textarea {
-  width: 20vmax; /* Make the input fields take up 100% of their container */
-  padding: 10px; /* Add some padding for spacing inside the input fields */
-  border-radius: 10px; /* Rounded corners */
-  border: 1px solid #ccc; /* Add a border for clarity */
+  width: 20vmax;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
   margin-bottom: 5px;
 }
+
 .button {
   margin-bottom: 5px;
   width: 100%;
-  background-color: rgb(250, 106, 106); /* Background color */
-  color: white; /* Text color */
-  padding: 10px 20px; /* Adjust padding for width and height */
-  border: none; /* Remove border */
-  border-radius: 5px; /* Rounded corners */
-  cursor: pointer; /* Add a pointer cursor on hover */
-  text-align: center; /* Center text horizontally */
-  text-decoration: none; /* Remove underline on text (if used as a link) */
-  display: inline-block; /* Make the button an inline-block element */
+  background-color: rgb(250, 106, 106);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
 }
 .button:hover {
-  background-color: darkred; /* Change background color on hover */
+  background-color: darkred;
 }
 .text {
   margin: auto;

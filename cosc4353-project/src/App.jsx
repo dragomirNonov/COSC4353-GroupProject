@@ -1,6 +1,6 @@
 import LoginForm from "../components/login";
 import RegisterForm from "../components/register";
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 const App = () => {
   return (
     <div className="body">
