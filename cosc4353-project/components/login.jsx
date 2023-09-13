@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Link } from "react-router-dom";
 const LoginForm = (props) => {
   return (
     <div className="form">
-      <form onSubmit={props.handleSubmit}>
+      <form onSubmit={props}>
         <h2 className="inline">Login to [...]</h2>
         <div>
           <input
