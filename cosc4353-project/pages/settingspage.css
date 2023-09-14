@@ -73,6 +73,7 @@ body {
 .button:hover {
     background-color: #CDCDCD;
     color: white;
+    cursor: pointer;
 }
 
 
@@ -120,8 +121,9 @@ input[type=text] {
     height: 30px;
     border-radius: 5px;
     border: 2px solid #acacac;
-
+    font-size: 16pt;
     top: 50px;
+    padding-left: 10px;
 }
 
 input[type=submit] {
@@ -133,4 +135,29 @@ input[type=submit] {
     border-radius: 8px;
 
     font-size: 14pt;
+}
+
+input[type=submit]:hover {
+    background-color: #f57a7c;
+    cursor: pointer;
+}
+
+#password-container {
+    position: relative
+
+}
+
+#togglePassword {
+    position: absolute;
+    font-size: 28px;
+    top: 65%;
+    left: 97%;
+    transform: translateY(-50%);
+    background-color: transparent;
+    border: none;
+    color: rgb(101, 101, 101);
+}
+
+#togglePassword:hover {
+    color:rgb(177, 177, 177);
 }
