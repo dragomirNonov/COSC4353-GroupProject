@@ -17,29 +17,21 @@
         </div>
 
         <div id="form-container">
-            <h1>Complete your profile<h1>
+            <h1>Edit your account<h1>
 
             <form action="https://profileform.com/update">
                 <p>
-                    <label for="first">First name</label>
-                    <input type="text" name="first" id="first" pattern="[A-Za-z]">
+                    <label for="email">Email</label>
+                    <input type="text" name="email" id="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}">
                 </p>
                 <p>
-                    <label for="last">Last name</label>
-                    <input type="text" name="last" id="last" pattern="[A-Za-z]">
+                    <div id="password-container">
+                    <label for="password">Password</label>
+                    <input type="text" name="password" id="password">
+                    <button type="button" id="togglePassword">&#x25CF;</button>
+                    </div>
                 </p>
                 <p>
-                    <label for="first">Phone number</label>
-                    <input type="text" name="telenumber" id="telenumber" pattern="[0-9]">
-                </p>
-                <p>
-                    <label for="address">Address</label>
-                    <input type="text" name="address" id="address">
-                </p>
-                <p>
-                    <label for="org">Business/Organization</label>
-                    <input type="text" name="org" id="org">
-                </p>
                 <input type="submit" value="Save">
             </form>
         </div>
