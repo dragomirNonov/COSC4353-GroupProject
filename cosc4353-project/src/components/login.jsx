@@ -1,8 +1,29 @@
+import { useState } from "react";
 import { BrowserRouter as Router, Link } from "react-router-dom";
+
 const LoginForm = (props) => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleUsernameChange = (event) => {
+    setUsername(event.target.value);
+    console.log(event.target.value);
+  };
+
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+    console.log(event.target.value);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log("Username:", username);
+    console.log("Password:", password);
+  };
+
   return (
     <div className="form">
-      <form onSubmit={props}>
+      <form onSubmit={handleSubmit}>
         <h2 className="inline">Login to [...]</h2>
         <div>
           <input
@@ -11,20 +32,20 @@ const LoginForm = (props) => {
             id="name"
             name="name"
             placeholder="Email or username"
-            // value={"username"}
-            // onChange={props.handleInputChange}
+            value={username}
+            onChange={handleUsernameChange}
             required
           />
         </div>
         <div>
           <input
             className="textarea"
-            type="email"
-            id="email"
-            name="email"
+            type="password"
+            id="password"
+            name="password"
             placeholder="Password"
-            // value={"password"}
-            // onChange={props.handleInputChange}
+            value={password}
+            onChange={handlePasswordChange}
             required
           />
         </div>
