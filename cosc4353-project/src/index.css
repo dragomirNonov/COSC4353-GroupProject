@@ -19,6 +19,18 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
+.bigform {
+  width: 95vmax;
+  margin: 0 auto;
+  padding-left: 30px;
+  display: flex;
+  justify-content: flex-start; 
+  align-items: center;
+  border-radius: 10px;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
 .textarea {
   width: 20vmax;
   padding: 10px;
