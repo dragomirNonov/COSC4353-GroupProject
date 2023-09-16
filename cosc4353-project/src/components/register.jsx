@@ -73,7 +73,10 @@ const RegisterForm = (props) => {
         </button>
 
         <p className="text">
-          Alredy have an account? <Link to="/">Sign in</Link>
+          Alredy have an account?{" "}
+          <Link className="link-style " to="/">
+            Sign in
+          </Link>
         </p>
       </form>
     </div>

@@ -54,7 +54,10 @@ const LoginForm = (props) => {
           Login
         </button>
         <p className="text">
-          Dont have an account? <Link to="/register">Sign up</Link>
+          Dont have an account?{" "}
+          <Link className="link-style" to="/register">
+            Sign up
+          </Link>
         </p>
       </form>
     </div>

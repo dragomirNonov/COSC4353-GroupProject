@@ -9,7 +9,7 @@ const QuoteForm = (props) => {
   const [gallons, setGallons] = useState("");
   const [name, setName] = useState("");
   const [profitMargin, setProfitMargin] = useState("");
-  
+
   const handleInStateChange = (event) => {
     setInState(event.target.value);
     // console.log(event.target.value);
@@ -18,7 +18,7 @@ const QuoteForm = (props) => {
   const handleStateChange = (event) => {
     setState(event.target.value);
     // console.log(event.target.value);
-  }
+  };
   const handlePreviousCustomerChange = (event) => {
     setPreviousCustomer(event.target.value);
     // console.log(event.target.value);
@@ -27,12 +27,12 @@ const QuoteForm = (props) => {
   const handleLastPurchaseChange = (event) => {
     setLastPurchase(event.target.value);
     // console.log(event.target.value);
-  }
+  };
 
   const handleGallonsChange = (event) => {
     setGallons(event.target.value);
     // console.log(event.target.value);
-  }
+  };
   const handleNameChange = (event) => {
     setName(event.target.value);
     // console.log(event.target.value);
@@ -41,7 +41,7 @@ const QuoteForm = (props) => {
   const handleProfitMarginChange = (event) => {
     setProfitMargin(event.target.value);
     // console.log(event.target.value);
-  }
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -73,7 +73,7 @@ const QuoteForm = (props) => {
           />
         </div>
         <div>
-          <p>Which state are you requesting from?</p>  
+          <p>Which state are you requesting from?</p>
           <input
             className="textarea"
             type="state"
@@ -86,7 +86,7 @@ const QuoteForm = (props) => {
           />
         </div>
         <div>
-          <p>Have you purchased fuel before?</p>  
+          <p>Have you purchased fuel before?</p>
           <input
             className="textarea"
             type="previousCustomer"
@@ -99,7 +99,7 @@ const QuoteForm = (props) => {
           />
         </div>
         <div>
-          <p>When was your last purchase?</p>  
+          <p>When was your last purchase?</p>
           <input
             className="textarea"
             type="lastPurchase"
@@ -112,7 +112,7 @@ const QuoteForm = (props) => {
           />
         </div>
         <div>
-          <p>How many gallons do you plan to purchase?</p>  
+          <p>How many gallons do you plan to purchase?</p>
           <input
             className="textarea"
             type="gallons"
@@ -125,7 +125,7 @@ const QuoteForm = (props) => {
           />
         </div>
         <div>
-          <p>Organization Name</p>  
+          <p>Organization Name</p>
           <input
             className="textarea"
             type="name"
@@ -138,7 +138,7 @@ const QuoteForm = (props) => {
           />
         </div>
         <div>
-          <p>What is your company's profit margin</p>  
+          <p>What is your company's profit margin</p>
           <input
             className="textarea"
             type="profitMargin"
@@ -151,14 +151,12 @@ const QuoteForm = (props) => {
           />
         </div>
 
-
         <button className="button" type="submit">
           Submit
         </button>
 
-        
         <p className="text">
-            Cancel
+          Cancel
           {/* Cancel <Link to="/">Profile</Link> */}
         </p>
       </form>
