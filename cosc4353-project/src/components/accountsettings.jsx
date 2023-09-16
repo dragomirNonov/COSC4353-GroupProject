@@ -38,14 +38,14 @@ const AccountSettings = (props) => {
                     <ul className="no-bullets">
                         <li id="settings">Settings</li>
                         <li>
-                            <button 
-                            className = "settings-button"
-                            onClick = {() => setPage(<ProfileSettings />)}>  Profile</button>
+                            <Link to="/profilesettings">
+                                <button 
+                                className = "settings-button">  Profile</button>   
+                            </Link>
                         </li>
                         <li>
                             <button 
-                            className = "settings-button"
-                            onClick = {() => setSettingsPage(<AccountSettings />)}>  Account Info</button>
+                            className = "settings-button">  Account Info</button>
                         </li>
                     </ul>
                 </div>

@@ -54,33 +54,26 @@ const ProfileSettings = (props) => {
 
     }
 
-    // Go To Account Info Function
-
-    const[settingsPage, setSettingsPage] = useState("profile");
-
-    const setPage = (settingsPage) => {
-        setSettingsPage = (settingsPage);
-    };
-
     return (
         <div className="gradient-background">
             <div className="main-container">
                 <div id="settings-tabs">
                     <ul className="no-bullets">
                         <li id="settings">Settings</li>
+                        
                         <li>
-                            <button className = "settings-button"
-                            onClick = {() => setPage("profile")}>  Profile</button>
+                            <button className = "settings-button">  Profile
+                            </button>
                         </li>
+                        
                         <li>
-                            <button className = "settings-button"
-                            onClick = {() => setSettingsPage("accountInfo")}>  Account Info</button>
+                            <Link to="/accountsettings">
+                                <button 
+                                className = "settings-button">  Account Info</button>   
+                            </Link>
                         </li>
                     </ul>
                 </div>
-
-                {settingsPage === "accountInfo" && <AccountSettings />}
-
                 <div className="settings-container">
                     <h1>Complete your profile</h1>
 
@@ -227,7 +220,6 @@ const ProfileSettings = (props) => {
                 </div>
 
             </div>
-
         </div>
     )
 
