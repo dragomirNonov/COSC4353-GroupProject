@@ -1,0 +1,168 @@
+.gradient-background {
+    background: linear-gradient(to bottom, #FD3438, white 50%);
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.main-container {
+    border: none;
+    display: flex;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    background-color: white;
+    height: 90%;
+    width: 90%;
+    border-radius: 20px;
+
+    padding: none;
+    margin: none;
+    justify-content: space-between;
+
+}
+
+#settings-tabs {
+    position: absolute;
+    padding: 1% 3%;
+    width: 20%;
+    height: 20%;
+    font-family: Arial;
+}
+
+#settings {
+
+    font-size: 18pt;
+    color: #A5A5A5;
+    padding: 0px 0px 8px 0px;
+    margin: none;
+}
+
+.no-bullets {
+    list-style: none;
+}
+
+.settings-button {
+    display: inline-block;
+    padding: 8px 15px;
+    background-color: white;
+    color: #5B5B5B;
+    font-size: 14pt;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    text-align: left;
+    height: 20%;
+    width: 60%;
+}
+
+.settings-button:hover {
+    background-color: #CDCDCD;
+    color: white;
+    cursor: pointer;
+}
+
+
+.settings-container {
+    border-left: 2px solid rgb(177, 177, 177);
+    left: 18%;
+    top: 6.5%;
+    height: 88%;
+    width: 70%;
+    padding: 0% 4%;
+    margin: none;
+    position: absolute;
+    font-family: Arial;
+}
+
+.settings-container h1 {
+    position: absolute;
+    font-size: 24pt;
+    font-weight: normal;
+
+    transform: translate(0%, -75%);
+}
+
+.settings-container form {
+    position: absolute;
+    font-size: 14pt;
+    font-weight: normal;
+    color: #5B5B5B;
+    padding: none;
+    width: 90%;
+    height: 60%;
+    top: 10%;
+}
+
+.settings-container label {
+    display: block;
+    text-align: left;
+    margin-top: 5px;
+    padding: none;
+}
+
+.settings-container input[type=text] {
+    width: 100%;
+    height: 10px;
+    border-radius: 5px;
+    border: 2px solid #acacac;
+    font-size: 16pt;
+    top: 50px;
+    padding-left: 10px;
+}
+
+.settings-container select {
+    height: 35px;
+    width: 142px;
+    border: 2px solid #acacac;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.settings-container #zipCode {
+    width: 120px;
+}
+
+.save-button {
+    background-color: #FD3438;
+    color: white;
+    border: none;
+    height: 30px;
+    width: 10%;
+    border-radius: 5px;
+    margin-top: 5px;
+    font-size: 12pt;
+}
+
+.save-button:hover {
+    background-color: #f57a7c;
+    cursor: pointer;
+}
+
+.password-container {
+    position: relative
+
+}
+
+.togglePassword {
+    position: absolute;
+    font-size: 28px;
+    top: 65%;
+    left: 97%;
+    transform: translateY(-50%);
+    background-color: transparent;
+    border: none;
+    color: rgb(101, 101, 101);
+}
+
+.togglePassword:hover {
+    color:rgb(177, 177, 177);
+}
