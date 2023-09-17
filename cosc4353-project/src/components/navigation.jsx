@@ -11,35 +11,35 @@ const Navigation = () => {
     <div className="navform">
       <div className="nav">
         <div className="nav2">
-          <ul>
-            <li>
-              <button
-                className="nav-button"
-                onClick={() => setActiveCmponents()}
-              >
-                Profile
-              </button>
-            </li>
-            <li>
-              <button
-                className="nav-button"
-                onClick={() => setActiveCmponents(null)}
-              >
-                Account info
-              </button>
-            </li>
-            <li>
-              <button
-                className="nav-button"
-                onClick={() => setActiveCmponents(<QuoteForm />)}
-              >
-                Request a quote
-              </button>
-            </li>
-          </ul>
+          <div className="nav-bar">
+                <button
+                    className="nav-button"
+                    onClick={() => setActiveCmponents()}
+                >
+                    Profile
+                </button>
+                <button
+                    className="nav-button"
+                    onClick={() => setActiveCmponents(null)}
+                >
+                    Account info
+                </button>
+                <button
+                    className="nav-button"
+                    onClick={() => setActiveCmponents(<QuoteForm />)}
+                >
+                    Request a quote
+                </button>
+                <button
+                    className="nav-button"
+                    onClick={() => setActiveCmponents(null)}
+                >
+                    View Quote History
+                </button>
+            </div>
+            </div>
         </div>
-      </div>
-      {component}
+        {component}
     </div>
   );
 };

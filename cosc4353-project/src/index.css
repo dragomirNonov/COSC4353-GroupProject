@@ -6,7 +6,7 @@ body {
   background-attachment: fixed;
 }
 .form {
-  width: 25vmax;
+  width: 100%;
   margin: 0 auto;
   margin-top: 10%;
   padding-top: 3vmax;
@@ -15,40 +15,58 @@ body {
   justify-content: center;
   align-items: center;
   border-radius: 10px;
-  background-color: #ffffff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  background-color: rgb(93, 66, 136);
+  box-shadow: 0 0 10px rgba(177, 72, 72, 0.2);
 }
 
 .nav {
-  background-color: #ffffff;
-  width: 15%;
+  background-color: transparent;
+  height: 15%;
+  width: 100%;
   border-radius: 10px;
-  padding: 10px;
+  padding-top: 10px;
 }
 .nav2 {
   margin-top: 1vmax;
-  padding: 20px;
-  padding-right: 20px;
-  padding-top: 0px;
-  background-color: #ffffff;
-  border-right: 1px solid #dadada;
-  height: 40vmax;
+  padding: 0px 20px;
+  background-color: transparent;
+  
+  
 }
 .navform {
   margin: 0 auto;
-  margin-top: 5vmax;
-  margin-bottom: 5vmax;
-  width: 95vmax;
-  display: flex;
+
+  width: 90%;
+  height: 90%;
   align-items: first baseline;
   border-radius: 10px;
   background-color: #ffffff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+
+  display: flex;
+  flex-direction: column;
+  margin-top: 3%;
+  margin-bottom: 10%;
+  padding-bottom: 15px;
 }
+
+.nav-bar {
+  background-color: transparent;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  flex-direction: row;
+  background-color: #f4f4f4;
+  border-radius: 10px;
+  border-bottom: 2px solid rgb(177, 177, 177);
+  height: 10%;
+} 
+
 .nav-button {
   background: none;
   font-size: larger;
-  width: 100%;
+  width: 25%;
+  height: 40px;
   margin-bottom: 5px;
   color: rgb(146, 146, 146);
   padding: 0.4vmax 2vmax;
@@ -56,7 +74,7 @@ body {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  text-align: left;
+  text-align: center;
   text-decoration: none;
 }
 .nav-button:hover {
@@ -78,26 +96,28 @@ ul {
   list-style: none;
 }
 .bigform {
-  width: 80%;
-  margin: 0 auto;
+  margin: 0px 0px 0px 0px;
   padding-left: 30px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   background-color: #ffffff;
+  border-radius: 10px;
+  font-family: arial;
 }
 
 .textarea {
   width: 20vmax;
-  padding: 10px;
+  padding-bottom: 10px;
   border-radius: 10px;
   border: 1px solid #ccc;
   margin-bottom: 5px;
 }
 
 .button {
-  margin-bottom: 5px;
-  width: 100%;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  width: 30%;
   background-color: rgb(250, 106, 106);
   color: white;
   padding: 10px 20px;
