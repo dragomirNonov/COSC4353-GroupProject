@@ -1,5 +1,6 @@
 import { useState } from "react";
 import QuoteForm from "./quoteform";
+
 const Navigation = () => {
   const [component, setComponent] = useState(null);
 
@@ -12,34 +13,31 @@ const Navigation = () => {
       <div className="nav">
         <div className="nav2">
           <div className="nav-bar">
-                <button
-                    className="nav-button"
-                    onClick={() => setActiveCmponents()}
-                >
-                    Profile
-                </button>
-                <button
-                    className="nav-button"
-                    onClick={() => setActiveCmponents(null)}
-                >
-                    Account info
-                </button>
-                <button
-                    className="nav-button"
-                    onClick={() => setActiveCmponents(<QuoteForm />)}
-                >
-                    Request a quote
-                </button>
-                <button
-                    className="nav-button"
-                    onClick={() => setActiveCmponents(null)}
-                >
-                    View Quote History
-                </button>
-            </div>
-            </div>
+            <button className="nav-button" onClick={() => setActiveCmponents()}>
+              Profile
+            </button>
+            <button
+              className="nav-button"
+              onClick={() => setActiveCmponents(null)}
+            >
+              Account info
+            </button>
+            <button
+              className="nav-button"
+              onClick={() => setActiveCmponents(<QuoteForm />)}
+            >
+              Request a quote
+            </button>
+            <button
+              className="nav-button"
+              onClick={() => setActiveCmponents(null)}
+            >
+              View Quote History
+            </button>
+          </div>
         </div>
-        {component}
+      </div>
+      {component}
     </div>
   );
 };
