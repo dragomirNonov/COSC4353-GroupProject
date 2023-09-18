@@ -25,7 +25,10 @@ body {
     border-radius: 20px;
 
     padding: none;
-    margin: none;
+    margin: 0 auto;
+    margin-bottom: 10%;
+    padding-bottom: 15px;
+    flex-direction: column;
     justify-content: space-between;
 
 }
@@ -85,50 +88,52 @@ body {
 
 .settings-container h1 {
     position: absolute;
-    font-size: 24pt;
+    font-size: 22pt;
     font-weight: normal;
 
-    transform: translate(0%, -75%);
+    transform: translate(0%, -100%);
 }
 
 .settings-container form {
     position: absolute;
-    font-size: 14pt;
+    font-size: 12pt;
     font-weight: normal;
     color: #5B5B5B;
     padding: none;
     width: 90%;
     height: 60%;
-    top: 10%;
+    top: 5%;
 }
 
 .settings-container label {
     display: block;
     text-align: left;
-    margin-top: 5px;
+    margin-top: 3px;
     padding: none;
 }
 
 .settings-container input[type=text] {
     width: 100%;
-    height: 10px;
+    height: 18%;
     border-radius: 5px;
     border: 2px solid #acacac;
-    font-size: 16pt;
-    top: 50px;
+    font-size: 12pt;
     padding-left: 10px;
+    padding-top: 5px;
+    text-align: left;
 }
 
 .settings-container select {
-    height: 35px;
-    width: 142px;
+    height: 38px;
+    width: 158px;
     border: 2px solid #acacac;
     border-radius: 5px;
     margin-bottom: 5px;
 }
 
 .settings-container #zipCode {
-    width: 120px;
+    width: 142px;
+    height: 20%;
 }
 
 .save-button {

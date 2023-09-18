@@ -28,7 +28,7 @@ const RegisterForm = (props) => {
   };
 
   return (
-    <div className="form">
+    <div className="login">
       <form onSubmit={handleSubmit}>
         <h2 className="inline">Register to [...]</h2>
         <div>
@@ -73,7 +73,7 @@ const RegisterForm = (props) => {
         </button>
 
         <p className="text">
-          Alredy have an account?{" "}
+          Already have an account?{" "}
           <Link className="link-style " to="/">
             Sign in
           </Link>

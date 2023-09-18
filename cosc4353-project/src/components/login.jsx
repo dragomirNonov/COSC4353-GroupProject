@@ -22,7 +22,7 @@ const LoginForm = (props) => {
   };
 
   return (
-    <div className="form">
+    <div className="login">
       <form onSubmit={handleSubmit}>
         <h2 className="inline">Login to [...]</h2>
         <div>
@@ -54,7 +54,7 @@ const LoginForm = (props) => {
           Login
         </button>
         <p className="text">
-          Dont have an account?{" "}
+          Don't have an account?{" "}
           <Link className="link-style" to="/register">
             Sign up
           </Link>

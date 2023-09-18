@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import { useState } from "react";
-import AccountSettings from "./accountsettings";
 import "../settings.css";
 
 const ProfileSettings = (props) => {
@@ -10,6 +9,7 @@ const ProfileSettings = (props) => {
     const[lastName, setLast] = useState("");
     const[address1, setAddress1] = useState("");
     const[address2, setAddress2] = useState("");
+    const[city, setCity] = useState("");
     const[state, setState] = useState("");
     const[zipCode, setZipCode] = useState("");
 
@@ -33,6 +33,11 @@ const ProfileSettings = (props) => {
         // console.log(event.target.value);
     };
 
+    const handleCityChange = (event) => {
+        setCity(event.target.value);
+        //console.log(event.target.value);
+    };
+
     const handleStateChange = (event) => {
         setState(event.target.value);
         // console.log(event.target.value);
@@ -52,7 +57,7 @@ const ProfileSettings = (props) => {
         // console.log("State: ", state);
         // console.log("Zip Code: ", zipCode);
 
-    }
+    };
 
     return (
         <div className="gradient-background">
@@ -74,6 +79,7 @@ const ProfileSettings = (props) => {
                         </li>
                     </ul>
                 </div>
+
                 <div className="settings-container">
                     <h1>Complete your profile</h1>
 
@@ -131,6 +137,19 @@ const ProfileSettings = (props) => {
                                 value={address2}
                                 onChange={handleAddress2Change}
                                 maxLength="50"
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="city">City</label>
+                            <input
+                                className = "textarea"
+                                type="text"
+                                id="city"
+                                name="city" 
+                                value={city}
+                                onChange={handleCityChange}
+                                maxLength="50"
+                                required
                             />
                         </div>
                         <div>
