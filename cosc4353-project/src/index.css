@@ -116,8 +116,7 @@ ul {
   list-style: none;
 }
 .bigform {
-  margin: 0px 0px 0px 0px;
-  padding-left: 30px;
+  padding-left: 5%;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -127,22 +126,45 @@ ul {
   width: 90%;
 }
 
+.bigform h5 {
+  font-size: 14pt;
+  margin: none;
+  padding: none;
+}
+
+.quoteForm {
+  padding-left: 5%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.quoteForm p {
+  font-size: 14pt;
+  margin: none;
+  border: none;
+  padding: none;
+}
+
 .textarea {
-  width: 20vmax;
-  padding-bottom: 10px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  margin-bottom: 5px;
+  width: 100%;
+  height: 35px;
+  border-radius: 5px;
+  border: 2px solid #acacac;
+  font-size: 12pt;
+  padding-left: 10px;
+  text-align: left;
 }
 
 .button {
   margin-bottom: 10px;
-  margin-top: 10px;
+  margin-top: 4%;
+  margin-left: 5%;
   width: 30%;
-  height: 35px;
-  background-color: rgb(250, 106, 106);
+  height: 30px;
+  background-color: #FD3438;
   color: white;
-
+  font-size: 12pt;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -151,11 +173,11 @@ ul {
   display: inline-block;
 }
 .button:hover {
-  background-color: darkred;
+  background-color: #f57a7c;
 }
 .text {
   margin: auto;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   font-size: smaller;
   font-weight: 400;
   color: #a09f9f;
@@ -176,8 +198,8 @@ ul {
   width: 90%;
   display: flex;
   border-radius: 20px;
-  background-color: #ccc;
-  border: solid 1px rgb(182, 182, 182);
+  background-color: #eaeaea;
+  border: solid 1px rgb(195, 195, 195);
 }
 .quote-button {
   background-color: #f15c5c;
@@ -189,7 +211,7 @@ ul {
   color: white;
 }
 .quote-button:hover {
-  background-color: darkred;
+  background-color: f57a7c;
 }
 .sub-div {
   /* display: flex; */
@@ -218,15 +240,12 @@ ul {
   flex-direction: column;
 }
 
-.profilePage h1 {
-  padding-left: 1%;
-}
-
 .profilePage p{
-  padding-left: 5%;
+  padding-left: none;
 }
 
 .profileInfo {
+  padding-left: 3%;
   display: flex;
   flex-direction: row;
   align-items: last baseline;
@@ -236,10 +255,11 @@ ul {
 .profileFormat {
   font-size: 14pt;
   color:rgb(112, 112, 112);
+  width: 30%;
 }
 
 .userInfo {
-  padding-left: 5%;
+  padding-left: none;
   width: 50%;
   font-family: "Lucida Console";
   font-size: 15pt;

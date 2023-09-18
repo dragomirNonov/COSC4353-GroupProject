@@ -30,7 +30,7 @@ const Profile = (props) => {
                     <div className="profileFormat">
                         <p>Name: </p>
                         <p>Address: </p>
-                        <p>Business/Organization</p>
+                        <p>Business/Organization: </p>
                     </div>
                     <div className="userInfo">
                         <p>{user.name}</p>

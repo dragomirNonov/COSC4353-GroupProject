@@ -57,99 +57,102 @@ const QuoteForm = (props) => {
   return (
     <div className="bigform">
       <form onSubmit={handleSubmit}>
-        <h2 className="inline">Request a quote</h2>
+        <h1 className="inline">Request a quote</h1>
         <h5>Please fill out the following: </h5>
-        <div>
-          <p>Are you in-state?</p>
-          <input
-            className="textarea"
-            type="inState"
-            id="inState"
-            name="inState"
-            placeholder="No"
-            value={inState}
-            onChange={handleInStateChange}
-            required
-          />
+        <div className="quoteForm">
+          <div>
+            <p>Are you in-state?</p>
+            <input
+              className="textarea"
+              type="inState"
+              id="inState"
+              name="inState"
+              placeholder="No"
+              value={inState}
+              onChange={handleInStateChange}
+              required
+            />
+          </div>
+          <div>
+            <p>Which state are you requesting from?</p>
+            <input
+              className="textarea"
+              type="state"
+              id="state"
+              name="state"
+              placeholder=""
+              value={state}
+              onChange={handleStateChange}
+              required
+            />
+          </div>
+          <div>
+            <p>Have you purchased fuel before?</p>
+            <input
+              className="textarea"
+              type="previousCustomer"
+              id="previousCustomer"
+              name="previousCustomer"
+              placeholder="Yes"
+              value={previousCustomer}
+              onChange={handlePreviousCustomerChange}
+              required
+            />
+          </div>
+          <div>
+            <p>When was your last purchase?</p>
+            <input
+              className="textarea"
+              type="lastPurchase"
+              id="lastPurchase"
+              name="lastPurchase"
+              placeholder=""
+              value={lastPurchase}
+              onChange={handleLastPurchaseChange}
+              required
+            />
+          </div>
+          <div>
+            <p>How many gallons do you plan to purchase?</p>
+            <input
+              className="textarea"
+              type="gallons"
+              id="gallons"
+              name="gallons"
+              placeholder=""
+              value={gallons}
+              onChange={handleGallonsChange}
+              required
+            />
+          </div>
+          <div>
+            <p>Organization Name</p>
+            <input
+              className="textarea"
+              type="name"
+              id="name"
+              name="name"
+              placeholder=""
+              value={name}
+              onChange={handleNameChange}
+              required
+            />
+          </div>
+          <div>
+            <p>What is your company's profit margin</p>
+            <input
+              className="textarea"
+              type="profitMargin"
+              id="profitMargin"
+              name="profitMargin"
+              placeholder=""
+              value={profitMargin}
+              onChange={handleProfitMarginChange}
+              required
+            />
+          </div>
         </div>
-        <div>
-          <p>Which state are you requesting from?</p>
-          <input
-            className="textarea"
-            type="state"
-            id="state"
-            name="state"
-            placeholder=""
-            value={state}
-            onChange={handleStateChange}
-            required
-          />
-        </div>
-        <div>
-          <p>Have you purchased fuel before?</p>
-          <input
-            className="textarea"
-            type="previousCustomer"
-            id="previousCustomer"
-            name="previousCustomer"
-            placeholder="Yes"
-            value={previousCustomer}
-            onChange={handlePreviousCustomerChange}
-            required
-          />
-        </div>
-        <div>
-          <p>When was your last purchase?</p>
-          <input
-            className="textarea"
-            type="lastPurchase"
-            id="lastPurchase"
-            name="lastPurchase"
-            placeholder=""
-            value={lastPurchase}
-            onChange={handleLastPurchaseChange}
-            required
-          />
-        </div>
-        <div>
-          <p>How many gallons do you plan to purchase?</p>
-          <input
-            className="textarea"
-            type="gallons"
-            id="gallons"
-            name="gallons"
-            placeholder=""
-            value={gallons}
-            onChange={handleGallonsChange}
-            required
-          />
-        </div>
-        <div>
-          <p>Organization Name</p>
-          <input
-            className="textarea"
-            type="name"
-            id="name"
-            name="name"
-            placeholder=""
-            value={name}
-            onChange={handleNameChange}
-            required
-          />
-        </div>
-        <div>
-          <p>What is your company's profit margin</p>
-          <input
-            className="textarea"
-            type="profitMargin"
-            id="profitMargin"
-            name="profitMargin"
-            placeholder=""
-            value={profitMargin}
-            onChange={handleProfitMarginChange}
-            required
-          />
-        </div>
+        
 
         <button className="button" type="submit">
           Submit

@@ -133,32 +133,20 @@ body {
 .settings-container label {
     display: block;
     text-align: left;
-    margin-top: 3px;
+    margin-top: 5px;
     padding: none;
 }
 
-.settings-container input[type=text] {
-    width: 100%;
-    height: 18%;
-    border-radius: 5px;
-    border: 2px solid #acacac;
-    font-size: 12pt;
-    padding-left: 10px;
-    padding-top: 5px;
-    text-align: left;
-}
-
 .settings-container select {
-    height: 38px;
+    height: 40px;
     width: 158px;
     border: 2px solid #acacac;
     border-radius: 5px;
-    margin-bottom: 5px;
 }
 
 .settings-container #zipCode {
     width: 142px;
-    height: 20%;
+    height: 35px;
 }
 
 .save-button {
@@ -166,9 +154,9 @@ body {
     color: white;
     border: none;
     height: 30px;
-    width: 10%;
+    width: 15%;
     border-radius: 5px;
-    margin-top: 5px;
+    margin-top: 2%;
     font-size: 12pt;
 }
 
