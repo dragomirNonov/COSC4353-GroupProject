@@ -36,13 +36,13 @@ body {
 #settings-tabs {
     position: absolute;
     padding: 1% 3%;
-    width: 20%;
-    height: 20%;
+    width: 15%;
+    height: 100%;
     font-family: Arial;
+
 }
 
 #settings {
-
     font-size: 18pt;
     color: #A5A5A5;
     padding: 0px 0px 8px 0px;
@@ -64,7 +64,7 @@ body {
     border-radius: 5px;
     text-align: left;
     height: 20%;
-    width: 60%;
+    width: 80%;
 }
 
 .settings-button:hover {
@@ -77,8 +77,8 @@ body {
 .settings-container {
     border-left: 2px solid rgb(177, 177, 177);
     left: 18%;
-    top: 6.5%;
-    height: 88%;
+    top: 5%;
+    height: 90%;
     width: 70%;
     padding: 0% 4%;
     margin: none;
@@ -86,11 +86,36 @@ body {
     font-family: Arial;
 }
 
+.settings-top {
+    position: absolute;
+    bottom: 10%;
+    display: flex;
+    flex-direction: row;
+}
+
+.home-button {
+    font-size: 12pt;
+    background-color: transparent;
+    border: none;
+    text-decoration: underline;
+    color:rgb(177, 177, 177);
+    left: 80%;
+    position: absolute;
+    top: 18px;
+    transform: translate(0%, -100%);
+}
+
+.home-button:hover {
+    color: rgb(139, 139, 139);
+    cursor: pointer;
+}
+
+
 .settings-container h1 {
     position: absolute;
     font-size: 22pt;
     font-weight: normal;
-
+    top: 2px;
     transform: translate(0%, -100%);
 }
 

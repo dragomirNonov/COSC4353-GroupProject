@@ -75,7 +75,16 @@ const ProfileSettings = (props) => {
           </ul>
         </div>
         <div className="settings-container">
-          <h1>Complete your profile</h1>
+          <div className="settingsTop">
+            <div>
+              <h1>Complete your profile</h1>
+            </div>
+            <div>
+              <Link to="/home">
+                <button className="home-button"> Return to home</button>
+              </Link>
+            </div>
+          </div>
 
           <form onSubmit={handleSubmit}>
             <div>
