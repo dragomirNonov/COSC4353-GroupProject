@@ -1,5 +1,7 @@
 import { useState } from "react";
 import QuoteForm from "./quoteform";
+import Quote from "./quote";
+import QuoteHistory from "./quotehistory";
 
 const Navigation = () => {
   const [component, setComponent] = useState(null);
@@ -30,7 +32,7 @@ const Navigation = () => {
             </button>
             <button
               className="nav-button"
-              onClick={() => setActiveCmponents(null)}
+              onClick={() => setActiveCmponents(<QuoteHistory />)}
             >
               View Quote History
             </button>
