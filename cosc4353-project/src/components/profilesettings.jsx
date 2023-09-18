@@ -8,6 +8,7 @@ const ProfileSettings = (props) => {
   const [lastName, setLast] = useState("");
   const [address1, setAddress1] = useState("");
   const [address2, setAddress2] = useState("");
+  const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [zipCode, setZipCode] = useState("");
 
@@ -132,6 +133,19 @@ const ProfileSettings = (props) => {
                 maxLength="50"
               />
             </div>
+            <div>
+              <label htmlFor="city">City</label>
+                <input
+                  className="textarea"
+                  type="text"
+                  id="city"
+                  name="city"
+                  value={city}
+                  onChange={handleCityChange}
+                  maxLength="50"
+                />
+            </div>
+
             <div>
               <label htmlFor="state">State</label>
               <select
