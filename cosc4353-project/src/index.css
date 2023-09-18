@@ -52,8 +52,6 @@ body {
   margin-top: 1vmax;
   padding: 0px 20px;
   background-color: transparent;
-  
-  
 }
 .navform {
   margin: 0 auto;
@@ -82,7 +80,7 @@ body {
   border-radius: 10px;
   border-bottom: 2px solid rgb(177, 177, 177);
   height: 10%;
-} 
+}
 
 .nav-button {
   background: none;
@@ -160,4 +158,54 @@ ul {
   font-size: smaller;
   font-weight: 400;
   color: #a09f9f;
+}
+
+/* QUOTE */
+.main-div {
+  padding: 1vmax;
+  /* width: 100%; */
+  display: flex;
+  justify-content: center;
+  /* border: solid 1px black; */
+}
+.main-sub-div {
+  padding: 1vmax;
+  padding-top: 0.2vmax;
+  padding-bottom: 0.2vmax;
+  width: 90%;
+  display: flex;
+  border-radius: 20px;
+  background-color: #ccc;
+  border: solid 1px rgb(182, 182, 182);
+}
+.quote-button {
+  background-color: #f15c5c;
+  border-radius: 5px;
+  padding: 1vmax;
+  margin-top: 2vmax;
+  margin-bottom: 2vmax;
+  border: none;
+  color: white;
+}
+.quote-button:hover {
+  background-color: darkred;
+}
+.sub-div {
+  /* display: flex; */
+  /* justify-content: center; */
+  padding-top: 1.5vmax;
+  /* border: solid 1px black; */
+  margin-left: 3vmax;
+}
+.quote-p {
+  /* font-size: large; */
+  margin: 0;
+  font-weight: 600;
+}
+.grey {
+  color: #888888;
+}
+.border {
+  /* border: solid 1px black; */
+  width: 100%;
 }
