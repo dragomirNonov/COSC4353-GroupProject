@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import { useState } from "react";
-import AccountSettings from "./accountsettings";
 import "../settings.css";
 
 const ProfileSettings = (props) => {
@@ -9,6 +8,7 @@ const ProfileSettings = (props) => {
   const [lastName, setLast] = useState("");
   const [address1, setAddress1] = useState("");
   const [address2, setAddress2] = useState("");
+  const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [zipCode, setZipCode] = useState("");
 
@@ -32,11 +32,15 @@ const ProfileSettings = (props) => {
     // console.log(event.target.value);
   };
 
-  const handleStateChange = (event) => {
-    setState(event.target.value);
-    // console.log(event.target.value);
-  };
+    const handleCityChange = (event) => {
+        setCity(event.target.value);
+        //console.log(event.target.value);
+    };
 
+    const handleStateChange = (event) => {
+        setState(event.target.value);
+        // console.log(event.target.value);
+    };
   const handleZipCodeChange = (event) => {
     setZipCode(event.target.value);
     // console.log(event.target.value);
@@ -71,7 +75,16 @@ const ProfileSettings = (props) => {
           </ul>
         </div>
         <div className="settings-container">
-          <h1>Complete your profile</h1>
+          <div className="settingsTop">
+            <div>
+              <h1>Complete your profile</h1>
+            </div>
+            <div>
+              <Link to="/home">
+                <button className="home-button"> Return to home</button>
+              </Link>
+            </div>
+          </div>
 
           <form onSubmit={handleSubmit}>
             <div>
@@ -129,6 +142,19 @@ const ProfileSettings = (props) => {
                 maxLength="50"
               />
             </div>
+            <div>
+              <label htmlFor="city">City</label>
+                <input
+                  className="textarea"
+                  type="text"
+                  id="city"
+                  name="city"
+                  value={city}
+                  onChange={handleCityChange}
+                  maxLength="50"
+                />
+            </div>
+
             <div>
               <label htmlFor="state">State</label>
               <select

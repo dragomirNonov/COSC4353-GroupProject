@@ -5,6 +5,28 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
+
+.login {
+  width: 25%;
+  margin: 0 auto;
+  margin-top: 5%;
+  padding-top: 3vmax;
+  padding-bottom: 3vmax;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0 0 10px rgba(177, 72, 72, 0.2);
+}
+
+.login .textarea {
+  height: 40px;
+  font-size: 14pt;
+  margin-bottom: 10px;
+}
+
+
 .form {
   width: 100%;
   margin: 0 auto;
@@ -15,7 +37,7 @@ body {
   justify-content: center;
   align-items: center;
   border-radius: 10px;
-  background-color: rgb(93, 66, 136);
+  background-color: rgb(255, 255, 255);
   box-shadow: 0 0 10px rgba(177, 72, 72, 0.2);
 }
 
@@ -102,6 +124,7 @@ ul {
   background-color: #ffffff;
   border-radius: 10px;
   font-family: arial;
+  width: 90%;
 }
 
 .textarea {
@@ -116,9 +139,10 @@ ul {
   margin-bottom: 10px;
   margin-top: 10px;
   width: 30%;
+  height: 35px;
   background-color: rgb(250, 106, 106);
   color: white;
-  padding: 10px 20px;
+
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -185,4 +209,56 @@ ul {
 .border {
   /* border: solid 1px black; */
   width: 100%;
+}
+
+.profilePage {
+  width: 100%;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.profilePage h1 {
+  padding-left: 1%;
+}
+
+.profilePage p{
+  padding-left: 5%;
+}
+
+.profileInfo {
+  display: flex;
+  flex-direction: row;
+  align-items: last baseline;
+  margin-top: none;
+}
+
+.profileFormat {
+  font-size: 14pt;
+  color:rgb(112, 112, 112);
+}
+
+.userInfo {
+  padding-left: 5%;
+  width: 50%;
+  font-family: "Lucida Console";
+  font-size: 15pt;
+}
+
+.editSettings {
+  position: absolute;
+  top: 25%;
+  left: 80%;
+  background-color: #FD3438;
+  color: white;
+  border: none;
+  height: 30px;
+  width: 10%;
+  border-radius: 5px;
+  font-size: 12pt;
+}
+
+.editSettings:hover {
+  background-color: #f57a7c;
+  cursor: pointer;
 }

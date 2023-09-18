@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import { useState } from "react";
-import ProfileSettings from "./profilesettings";
 import "../settings.css";
 
 const AccountSettings = (props) => {
@@ -48,10 +47,17 @@ const AccountSettings = (props) => {
           </ul>
         </div>
 
-        {/* {settingsPage === "profile" && <ProfileSettings />} */}
-
         <div className="settings-container">
-          <h1>Edit your account</h1>
+          <div className="settingsTop">
+            <div>
+              <h1>Edit your account</h1>
+            </div>
+            <div>
+              <Link to="/home">
+                <button className="home-button"> Return to home</button>
+              </Link>
+            </div>
+          </div>
 
           <form onSubmit={handleSubmit}>
             <div>
