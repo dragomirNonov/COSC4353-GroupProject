@@ -1,4 +1,6 @@
 import { useState } from "react";
+import Profile from "./profile";
+import Account from "./accountinfo";
 import QuoteForm from "./quoteform";
 import Quote from "./quote";
 import QuoteHistory from "./quotehistory";
@@ -15,12 +17,12 @@ const Navigation = () => {
       <div className="nav">
         <div className="nav2">
           <div className="nav-bar">
-            <button className="nav-button" onClick={() => setActiveCmponents()}>
+            <button className="nav-button" onClick={() => setActiveCmponents(<Profile />)}>
               Profile
             </button>
             <button
               className="nav-button"
-              onClick={() => setActiveCmponents(null)}
+              onClick={() => setActiveCmponents(<Account />)}
             >
               Account info
             </button>

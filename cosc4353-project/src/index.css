@@ -124,6 +124,7 @@ ul {
   background-color: #ffffff;
   border-radius: 10px;
   font-family: arial;
+  width: 90%;
 }
 
 .textarea {
@@ -208,4 +209,56 @@ ul {
 .border {
   /* border: solid 1px black; */
   width: 100%;
+}
+
+.profilePage {
+  width: 100%;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.profilePage h1 {
+  padding-left: 1%;
+}
+
+.profilePage p{
+  padding-left: 5%;
+}
+
+.profileInfo {
+  display: flex;
+  flex-direction: row;
+  align-items: last baseline;
+  margin-top: none;
+}
+
+.profileFormat {
+  font-size: 14pt;
+  color:rgb(112, 112, 112);
+}
+
+.userInfo {
+  padding-left: 5%;
+  width: 50%;
+  font-family: "Lucida Console";
+  font-size: 15pt;
+}
+
+.editSettings {
+  position: absolute;
+  top: 25%;
+  left: 80%;
+  background-color: #FD3438;
+  color: white;
+  border: none;
+  height: 30px;
+  width: 10%;
+  border-radius: 5px;
+  font-size: 12pt;
+}
+
+.editSettings:hover {
+  background-color: #f57a7c;
+  cursor: pointer;
 }
