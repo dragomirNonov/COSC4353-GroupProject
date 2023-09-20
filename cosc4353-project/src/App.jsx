@@ -16,7 +16,7 @@ const App = () => {
           <Route path="/home" element={<Navigation />} />
           <Route path="/profilesettings" element={<ProfileSettings />} />
           <Route path="/accountsettings" element={<AccountSettings />} />
-          //<Route path="/quotehistory" element={<QuoteHistory />} />
+          <Route path="/quotehistory" element={<QuoteHistory />} />
           
         </Routes>
       </Router>
