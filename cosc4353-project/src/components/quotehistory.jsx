@@ -100,9 +100,13 @@ const QuoteHistory = (props) => {
   
   return (
     
+
+    /*{quotes.map((quote, index) => (
+        <Quote key={index} quote={<Quote object={arrayOfOrders[index]} />} />
+      ))}*/ 
     <div>
-      {quotes.map((quote, index) => (
-        <Quote key={index} quote ={<Quote Object = {arrayOfOrders[index]}/> }/>// Pass the object as a prop
+      {arrayOfOrders.map((quote, index) => (
+        <Quote key={index} object = {arrayOfOrders[index]}/>
       ))}
     </div>
     /*
