@@ -5,6 +5,7 @@ import Navigation from "./components/navigation";
 import ProfileSettings from "./components/profilesettings";
 import AccountSettings from "./components/accountsettings";
 import QuoteHistory from "./components/quotehistory";
+
 const App = () => {
   return (
     <div className="body">
