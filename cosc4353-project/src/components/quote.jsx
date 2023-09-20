@@ -30,4 +30,39 @@ const Quote = (props) => {
   );
 };
 
+/*
+const Quote = (props) => {
+  return (
+    <div className="main-div">
+      <div className="main-sub-div">
+        <button className="quote-button">View Quote</button>
+        <div className="sub-div">
+          <p className="quote-p grey">Delivery Adress:</p>
+          <p className="quote-p grey">Gallons:</p>
+          <p className="quote-p grey">Fuel Rates:</p>
+        </div>
+        <div className="sub-div">
+          <p className="quote-p grey">{props.object.gallons}</p>
+          <p className="quote-p grey">680</p>
+          <p className="quote-p grey">$3.458</p>
+        </div>
+        <div className="sub-div">
+          <p className="quote-p grey">Request Date:</p>
+          <p className="quote-p grey">Deliver Date:</p>
+          <p className="quote-p">Fuel Rate:</p>
+          <p className="quote-p">Purchased:</p>
+        </div>
+        <div className="sub-div">
+          <p className="quote-p grey">01/23/2015</p>
+          <p className="quote-p grey">01/23/2015</p>
+          <p className="quote-p">$603.265</p>
+          <p className="quote-p">Yes</p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+*/
+
 export default Quote;

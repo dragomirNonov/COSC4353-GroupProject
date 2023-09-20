@@ -6,13 +6,13 @@ const QuoteHistory = (props) => {
   // Future data from the DB based on the profile that has log in 
   const arrayOfOrders = [
     {
-      requestDate: "2023-09-16",
-      deliveryDate: "2023-09-16",
-      deliveryAddress: "123 Main St, City, State, Zip",
-      gallons: 150,
-      fuelrate: 3.8,
-      amountDue: 570.0,
-      purchased: false,
+      requestDate: "2023-09-16",//
+      deliveryDate: "2023-09-16",//
+      deliveryAddress: "123 Main St, City, State, Zip",//
+      gallons: 150,//
+      fuelrate: 3.8,//
+      amountDue: 570.0,//
+      purchased: false,//
     },
     {
       requestDate: "2023-09-17",
