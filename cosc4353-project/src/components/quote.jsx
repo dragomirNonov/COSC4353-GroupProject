@@ -1,3 +1,4 @@
+/*
 const Quote = (props) => {
   return (
     <div className="main-div">
@@ -29,8 +30,8 @@ const Quote = (props) => {
     </div>
   );
 };
+*/
 
-/*
 const Quote = (props) => {
   return (
     <div className="main-div">
@@ -42,9 +43,9 @@ const Quote = (props) => {
           <p className="quote-p grey">Fuel Rates:</p>
         </div>
         <div className="sub-div">
+          <p className="quote-p grey">{props.object.deliveryAddress}</p>
           <p className="quote-p grey">{props.object.gallons}</p>
-          <p className="quote-p grey">680</p>
-          <p className="quote-p grey">$3.458</p>
+          <p className="quote-p grey">{props.object.fuelRate}</p>
         </div>
         <div className="sub-div">
           <p className="quote-p grey">Request Date:</p>
@@ -53,16 +54,16 @@ const Quote = (props) => {
           <p className="quote-p">Purchased:</p>
         </div>
         <div className="sub-div">
-          <p className="quote-p grey">01/23/2015</p>
-          <p className="quote-p grey">01/23/2015</p>
-          <p className="quote-p">$603.265</p>
-          <p className="quote-p">Yes</p>
+          <p className="quote-p grey">{props.object.requestDate}</p>
+          <p className="quote-p grey">{props.object.deliveryDate}</p>
+          <p className="quote-p">{props.object.fuelRate}</p>
+          <p className="quote-p">{props.object.fuelRate}</p>
         </div>
       </div>
     </div>
   );
 };
 
-*/
+
 
 export default Quote;
