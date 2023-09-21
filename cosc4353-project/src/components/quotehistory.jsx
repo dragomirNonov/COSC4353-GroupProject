@@ -3,16 +3,16 @@ import Quote from "./quote";
 const QuoteHistory = (props) => {
   //const quotes = [1, 2, 3, 4, 5, 4, 5, 6, 7];
 
-  // Future data from the DB based on the profile that has logged in 
+  // Future data from the DB based on the profile that has logged in
   const arrayOfOrders = [
     {
-      requestDate: "2023-09-16",//
-      deliveryDate: "2023-09-16",//
-      deliveryAddress: "123 Main St, City, State, Zip",//
-      gallons: 150,//
-      fuelRate: 3.8,//
-      amountDue: 570.0,//
-      purchased: false,//
+      requestDate: "2023-09-16", //
+      deliveryDate: "2023-09-16", //
+      deliveryAddress: "123 Main St, City, State, Zip", //
+      gallons: 150, //
+      fuelRate: 3.8, //
+      amountDue: 570.0, //
+      purchased: false, //
     },
     {
       requestDate: "2023-09-17",
@@ -95,26 +95,14 @@ const QuoteHistory = (props) => {
       amountDue: 610.5,
       purchased: true,
     },
-    
   ];
-  
-  return (
-    
 
-    /*{quotes.map((quote, index) => (
-        <Quote key={index} quote={<Quote object={arrayOfOrders[index]} />} />
-      ))}*/ 
-    <div>
+  return (
+    <div className="border">
       {arrayOfOrders.map((quote, index) => (
-        <Quote key={index} object = {arrayOfOrders[index]}/>
+        <Quote key={index} object={arrayOfOrders[index]} />
       ))}
     </div>
-    /*
-    <div className="border">
-      {quotes.map((quote, index) => (
-        <Quote key={index} quote={<Quote />} />
-      ))}
-    </div>*/
   );
 };
 
