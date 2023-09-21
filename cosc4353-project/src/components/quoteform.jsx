@@ -4,13 +4,9 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 const QuoteForm = (props) => {
-  const suggestedPrice = 3; //$ per gallon, fetch from pricing module
-  //const total = gallons * suggestedPrice;
+  const suggestedPrice = 2.8; //$ per gallon, fetch from pricing module
   const [gallons, setGallons] = useState("");
   const [selectedDate, setSelectedDate] = useState(null);
-  const [previousCustomer, setPreviousCustomer] = useState("");
-  const [lastPurchase, setLastPurchase] = useState("");
-  const [name, setName] = useState("");
   const [profitMargin, setProfitMargin] = useState("");
   
   const handleGallonsChange = (event) => {
@@ -21,23 +17,9 @@ const QuoteForm = (props) => {
     setSelectedDate(date);
   };
 
-  const handlePreviousCustomerChange = (event) => {
-    setPreviousCustomer(event.target.value);
-  };
-
-  const handleLastPurchaseChange = (event) => {
-    setLastPurchase(event.target.value);
-  }
-
-  const handleNameChange = (event) => {
-    setName(event.target.value);
-  };
-
   const handleProfitMarginChange = (event) => {
     setProfitMargin(event.target.value);
   }
-
-
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -82,47 +64,6 @@ const QuoteForm = (props) => {
             selected={selectedDate}
             onChange={handleDateChange}
             dateFormat="MM/dd/yyyy" 
-          />
-        </div>
-
-        <div>
-          <p>Have you purchased fuel before?</p>  
-          <input
-            className="textarea"
-            type="text"
-            id="previousCustomer"
-            name="previousCustomer"
-            placeholder="Yes"
-            value={previousCustomer}
-            onChange={handlePreviousCustomerChange}
-            required
-          />
-        </div>
-        <div>
-          <p>When was your last purchase?</p>  
-          <input
-            className="textarea"
-            type="text"
-            id="lastPurchase"
-            name="lastPurchase"
-            placeholder=""
-            value={lastPurchase}
-            onChange={handleLastPurchaseChange}
-            required
-          />
-        </div>
-
-        <div>
-          <p>Organization Name</p>  
-          <input
-            className="textarea"
-            type="text"
-            id="name"
-            name="name"
-            placeholder=""
-            value={name}
-            onChange={handleNameChange}
-            required
           />
         </div>
         <div>
