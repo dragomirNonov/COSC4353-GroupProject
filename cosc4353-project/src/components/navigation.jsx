@@ -6,7 +6,7 @@ import Quote from "./quote";
 import QuoteHistory from "./quotehistory";
 
 const Navigation = () => {
-  const [component, setComponent] = useState(null);
+  const [component, setComponent] = useState(<Profile />);
 
   const setActiveCmponents = (component) => {
     setComponent(component);
@@ -17,7 +17,10 @@ const Navigation = () => {
       <div className="nav">
         <div className="nav2">
           <div className="nav-bar">
-            <button className="nav-button" onClick={() => setActiveCmponents(<Profile />)}>
+            <button
+              className="nav-button"
+              onClick={() => setActiveCmponents(<Profile />)}
+            >
               Profile
             </button>
             <button

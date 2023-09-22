@@ -26,7 +26,6 @@ body {
   margin-bottom: 10px;
 }
 
-
 .form {
   width: 100%;
   margin: 0 auto;
@@ -159,10 +158,10 @@ ul {
 .button {
   margin-bottom: 10px;
   margin-top: 4%;
-  margin-left: 5%;
+  /* margin-left: 5%; */
   width: 30%;
   height: 30px;
-  background-color: #FD3438;
+  background-color: #fd3438;
   color: white;
   font-size: 12pt;
   border: none;
@@ -240,7 +239,7 @@ ul {
   flex-direction: column;
 }
 
-.profilePage p{
+.profilePage p {
   padding-left: none;
 }
 
@@ -254,7 +253,7 @@ ul {
 
 .profileFormat {
   font-size: 14pt;
-  color:rgb(112, 112, 112);
+  color: rgb(112, 112, 112);
   width: 30%;
 }
 
@@ -269,7 +268,7 @@ ul {
   position: absolute;
   top: 25%;
   left: 80%;
-  background-color: #FD3438;
+  background-color: #fd3438;
   color: white;
   border: none;
   height: 30px;
