@@ -7,10 +7,9 @@ app.use(express.json());
 
 // Import the route handlers from userRoutes.js
 const userRoutes = require("./routes/userRoutes");
-const userRoutess = require("./routes/testRoutes");
 
 // Use the route handlers
-app.use("/", userRoutes, userRoutess);
+app.use("/", userRoutes);
 
 const PORT = 3001;
 app.listen(PORT, () => {
