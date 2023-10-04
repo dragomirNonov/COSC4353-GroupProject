@@ -17,9 +17,14 @@ const register = (rejisterObj) => {
   return axios.post(baseUrl, rejisterObj);
 };
 
+const updateProfile = (updateProfObj) => {
+  return axios.put(baseUrl, updateProfObj);
+};
+
 export default {
   getAll,
   getUserByName,
   login,
   register,
+  updateProfile,
 };
