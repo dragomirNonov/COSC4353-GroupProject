@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navigation from "./components/navigation";
 import ProfileSettings from "./components/profilesettings";
 import AccountSettings from "./components/accountsettings";
-import QuoteHistory from "./components/quotehistory";
 
 const App = () => {
   return (
@@ -16,7 +15,6 @@ const App = () => {
           <Route path="/home" element={<Navigation />} />
           <Route path="/profilesettings" element={<ProfileSettings />} />
           <Route path="/accountsettings" element={<AccountSettings />} />
-          
         </Routes>
       </Router>
     </div>

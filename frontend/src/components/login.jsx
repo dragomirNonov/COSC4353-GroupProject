@@ -1,24 +1,33 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { BrowserRouter as Router, Link } from "react-router-dom";
+import userService from "../services/users";
 
 const LoginForm = (props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
-    console.log(event.target.value);
   };
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
-    console.log(event.target.value);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("Username:", username);
-    console.log("Password:", password);
+    const loginObj = { username: username, password: password };
+    userService
+      .login(loginObj)
+      .then((res) => {
+        navigate("/home");
+      })
+      .catch((err) => {
+        setErrorMessage(err.response.data.message);
+      });
   };
 
   return (
@@ -50,6 +59,7 @@ const LoginForm = (props) => {
           />
         </div>
         <p className="text">Forgot password?</p>
+        <div className="error">{errorMessage}</div>
         <button className="button" type="submit">
           Login
         </button>

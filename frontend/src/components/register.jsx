@@ -1,30 +1,44 @@
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import { useState } from "react";
+import userService from "../services/users";
 
 const RegisterForm = (props) => {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
-    // console.log(event.target.value);
   };
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
-    // console.log(event.target.value);
   };
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
-    // console.log(event.target.value);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("Email:", email);
-    console.log("Username:", username);
-    console.log("Password:", password);
+    const registerObj = {
+      email: email,
+      username: username,
+      password: password,
+    };
+    userService
+      .register(registerObj)
+      .then((res) => {
+        setErrorMessage("");
+        setSuccessMessage(res.data.message);
+        console.log(res.data.message);
+      })
+      .catch((err) => {
+        setSuccessMessage("");
+        setErrorMessage(err.response.data.message);
+        console.log(err.response.data.message);
+      });
   };
 
   return (
@@ -67,7 +81,8 @@ const RegisterForm = (props) => {
             required
           />
         </div>
-
+        <div className="success">{successMessage}</div>
+        <div className="error">{errorMessage}</div>
         <button className="button" type="submit">
           Register
         </button>

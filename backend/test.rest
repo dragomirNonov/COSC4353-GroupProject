@@ -1,0 +1,15 @@
+GET http://localhost:3001/api/users/
+
+###
+POST http://localhost:3001/api/users/ HTTP/1.1
+content-type: application/json
+
+ {
+    "firstName": "TEST",
+    "lastName": "TEST",
+    "adress": "10000 TEST Plaza Dr",
+    "adress2": "TEST 1000",
+    "city": "TEST",
+    "state": "TEST",
+    "zip": "TEST"
+  }
