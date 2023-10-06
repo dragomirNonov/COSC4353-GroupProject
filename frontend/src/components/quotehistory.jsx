@@ -2,6 +2,8 @@ import Quote from "./quote";
 
 const QuoteHistory = (props) => {
   //const quotes = [1, 2, 3, 4, 5, 4, 5, 6, 7];
+  //npm install
+  //npm run dev
 
   // Future data from the DB based on the profile that has logged in
   const arrayOfOrders = [
