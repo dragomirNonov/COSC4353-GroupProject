@@ -35,12 +35,14 @@ const Navigation = () => {
             >
               Request a quote
             </button>
+
             <button
               className="nav-button"
               onClick={() => setActiveCmponents(<QuoteHistory />)}
             >
               View Quote History
             </button>
+            
           </div>
         </div>
       </div>

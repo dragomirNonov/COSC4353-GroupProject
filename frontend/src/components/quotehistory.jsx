@@ -1,10 +1,35 @@
 import Quote from "./quote";
+import React, { useState, useEffect } from "react";
 
 const QuoteHistory = (props) => {
   //const quotes = [1, 2, 3, 4, 5, 4, 5, 6, 7];
-  //npm install
-  //npm run dev
 
+  const [arrayOfOrders, setArrayOfOrders] = useState([]);
+
+  useEffect(() => {
+    // Inside the useEffect, make a GET request to fetch the array of orders
+
+    fetch("/api/orders") // Replace with the actual API endpoint
+      .then((response) => {
+        // Check if the response status code indicates success (e.g., 200 OK)
+        if (response.ok) {
+          // Parse the JSON response
+          return response.json();
+        } else {
+          // Handle the case where the request failed (e.g., 404 Not Found)
+          throw new Error("Failed to retrieve orders.");
+        }
+      })
+      .then((data) => {
+        // Update the state variable with the received array of orders
+        setArrayOfOrders(data);
+      })
+      .catch((error) => {
+        // Handle any errors that occurred during the fetch
+        console.error(error);
+      });
+  }, []);
+  /*
   // Future data from the DB based on the profile that has logged in
   const arrayOfOrders = [
     {
@@ -97,7 +122,7 @@ const QuoteHistory = (props) => {
       amountDue: 610.5,
       purchased: true,
     },
-  ];
+  ];*/
 
   return (
     <div className="border">
