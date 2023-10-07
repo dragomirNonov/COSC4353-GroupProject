@@ -1,36 +1,41 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 const router = express.Router();
+const jwt = require("jsonwebtoken");
 const users = require("../data/usersData");
+const userAuthentication = require("../services/basicAuth");
+let authUser = userAuthentication.authUser;
 
 // Get all users
-router.get("/api/users", (request, response) => {
+router.get("/api/users", authUser, (request, response) => {
   response.json(users);
 });
 
-// Login
+// LOGIN
 router.post("/api/login", (request, response) => {
   const username = request.body.username;
   const enteredPassword = request.body.password;
   const user = users.find((user) => user.username === username);
 
   if (!user) {
-    console.log("User not found");
-    response.status(401).json({ message: "User not found" });
-    return;
+    return response.status(401).json({ message: "User not found" });
   }
 
   bcrypt.compare(enteredPassword, user.password, (err, result) => {
     if (err) {
-      console.error("Error comparing passwords:", err);
-      response.status(500).json({ message: "Internal server error" });
-      return;
+      return response.status(500).json({ message: "Internal server error" });
     }
     if (result === true) {
-      response.json(user);
+      let token = jwt.sign({ userId: user.id }, "secretkey", {
+        expiresIn: "500min",
+      });
+      return response.status(200).json({
+        message: "Login success",
+        token: token,
+        isProfileComplate: user.isProfileComplate,
+      });
     } else {
-      console.log("Wrong password");
-      response.status(401).json({ message: "Wrong password" });
+      return response.status(401).json({ message: "Wrong password" });
     }
   });
 });
@@ -60,9 +65,10 @@ router.post("/api/users", async (request, response) => {
     response.status(400).json({ message: "User already exists" });
   } else {
     const hashedPassword = await bcrypt.hash(body.password, 10);
+    console.log(hashedPassword);
     const user = {
       id: maxId + 1,
-      profileComplated: false,
+      isProfileComplate: false,
       firstName: "",
       lastName: "",
       username: body.username,

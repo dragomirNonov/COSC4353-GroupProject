@@ -23,7 +23,15 @@ const LoginForm = (props) => {
     userService
       .login(loginObj)
       .then((res) => {
-        navigate("/home");
+        if (res.status == 200) {
+          localStorage.setItem("token", res.data.token);
+          console.log(res.data);
+          if (res.data.isProfileComplate == true) {
+            navigate("/home");
+          } else {
+            navigate("/profilesettings");
+          }
+        }
       })
       .catch((err) => {
         setErrorMessage(err.response.data.message);
