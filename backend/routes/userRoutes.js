@@ -7,7 +7,7 @@ const userAuthentication = require("../services/basicAuth");
 let authUser = userAuthentication.authUser;
 
 // Get all users
-router.get("/api/users", authUser, (request, response) => {
+router.get("/api/users", (request, response) => {
   response.json(users);
 });
 
