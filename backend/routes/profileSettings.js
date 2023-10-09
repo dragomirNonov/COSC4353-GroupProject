@@ -4,9 +4,13 @@ const users = require("../data/usersData");
 const jwt = require("jsonwebtoken");
 const { authUser } = require("../services/basicAuth");
 
-// Update user profile info
-router.put("/api/users/updateProfile", (request, response) => {
+// Get all users
+router.get("/api/users", (request, response) => {
+    response.json(users);
+  });
 
+// Update user profile info
+router.put("/api/users/updateProfile", async (request, response) => {
     // get token from headers
     const token = request.headers["token"];
     const decoded = jwt.verify(token, "secretkey");
@@ -27,18 +31,21 @@ router.put("/api/users/updateProfile", (request, response) => {
             return response.status(400).json({ message: "Please fill out all required fields" });
             }
 
+            console.log("Updated user:", user);
             // Update user's profile information
             user.firstName = firstName;
+            console.log("user.firstName:", user.firstName);
+            console.log("firstName:", firstName);
             user.lastName = lastName;
             user.address1 = address1;
             user.address2 = address2;
             user.city = city;
             user.state = state;
-            user.zipCode = zipCode;
+            user.zip = zipCode;
             user.isProfileComplate = true;
 
             // Save the updated user profile
-            response.status(200).json({ message: "Profile updated successfully" });
+            return response.status(200).json({ message: "Profile updated successfully", isProfileComplate: true, });
 
         }
     } catch (error) {

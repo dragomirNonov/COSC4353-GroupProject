@@ -18,7 +18,7 @@ const register = (rejisterObj) => {
 };
 
 const updateProfile = (updateProfObj) => {
-  return axios.put(baseUrl, updateProfObj);
+  return axios.put(`${baseUrl}/updateProfile`, updateProfObj, { headers: { token: localStorage.getItem("token") },});
 };
 
 export default {

@@ -1,8 +1,11 @@
-import { BrowserRouter as Router, Link } from "react-router-dom";
+import { BrowserRouter as Router, Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import "../settings.css";
+import userService from "../services/users";
 
 const ProfileSettings = (props) => {
+  const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
   // Profile Info Functions
   const [firstName, setFirst] = useState("");
   const [lastName, setLast] = useState("");
@@ -14,46 +17,77 @@ const ProfileSettings = (props) => {
 
   const handleFirstNameChange = (event) => {
     setFirst(event.target.value);
-    // console.log(event.target.value);
   };
 
   const handleLastNameChange = (event) => {
     setLast(event.target.value);
-    // console.log(event.target.value);
   };
 
   const handleAddress1Change = (event) => {
     setAddress1(event.target.value);
-    // console.log(event.target.value);
   };
 
   const handleAddress2Change = (event) => {
     setAddress2(event.target.value);
-    // console.log(event.target.value);
   };
 
-    const handleCityChange = (event) => {
-        setCity(event.target.value);
-        //console.log(event.target.value);
-    };
+  const handleCityChange = (event) => {
+      setCity(event.target.value);
+  };
 
-    const handleStateChange = (event) => {
-        setState(event.target.value);
-        // console.log(event.target.value);
-    };
+  const handleStateChange = (event) => {
+      setState(event.target.value);
+  };
+  
   const handleZipCodeChange = (event) => {
     setZipCode(event.target.value);
-    // console.log(event.target.value);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // console.log("First name: ", firstname);
-    // console.log("Last name: ", lastname);
-    // console.log("Address 1: ", address1);
-    // console.log("Address 2: ", address2);
-    // console.log("State: ", state);
-    // console.log("Zip Code: ", zipCode);
+
+    const updateProfObj = {
+      firstName: firstName,
+      lastName: lastName,
+      address1: address1,
+      address2: address2,
+      city: city,
+      state: state,
+      zipCode: zipCode,
+    };
+
+    console.log("First name: ", firstName);
+    console.log("Last name: ", lastName);
+    console.log("Address 1: ", address1);
+    console.log("Address 2: ", address2);
+    console.log("State: ", state);
+    console.log("Zip Code: ", zipCode);
+
+    try {
+      const token = localStorage.getItem("token");
+      // Make the API call with the token in the headers
+      userService.updateProfile(updateProfObj, {})
+        .then(response => {
+          console.log("Token: " + token);
+  
+          if (response.status === 200) {
+            console.log(response.data.message);
+            if (response.data.isProfileComplate === true) {
+              console.log("isProfileComplate: true");
+              navigate("/home");
+            } else {
+              console.log("isProfileComplate: false");
+            }
+          }
+        })
+        .catch(error => {
+          console.error("Error updating profile: ", error);
+          // Handle error here
+        });
+    } catch (error) {
+      console.error("Error updating profile: ", error);
+      // Handle error here
+    }
   };
 
   return (
@@ -122,7 +156,6 @@ const ProfileSettings = (props) => {
                 type="text"
                 id="address1"
                 name="address1"
-                pattern="[A-Za-z0-9\s,.'-]+"
                 value={address1}
                 onChange={handleAddress1Change}
                 required
