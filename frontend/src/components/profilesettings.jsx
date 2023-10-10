@@ -132,7 +132,7 @@ const ProfileSettings = (props) => {
                 value={firstName}
                 onChange={handleFirstNameChange}
                 required
-                maxLength="50"
+                maxLength="25"
               />
             </div>
             <div>
@@ -146,7 +146,7 @@ const ProfileSettings = (props) => {
                 value={lastName}
                 onChange={handleLastNameChange}
                 required
-                maxLength="50"
+                maxLength="25"
               />
             </div>
             <div>
@@ -156,6 +156,7 @@ const ProfileSettings = (props) => {
                 type="text"
                 id="address1"
                 name="address1"
+                pattern="[0-9]+[ ]+[A-Za-z]+[ ]+[A-Za-z]*[.]?"
                 value={address1}
                 onChange={handleAddress1Change}
                 required
@@ -169,7 +170,7 @@ const ProfileSettings = (props) => {
                 type="text"
                 id="address2"
                 name="address2"
-                pattern="[A-Za-z0-9\s,.'-]+"
+                pattern="[A-Za-z]*[.]?[ ]+[0-9]"
                 value={address2}
                 onChange={handleAddress2Change}
                 maxLength="50"
@@ -182,9 +183,10 @@ const ProfileSettings = (props) => {
                   type="text"
                   id="city"
                   name="city"
+                  pattern="[A-Za-z]+[ ]?[-]?[A-Za-z]*"
                   value={city}
                   onChange={handleCityChange}
-                  maxLength="50"
+                  maxLength="25"
                 />
             </div>
 
@@ -275,5 +277,6 @@ const ProfileSettings = (props) => {
     </div>
   );
 };
+
 
 export default ProfileSettings;
