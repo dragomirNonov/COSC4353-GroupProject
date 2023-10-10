@@ -46,8 +46,7 @@ const Quote = (props) => {
         </div>
 
         <div className="sub-div">
-          <p></p>
-          <p className="quote-p grey">{props.object.deliveryAddress}</p>
+          <p className="quote-p grey">{props.userAddress}</p>
           <p className="quote-p grey">{props.object.gallons}</p>
           <p className="quote-p grey">{props.object.fuelRate}</p>
         </div>

@@ -4,6 +4,7 @@ const baseUrl = "http://localhost:3001/api/users";
 const getAll = () => {
   return axios.get(baseUrl);
 };
+
 const getUserByName = (name) => {
   const users = axios.get(`${baseUrl}/${name}`);
   return users;
@@ -21,10 +22,21 @@ const updateProfile = (updateProfObj) => {
   return axios.put(`${baseUrl}/updateProfile`, updateProfObj, { headers: { token: localStorage.getItem("token") },});
 };
 
+// User data to get address
+// This is probably wrong
+const getAllUserData = () => {
+  return axios.get(`${baseUrl}/usersData`, {
+    headers: { token: localStorage.getItem("token") },
+  });
+};
+
 export default {
   getAll,
   getUserByName,
   login,
   register,
   updateProfile,
+
+  //Addition
+  getAllUserData,
 };
