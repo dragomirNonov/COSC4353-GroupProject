@@ -9,6 +9,12 @@ const getUserByName = (name) => {
   return users;
 };
 
+const getUserProf = () => {
+  return axios.get(`http://localhost:3001/api/profile`, {
+    headers: { token: localStorage.getItem("token") },
+  });
+};
+
 const login = (loginObj) => {
   return axios.post(`http://localhost:3001/api/login`, loginObj);
 };
@@ -24,6 +30,7 @@ const updateProfile = (updateProfObj) => {
 export default {
   getAll,
   getUserByName,
+  getUserProf,
   login,
   register,
   updateProfile,

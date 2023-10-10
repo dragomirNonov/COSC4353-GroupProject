@@ -56,6 +56,7 @@ const ProfileSettings = (props) => {
       zipCode: zipCode,
     };
 
+    console.log("User input: ");
     console.log("First name: ", firstName);
     console.log("Last name: ", lastName);
     console.log("Address 1: ", address1);
@@ -68,8 +69,6 @@ const ProfileSettings = (props) => {
       // Make the API call with the token in the headers
       userService.updateProfile(updateProfObj, {})
         .then(response => {
-          console.log("Token: " + token);
-  
           if (response.status === 200) {
             console.log(response.data.message);
             if (response.data.isProfileComplate === true) {
@@ -183,7 +182,7 @@ const ProfileSettings = (props) => {
                   type="text"
                   id="city"
                   name="city"
-                  pattern="[A-Za-z]+[ ]?[-]?[A-Za-z]*"
+                  pattern="[A-Za-z]*"
                   value={city}
                   onChange={handleCityChange}
                   maxLength="25"
