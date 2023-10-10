@@ -13,8 +13,6 @@ const Profile = (props) => {
         userService.getUserProf().then((res) => {
             const { firstName, lastName, address1, address2, city, state, zip } = res.data.user;
 
-            console.log("FIrst name: ", firstName);
-
             // Create a user object with the retrieved data
             const userData = {
                 name: `${firstName} ${lastName}`,
