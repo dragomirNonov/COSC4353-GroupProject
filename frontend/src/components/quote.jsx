@@ -35,28 +35,34 @@ const Quote = (props) => {
 const Quote = (props) => {
   return (
     <div className="main-div">
+
       <div className="main-sub-div">
         <button className="quote-button">View Quote</button>
         <div className="sub-div">
+          
           <p className="quote-p grey">Delivery Adress:</p>
           <p className="quote-p grey">Gallons:</p>
           <p className="quote-p grey">Fuel Rates:</p>
         </div>
+
         <div className="sub-div">
-          <p className="quote-p grey">{props.object.deliveryAddress}</p>
+          <p className="quote-p grey">{props.userAddress}</p>
           <p className="quote-p grey">{props.object.gallons}</p>
           <p className="quote-p grey">{props.object.fuelRate}</p>
         </div>
+
         <div className="sub-div">
           <p className="quote-p grey">Request Date:</p>
           <p className="quote-p grey">Deliver Date:</p>
-          <p className="quote-p">Fuel Rate:</p>
+          <p className="quote-p grey">Purchased:</p>
         </div>
+
         <div className="sub-div">
           <p className="quote-p grey">{props.object.requestDate}</p>
           <p className="quote-p grey">{props.object.deliveryDate}</p>
-          <p className="quote-p">{props.object.fuelRate}</p>
+          <p className="quote-p grey">{props.object.purchased}</p>
         </div>
+
       </div>
     </div>
   );

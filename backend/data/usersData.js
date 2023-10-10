@@ -1,4 +1,6 @@
 let users = [
+  // Only 2 first work
+  // Password is the same as the username
   {
     id: 300,
     isProfileComplate: true,
@@ -11,7 +13,7 @@ let users = [
     city: "Anytown",
     state: "CA",
     zip: "12345",
-  },
+  },  
   {
     id: 400,
     isProfileComplate: false,
@@ -25,6 +27,8 @@ let users = [
     state: "CA",
     zip: "12345",
   },
+
+  // These dont as of now
   {
     id: 2,
     firstName: "Jane",
