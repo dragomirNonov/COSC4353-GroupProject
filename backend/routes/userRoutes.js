@@ -41,10 +41,13 @@ router.post("/api/login", (request, response) => {
 });
 
 // Get user by ID
-router.get("/api/users/id/:id", (request, response) => {
-  const id = Number(request.params.id);
-  const user = users.find((user) => user.id === id);
-  console.log("asdasd");
+router.get("/api/users/id", authUser, (request, response) => {
+  const token = request.headers["token"];
+  const decoded = jwt.verify(token, "secretkey");
+  const userID = decoded.userId;
+  console.log(userID);
+  const user = users.filter((user) => user.id === userID);
+
   response.json(user);
 });
 
