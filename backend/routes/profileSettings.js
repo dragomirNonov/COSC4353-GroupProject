@@ -77,4 +77,46 @@ router.put("/api/users/updateProfile", async (request, response) => {
     }
 });
 
+// Update user account info
+router.put("/api/users/updateAccount", async (request, response) => {
+    // get token from headers
+    const token = request.headers["token"];
+    const decoded = jwt.verify(token, "secretkey");
+    const userID = decoded.userId;
+    try {
+        const userIndex = users.findIndex((user) => user.id === userID);
+    
+        if (userIndex === -1) {
+          return response.status(404).json({ message: "User not found" });
+        }
+        else {
+
+            const user = users[userIndex];
+            // Get information from input
+            const { email, password } = request.body;
+
+            // Check for required fields
+            if (!email || !password) {
+            return response.status(400).json({ message: "Please fill out all required fields" });
+            }
+
+            console.log("Updated user:", user);
+            // Update user's profile information
+            user.email = email;
+            user.password = password;
+
+            // Update the user data in userData.js
+            users[userIndex] = user;
+            console.log("User is now: ", users[userIndex]);
+
+            // Save the updated user profile
+            return response.status(200).json({ message: "Account updated successfully", isProfileComplate: true, });
+
+        }
+    } catch (error) {
+        console.error("Error updating account: ", error);
+        response.status(500).json({message: "Internal server error"});
+    }
+});
+
 module.exports = router;

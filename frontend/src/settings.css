@@ -84,6 +84,8 @@ body {
     margin: none;
     position: absolute;
     font-family: Arial;
+    display: flex;
+    flex-direction: column;
 }
 
 .settings-top {
@@ -120,14 +122,13 @@ body {
 }
 
 .settings-container form {
-    position: absolute;
     font-size: 12pt;
     font-weight: normal;
     color: #5B5B5B;
     padding: none;
     width: 90%;
-    height: 60%;
-    top: 5%;
+    height: 35%;
+    margin-top: 5%;
 }
 
 .settings-container label {
@@ -135,6 +136,16 @@ body {
     text-align: left;
     margin-top: 5px;
     padding: none;
+}
+
+input {
+    width: 100%;
+    height: 35px;
+    border-radius: 5px;
+    border: 2px solid #acacac;
+    font-size: 12pt;
+    padding-left: 10px;
+    text-align: left;
 }
 
 .settings-container select {
@@ -183,4 +194,29 @@ body {
 
 .togglePassword:hover {
     color:rgb(177, 177, 177);
+}
+
+#message {
+    color: rgb(43, 165, 43);
+    margin-top: 0%;
+}
+
+#errorMessage {
+    color: red;
+    margin-top: 0%;
+}
+
+#message-container {
+    left: 5%;
+    display: flex;
+    flex-direction: row;
+    flex-flow: row-wrap;
+    column-gap: 10px;
+    width: 100%;
+    align-items: first baseline;
+}
+
+.invalid-input {
+    border: 2px solid red;
+
 }

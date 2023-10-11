@@ -5,7 +5,7 @@ import userService from "../services/users";
 
 const ProfileSettings = (props) => {
   const navigate = useNavigate();
-  const [errorMessage, setErrorMessage] = useState("");
+  const [message, setMessage] = useState("");
   // Profile Info Functions
   const [firstName, setFirst] = useState("");
   const [lastName, setLast] = useState("");
@@ -65,7 +65,6 @@ const ProfileSettings = (props) => {
     console.log("Zip Code: ", zipCode);
 
     try {
-      const token = localStorage.getItem("token");
       // Make the API call with the token in the headers
       userService.updateProfile(updateProfObj, {})
         .then(response => {
@@ -73,19 +72,20 @@ const ProfileSettings = (props) => {
             console.log(response.data.message);
             if (response.data.isProfileComplate === true) {
               console.log("isProfileComplate: true");
-              navigate("/home");
+              setMessage("Profile updated successfully")
             } else {
               console.log("isProfileComplate: false");
+              setMessage("Error updating profile.")
             }
           }
         })
         .catch(error => {
           console.error("Error updating profile: ", error);
-          // Handle error here
+          setMessage("Error updating profile.")
         });
     } catch (error) {
       console.error("Error updating profile: ", error);
-      // Handle error here
+      setMessage("Error updating profile.")
     }
   };
 
@@ -266,10 +266,12 @@ const ProfileSettings = (props) => {
                 required
               />
             </div>
-
-            <button className="save-button" type="submit">
-              Save
-            </button>
+            <div id="message-container">
+              <button className="save-button" type="submit">
+                Save
+              </button>
+              <div id="message">{message}</div>
+            </div>
           </form>
         </div>
       </div>

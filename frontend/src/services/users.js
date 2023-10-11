@@ -28,6 +28,10 @@ const updateProfile = (updateProfObj) => {
   return axios.put(`${baseUrl}/updateProfile`, updateProfObj, { headers: { token: localStorage.getItem("token") },});
 };
 
+const updateAccount = (updateAccObj) => {
+  return axios.put(`${baseUrl}/updateAccount`, updateAccObj, { headers: { token: localStorage.getItem("token") },});
+};
+
 // User data to get address
 // This is probably wrong
 const getAllUserData = () => {
@@ -43,6 +47,7 @@ export default {
   login,
   register,
   updateProfile,
+  updateAccount,
 
   //Addition
   getAllUserData,
