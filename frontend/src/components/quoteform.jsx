@@ -1,17 +1,28 @@
 import { BrowserRouter as Router, Link } from "react-router-dom";
-import React, { useState } from "react";
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
+import React, { useState, useEffect } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import usersService from "../services/users";
+import quoteService from "../services/quotes";
 
 const QuoteForm = (props) => {
   const suggestedPrice = 2.8; //$ per gallon, fetch from pricing module
   const [gallons, setGallons] = useState("");
   const [selectedDate, setSelectedDate] = useState(null);
   const [profitMargin, setProfitMargin] = useState("");
-  
+  const [address, setAdress] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+
+
+  useEffect(() => {
+    usersService.getUserByID().then((res) => {
+      setAdress(res.data[0].address1);
+    });
+  }, []);
+
   const handleGallonsChange = (event) => {
     setGallons(event.target.value);
-  }
+  };
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
@@ -19,11 +30,26 @@ const QuoteForm = (props) => {
 
   const handleProfitMarginChange = (event) => {
     setProfitMargin(event.target.value);
-  }
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
+    const quote = {
+      suggestedPrice: suggestedPrice,
+      gallons: gallons,
+      date: selectedDate,
+      address: address,
+    };
+    quoteService.createQuote(quote).then((res) => {
+      
+      setSuccessMessage(res.data.message);
+      console.log(res.data.message);
+      setGallons("");
+      setSelectedDate("");
+      setProfitMargin("");
+      ///setSuccessMessage("");
+      
+    });
   };
 
   return (
@@ -32,7 +58,7 @@ const QuoteForm = (props) => {
         <h2 className="inline">Request a quote</h2>
         <h5>Please fill out the following: </h5>
         <div>
-          <p>How many gallons do you plan to purchase?</p>  
+          <p>How many gallons do you plan to purchase?</p>
           <input
             className="textarea"
             type="number"
@@ -52,8 +78,8 @@ const QuoteForm = (props) => {
             type="text"
             id="address"
             name="address"
-            value = "11 Street Dr. Houston, TX 77777"
-            readOnly 
+            value={address}
+            readOnly
           />
         </div>
 
@@ -63,11 +89,11 @@ const QuoteForm = (props) => {
             className="textarea"
             selected={selectedDate}
             onChange={handleDateChange}
-            dateFormat="MM/dd/yyyy" 
+            dateFormat="MM/dd/yyyy"
           />
         </div>
         <div>
-          <p>What is your company's profit margin</p>  
+          <p>What is your company's profit margin</p>
           <input
             className="textarea"
             type="text"
@@ -80,37 +106,35 @@ const QuoteForm = (props) => {
           />
         </div>
         <div>
-          <p>Suggested Price per gallon:</p>  
+          <p>Suggested Price per gallon:</p>
           <input
             className="textarea"
             type="text"
             id="suggestedPrice"
             name="suggestedPricev"
             value={suggestedPrice}
-            readOnly 
+            readOnly
           />
         </div>
         <div>
-          <p>Total Amount Due:</p>  
+          <p>Total Amount Due:</p>
           <input
             className="textarea"
             type="text"
             id="total"
             name="total"
-            value={suggestedPrice*gallons}
-            readOnly 
+            value={suggestedPrice * gallons}
+            readOnly
           />
         </div>
-
-
+        <div className="success">{successMessage}</div>
 
         <button className="button" type="submit">
           Submit
         </button>
 
-        
         <p className="text">
-            Cancel
+          Cancel
           {/* Cancel <Link to="/">Profile</Link> */}
         </p>
       </form>

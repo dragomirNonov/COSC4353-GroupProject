@@ -1,15 +1,40 @@
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import { useState } from "react";
 import "../settings.css";
+import userService from "../services/users";
 
 const AccountSettings = (props) => {
-  const [email, setEmail] = useState("");
+  var [inputError, setInputError] = useState(true);
+  var [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  var [message, setMessage] = useState("");
+  var [errorMessage, setErrorMessage] = useState("");
 
   const handleEmailChange = (event) => {
+    let emailInput = event.target;
+    emailInput.classList.remove("invalid-input");
     setEmail(event.target.value);
-    //console.log(event.target.value);
+    setErrorMessage("");
+
   };
+
+  const handleEmailBlur = (event) => {
+    let emailInput = event.target;
+    
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,5}$/;
+
+    if (!emailPattern.test(event.target.value) || event.target.value === "") {
+      console.log("Bad email input.");
+      setMessage('');
+      setErrorMessage('Invalid input.');
+      emailInput.classList.add("invalid-input");
+      setInputError(true);
+    } else {
+      setEmail(event.target.value);
+      setMessage('');
+      setInputError(false);
+    }
+  }
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
@@ -18,17 +43,35 @@ const AccountSettings = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    //console.log(event.target.value);
-    //console.log(event.target.value);
+    if (!inputError) {
+      const updateAccObj = {
+        email: email,
+        password: password,
+      };
+
+      try {
+        // Make the API call with the token in the headers
+        userService.updateAccount(updateAccObj, {})
+          .then(response => {
+            if (response.status === 200) {
+              console.log(response.data.message);
+              setMessage(response.data.message)
+            }
+          })
+          .catch(error => {
+            console.error("Error updating account: ", error);
+            setErrorMessage("Error updating account.")
+          });
+      } catch (error) {
+        console.error("Error updating account: ", error);
+        setErrorMessage("Error updating account.")
+      }
+      setErrorMessage("");
+    }
+    else {
+      setErrorMessage("Please fill out required forms.");
+    }
   };
-
-  // Go To Profile Settings Function
-
-  //   const [settingsPage, setSettingsPage] = useState("");
-
-  //   const setPage = (settingsPage) => {
-  //     setSettingsPage = settingsPage;
-  //   };
 
   return (
     <div className="gradient-background">
@@ -63,20 +106,18 @@ const AccountSettings = (props) => {
             <div>
               <label htmlFor="email">Email</label>
               <input
-                className="textarea"
                 type="text"
                 name="email"
                 id="email"
                 value={email}
                 onChange={handleEmailChange}
-                pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}"
+                onBlur={handleEmailBlur}
               />
             </div>
             <div>
               <div id="password-container">
                 <label htmlFor="password">Password</label>
                 <input
-                  className="textarea"
                   type="text"
                   name="password"
                   id="password"
@@ -85,9 +126,13 @@ const AccountSettings = (props) => {
                 />
               </div>
             </div>
-            <button className="save-button" type="submit">
-              Save
-            </button>
+            <div id="message-container">
+              <button className="save-button" type="submit">
+                Save
+              </button>
+              <div id="message">{message}</div>
+              <div id="errorMessage">{errorMessage}</div>
+            </div>
           </form>
         </div>
       </div>

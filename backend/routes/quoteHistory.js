@@ -21,4 +21,27 @@ router.get("/api/quotes/user", (request, response) => {
   response.json(quotes);
 });
 
+router.post("/api/quotes", (request, response) => {
+  const body = request.body;
+  const token = request.headers["token"];
+  const decoded = jwt.verify(token, "secretkey");
+  const userID = decoded.userId;
+
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = today.getMonth() + 1; // Months are zero-based, so add 1
+  const day = today.getDate();
+
+  const formattedDate = `${year}-${month}-${day}`;
+  console.log(body);
+  const quote = {
+    userID: userID,
+    requestDate: formattedDate,
+    deliveryDate: body.date,
+    gallons: body.gallons,
+  };
+  usersHistoryData.push(quote);
+  response.status(201).json({ message: "Quote added successfully" });
+});
+
 module.exports = router;

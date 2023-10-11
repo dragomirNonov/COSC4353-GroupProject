@@ -1,20 +1,31 @@
 import { BrowserRouter as Router, Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import userService from "../services/users";
 
 const Account = (props) => {
+    const [user, setUser] = useState({
+        userName: "",
+        email: "",
+        password: "",
+    });
 
-    {/*Replace with real API fetch*/}
-    const userName = "johnsmith101";
-    const email = "johnsmith@email.com";
-    const password = "123456789";
+    useEffect(() => {
+        userService.getUserProf().then((res) => {
+            const { username, email, password } = res.data.user;
 
-    const userData = {
-        userName: userName,
-        email: email,
-        password: password,
-    };
+            // Create a user object with the retrieved data
+            const userData = {
+                userName: username,
+                email: email,
+                password: password,
+            };
 
-    const [user, setUserData] = useState(userData);
+            setUser(userData);
+        })
+        .catch((error) => {
+            console.error("Error fetching user account: ", error);
+        });
+    }, []);
 
   return (
     <div className="bigform">
@@ -28,8 +39,8 @@ const Account = (props) => {
                     </div>
                     <div className="userInfo">
                         <p>{user.userName}</p>
-                        <p>{user.email} {user.cityStateZip}</p>
-                        <PasswordDisplay password={user.password} />
+                        <p>{user.email}</p>
+                        <p>••••••••••••</p>
                     </div>
                 </div>
             <Link to="/accountsettings">
@@ -42,13 +53,5 @@ const Account = (props) => {
     </div>
   );
 };
-
-const PasswordDisplay = ({password}) => {
-    const hidePassword = () => {
-        return password.replace(/./g, '•');
-    };
-
-    return <p>{hidePassword()}</p>
-}
 
 export default Account;
