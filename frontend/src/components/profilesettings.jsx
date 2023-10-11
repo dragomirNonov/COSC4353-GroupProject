@@ -1,91 +1,236 @@
-import { BrowserRouter as Router, Link, useNavigate } from "react-router-dom";
+import { BrowserRouter as Router, Link } from "react-router-dom";
 import { useState } from "react";
 import "../settings.css";
 import userService from "../services/users";
 
 const ProfileSettings = (props) => {
-  const navigate = useNavigate();
-  const [message, setMessage] = useState("");
+  var [firstError, setFirstError] = useState(true);
+  var [lastError, setLastError] = useState(true);
+  var [address1Error, setAddress1Error] = useState(true);
+  var [address2Error, setAddress2Error] = useState(false);
+  var [cityError, setCityError] = useState(true);
+  var [zipError, setZipError] = useState(true);
+
+
+  var [message, setMessage] = useState("");
+  var [errorMessage, setErrorMessage] = useState("");
+
   // Profile Info Functions
-  const [firstName, setFirst] = useState("");
-  const [lastName, setLast] = useState("");
-  const [address1, setAddress1] = useState("");
-  const [address2, setAddress2] = useState("");
-  const [city, setCity] = useState("");
-  const [state, setState] = useState("");
-  const [zipCode, setZipCode] = useState("");
+  var [firstName, setFirst] = useState("");
+  var [lastName, setLast] = useState("");
+  var [address1, setAddress1] = useState("");
+  var [address2, setAddress2] = useState("");
+  var [city, setCity] = useState("");
+  var [state, setState] = useState("");
+  var [zipCode, setZipCode] = useState("");
 
   const handleFirstNameChange = (event) => {
+    let firstInput = event.target;
+    firstInput.classList.remove("invalid-input");
     setFirst(event.target.value);
+    setErrorMessage("");
   };
+
+  const handleFirstBlur = (event) => {
+    let nameInput = event.target;
+    
+    const namePattern = /^[A-Za-z]{1,25}$/;
+
+    if (!namePattern.test(event.target.value) || event.target.value === "") {
+      console.log("Bad name input.");
+      setMessage('');
+      setErrorMessage('Invalid first name.');
+      nameInput.classList.add("invalid-input");
+      setFirstError(true);
+    } else {
+      setMessage('');
+      setFirstError(false);
+    }
+  }
 
   const handleLastNameChange = (event) => {
+    let lastInput = event.target;
+    lastInput.classList.remove("invalid-input");
     setLast(event.target.value);
+    setErrorMessage("");
   };
+
+  const handleLastBlur = (event) => {
+    let nameInput = event.target;
+    
+    const namePattern = /^[A-Za-z]{1,25}$/;
+
+    if (!namePattern.test(event.target.value) || event.target.value === "") {
+      console.log("Bad name input.");
+      setMessage('');
+      setErrorMessage('Invalid last name.');
+      nameInput.classList.add("invalid-input");
+      setLastError(true);
+    } else {
+      setMessage('');
+      setLastError(false);
+    }
+  }
 
   const handleAddress1Change = (event) => {
+    let address1Input = event.target;
+    address1Input.classList.remove("invalid-input");
     setAddress1(event.target.value);
+    setErrorMessage("");
   };
+
+  const handleAddress1Blur = (event) => {
+    let address1Input = event.target;
+    
+    const address1Pattern = /^(?=\S*\s)(?=[^a-zA-Z]*[a-zA-Z])(?=\D*\d)[a-zA-Z\d\s',.#/-]*$/;
+
+    if (!address1Pattern.test(event.target.value) || event.target.value === "") {
+      console.log("Bad address 1 input.");
+      setMessage('');
+      setErrorMessage('Invalid address 1.');
+      address1Input.classList.add("invalid-input");
+      setAddress1Error(true);
+    } else {
+      setMessage('');
+      setAddress1Error(false);
+    }
+  }
 
   const handleAddress2Change = (event) => {
+    setMessage("");
+    let address2Input = event.target;
+    address2Input.classList.remove("invalid-input");
     setAddress2(event.target.value);
+    setErrorMessage("");
   };
 
+  const handleAddress2Blur = (event) => {
+    let address2Input = event.target;
+    
+    const address2Pattern = /^[A-Za-z]*[.]?[ ]+[0-9]*$/;
+
+
+    if (event.target.value === "") {
+      setMessage('');
+      setAddress2Error(false);
+    } else if (event.target.value !== "") {
+      if (!address2Pattern.test(event.target.value)) {
+        console.log("Bad address 2 input.");
+        setMessage('');
+        setErrorMessage('Invalid address 2.');
+        address2Input.classList.add("invalid-input");
+        setAddress2Error(true);
+      }
+    }
+  }
+
   const handleCityChange = (event) => {
-      setCity(event.target.value);
+    let cityInput = event.target;
+    cityInput.classList.remove("invalid-input");
+    setCity(event.target.value);
+    setErrorMessage("");
   };
+
+  const handleCityBlur = (event) => {
+    let cityInput = event.target;
+    
+    const cityPattern = /^[A-Za-z ]{1,25}$/;
+
+    if (!cityPattern.test(event.target.value) || event.target.value === "") {
+      console.log("Bad city input.");
+      setMessage('');
+      setErrorMessage('Invalid city.');
+      cityInput.classList.add("invalid-input");
+      setCityError(true);
+    } else {
+      setMessage('');
+      setCityError(false);
+    }
+  }
 
   const handleStateChange = (event) => {
       setState(event.target.value);
   };
   
   const handleZipCodeChange = (event) => {
+    let zipInput = event.target;
+    zipInput.classList.remove("invalid-input");
     setZipCode(event.target.value);
+    setErrorMessage("");
   };
+
+  const handleZipBlur = (event) => {
+    let zipInput = event.target;
+    
+    const zipPattern = /[0-9]{5,9}/;
+
+    if (!zipPattern.test(event.target.value) || event.target.value === "") {
+      console.log("Bad zip code input.");
+      setMessage('');
+      setErrorMessage('Invalid zip.');
+      zipInput.classList.add("invalid-input");
+      setZipError(true);
+    } else {
+      setMessage('');
+      setZipError(false);
+    }
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    console.log("First: ", firstError);
+    console.log("Last: ", lastError);
+    console.log("Add1: ", address1Error);
+    console.log("Add2: ", address2Error);
+    console.log("City: ", cityError);
+    console.log("Zip: ", zipError);
 
-    const updateProfObj = {
-      firstName: firstName,
-      lastName: lastName,
-      address1: address1,
-      address2: address2,
-      city: city,
-      state: state,
-      zipCode: zipCode,
-    };
+    if (!firstError && !lastError && !address1Error && !address2Error && !cityError && !zipError) {
+      const updateProfObj = {
+        firstName: firstName,
+        lastName: lastName,
+        address1: address1,
+        address2: address2,
+        city: city,
+        state: state,
+        zipCode: zipCode,
+      };
 
-    console.log("User input: ");
-    console.log("First name: ", firstName);
-    console.log("Last name: ", lastName);
-    console.log("Address 1: ", address1);
-    console.log("Address 2: ", address2);
-    console.log("State: ", state);
-    console.log("Zip Code: ", zipCode);
+      console.log("User input: ");
+      console.log("First name: ", firstName);
+      console.log("Last name: ", lastName);
+      console.log("Address 1: ", address1);
+      console.log("Address 2: ", address2);
+      console.log("State: ", state);
+      console.log("Zip Code: ", zipCode);
 
-    try {
-      // Make the API call with the token in the headers
-      userService.updateProfile(updateProfObj, {})
-        .then(response => {
-          if (response.status === 200) {
-            console.log(response.data.message);
-            if (response.data.isProfileComplate === true) {
-              console.log("isProfileComplate: true");
-              setMessage("Profile updated successfully")
-            } else {
-              console.log("isProfileComplate: false");
-              setMessage("Error updating profile.")
+      try {
+        // Make the API call with the token in the headers
+        userService.updateProfile(updateProfObj, {})
+          .then(response => {
+            if (response.status === 200) {
+              console.log(response.data.message);
+              if (response.data.isProfileComplate === true) {
+                console.log("isProfileComplate: true");
+                setMessage("Profile updated successfully")
+              } else {
+                console.log("isProfileComplate: false");
+                setMessage("Error updating profile.")
+              }
             }
-          }
-        })
-        .catch(error => {
-          console.error("Error updating profile: ", error);
-          setMessage("Error updating profile.")
-        });
-    } catch (error) {
-      console.error("Error updating profile: ", error);
-      setMessage("Error updating profile.")
+          })
+          .catch(error => {
+            console.error("Error updating profile: ", error);
+            setMessage("Error updating profile.")
+          });
+      } catch (error) {
+        console.error("Error updating profile: ", error);
+        setMessage("Error updating profile.")
+      }
+      setErrorMessage("");
+    }
+    else {
+      setErrorMessage("Please fill out all required forms.");
     }
   };
 
@@ -123,69 +268,61 @@ const ProfileSettings = (props) => {
             <div>
               <label htmlFor="first">First Name</label>
               <input
-                className="textarea"
                 type="text"
                 id="first"
                 name="first"
-                pattern="[A-Za-z]*"
                 value={firstName}
                 onChange={handleFirstNameChange}
-                required
+                onBlur={handleFirstBlur}
                 maxLength="25"
               />
             </div>
             <div>
               <label htmlFor="last">Last Name</label>
               <input
-                className="textarea"
                 type="text"
                 id="last"
                 name="last"
-                pattern="[A-Za-z]*"
                 value={lastName}
                 onChange={handleLastNameChange}
-                required
+                onBlur={handleLastBlur}
                 maxLength="25"
               />
             </div>
             <div>
               <label htmlFor="address1">Address</label>
               <input
-                className="textarea"
                 type="text"
                 id="address1"
                 name="address1"
-                pattern="[0-9]+[ ]+[A-Za-z]+[ ]+[A-Za-z]*[.]?"
                 value={address1}
                 onChange={handleAddress1Change}
-                required
-                maxLength="50"
+                onBlur={handleAddress1Blur}
+                maxLength="100"
               />
             </div>
             <div>
               <label htmlFor="address2">Address Line 2 (Optional)</label>
               <input
-                className="textarea"
                 type="text"
                 id="address2"
                 name="address2"
-                pattern="[A-Za-z]*[.]?[ ]+[0-9]"
                 value={address2}
                 onChange={handleAddress2Change}
-                maxLength="50"
+                onBlur={handleAddress2Blur}
+                maxLength="100"
               />
             </div>
             <div>
               <label htmlFor="city">City</label>
                 <input
-                  className="textarea"
                   type="text"
                   id="city"
                   name="city"
-                  pattern="[A-Za-z]*"
                   value={city}
                   onChange={handleCityChange}
-                  maxLength="25"
+                  onBlur={handleCityBlur}
+                  maxLength="100"
                 />
             </div>
 
@@ -254,16 +391,14 @@ const ProfileSettings = (props) => {
             <div>
               <label htmlFor="zipCode">Zip Code</label>
               <input
-                className="textarea"
                 type="text"
                 id="zipCode"
                 name="zipCode"
-                pattern="[0-9]{5,9}"
                 value={zipCode}
                 onChange={handleZipCodeChange}
+                onBlur={handleZipBlur}
                 maxLength="9"
                 minLength="5"
-                required
               />
             </div>
             <div id="message-container">
@@ -271,6 +406,7 @@ const ProfileSettings = (props) => {
                 Save
               </button>
               <div id="message">{message}</div>
+              <div id="errorMessage">{errorMessage}</div>
             </div>
           </form>
         </div>

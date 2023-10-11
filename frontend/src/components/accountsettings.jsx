@@ -4,7 +4,7 @@ import "../settings.css";
 import userService from "../services/users";
 
 const AccountSettings = (props) => {
-  var inputError = false;
+  var inputError = true;
   var [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   var [message, setMessage] = useState("");
@@ -18,15 +18,8 @@ const AccountSettings = (props) => {
 
   };
 
-
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-    //console.log(event.target.value);
-  };
-
   const handleEmailBlur = (event) => {
     let emailInput = event.target;
-    emailInput.classList.remove("invalid-input");
     
     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,5}$/;
 
@@ -39,12 +32,18 @@ const AccountSettings = (props) => {
     } else {
       setEmail(event.target.value);
       setMessage('');
+      inputError = false;
     }
   }
 
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+    //console.log(event.target.value);
+  };
+
   const handleSubmit = (event) => {
+    event.preventDefault();
     if (!inputError) {
-      event.preventDefault();
       const updateAccObj = {
         email: email,
         password: password,
