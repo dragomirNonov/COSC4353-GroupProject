@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import usersService from "../services/users";
+import quoteService from "../services/quotes";
 
 const QuoteForm = (props) => {
   const suggestedPrice = 2.8; //$ per gallon, fetch from pricing module
@@ -31,6 +32,15 @@ const QuoteForm = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    const quote = {
+      suggestedPrice: suggestedPrice,
+      gallons: gallons,
+      date: selectedDate,
+      address: address,
+    };
+    quoteService.createQuote(quote).then((res) => {
+      console.log(res.data.message);
+    });
   };
 
   return (

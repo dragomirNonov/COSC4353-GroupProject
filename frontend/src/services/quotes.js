@@ -13,7 +13,14 @@ const getAllUserQuotes = () => {
   });
 };
 
+const createQuote = (quoteObj) => {
+  return axios.post(baseUrl, quoteObj, {
+    headers: { token: localStorage.getItem("token") },
+  });
+};
+
 export default {
   getAll,
   getAllUserQuotes,
+  createQuote,
 };
