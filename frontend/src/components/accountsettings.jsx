@@ -4,7 +4,7 @@ import "../settings.css";
 import userService from "../services/users";
 
 const AccountSettings = (props) => {
-  var inputError = true;
+  var [inputError, setInputError] = useState(true);
   var [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   var [message, setMessage] = useState("");
@@ -14,7 +14,7 @@ const AccountSettings = (props) => {
     let emailInput = event.target;
     emailInput.classList.remove("invalid-input");
     setEmail(event.target.value);
-      //console.log(event.target.value);
+    setErrorMessage("");
 
   };
 
@@ -28,11 +28,11 @@ const AccountSettings = (props) => {
       setMessage('');
       setErrorMessage('Invalid input.');
       emailInput.classList.add("invalid-input");
-      inputError = true;
+      setInputError(true);
     } else {
       setEmail(event.target.value);
       setMessage('');
-      inputError = false;
+      setInputError(false);
     }
   }
 
@@ -66,6 +66,7 @@ const AccountSettings = (props) => {
         console.error("Error updating account: ", error);
         setErrorMessage("Error updating account.")
       }
+      setErrorMessage("");
     }
     else {
       setErrorMessage("Please fill out required forms.");
