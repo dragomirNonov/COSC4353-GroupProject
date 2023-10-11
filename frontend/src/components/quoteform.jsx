@@ -11,6 +11,8 @@ const QuoteForm = (props) => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [profitMargin, setProfitMargin] = useState("");
   const [address, setAdress] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+
 
   useEffect(() => {
     usersService.getUserByID().then((res) => {
@@ -39,7 +41,14 @@ const QuoteForm = (props) => {
       address: address,
     };
     quoteService.createQuote(quote).then((res) => {
+      
+      setSuccessMessage(res.data.message);
       console.log(res.data.message);
+      setGallons("");
+      setSelectedDate("");
+      setProfitMargin("");
+      ///setSuccessMessage("");
+      
     });
   };
 
@@ -118,6 +127,7 @@ const QuoteForm = (props) => {
             readOnly
           />
         </div>
+        <div className="success">{successMessage}</div>
 
         <button className="button" type="submit">
           Submit
