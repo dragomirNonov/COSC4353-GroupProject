@@ -4,7 +4,7 @@ import "../settings.css";
 import userService from "../services/users";
 
 const AccountSettings = (props) => {
-  var [inputError, setInputError] = useState(true);
+  var [inputError, setInputError] = useState(false);
   var [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   var [message, setMessage] = useState("");
@@ -14,8 +14,8 @@ const AccountSettings = (props) => {
     let emailInput = event.target;
     emailInput.classList.remove("invalid-input");
     setEmail(event.target.value);
+    setMessage("");
     setErrorMessage("");
-
   };
 
   const handleEmailBlur = (event) => {
@@ -23,13 +23,14 @@ const AccountSettings = (props) => {
     
     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,5}$/;
 
-    if (!emailPattern.test(event.target.value) || event.target.value === "") {
+    if (!emailPattern.test(event.target.value) && event.target.value !== "") {
       console.log("Bad email input.");
       setMessage('');
       setErrorMessage('Invalid input.');
       emailInput.classList.add("invalid-input");
       setInputError(true);
-    } else {
+    }
+    else {
       setEmail(event.target.value);
       setMessage('');
       setInputError(false);
@@ -37,13 +38,21 @@ const AccountSettings = (props) => {
   }
 
   const handlePasswordChange = (event) => {
+    setMessage("");
+    setErrorMessage("");
     setPassword(event.target.value);
     //console.log(event.target.value);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!inputError) {
+
+    let emailInput = document.getElementById("email");
+    let passwordInput = document.getElementById("password");
+    console.log("Input error: ", inputError);
+
+    // If form is not empty and emailInput matches pattern
+    if (!inputError && !(emailInput.value === "" && passwordInput.value ==="")) {
       const updateAccObj = {
         email: email,
         password: password,
@@ -60,16 +69,17 @@ const AccountSettings = (props) => {
           })
           .catch(error => {
             console.error("Error updating account: ", error);
-            setErrorMessage("Error updating account.")
+            setErrorMessage(error.response.data.message);
           });
       } catch (error) {
         console.error("Error updating account: ", error);
-        setErrorMessage("Error updating account.")
+        setErrorMessage("Error updating account.");
       }
+      setMessage("");
       setErrorMessage("");
     }
     else {
-      setErrorMessage("Please fill out required forms.");
+      inputError ? setErrorMessage("Invalid input.") : setErrorMessage("Please enter a new email or password to update your account.");
     }
   };
 
