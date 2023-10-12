@@ -156,7 +156,7 @@ input {
     margin-bottom: 1px;
 }
 
-.settings-container select {
+select {
     height: 40px;
     width: 158px;
     border: 2px solid #acacac;

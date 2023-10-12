@@ -9,6 +9,7 @@ const ProfileSettings = (props) => {
   var [address1Error, setAddress1Error] = useState(true);
   var [address2Error, setAddress2Error] = useState(false);
   var [cityError, setCityError] = useState(true);
+  var [stateError, setStateError] = useState(true);
   var [zipError, setZipError] = useState(true);
 
 
@@ -109,18 +110,16 @@ const ProfileSettings = (props) => {
     
     const address2Pattern = /^[A-Za-z]*[.]?[ ]+[0-9]*$/;
 
-
-    if (event.target.value === "") {
+    if (!address2Pattern.test(event.target.value) && event.target.value !== "") {
+      console.log("Bad address 2 input.");
+      setMessage('');
+      setErrorMessage('Invalid address 2.');
+      address2Input.classList.add("invalid-input");
+      setAddress2Error(true);
+    }
+    else {
       setMessage('');
       setAddress2Error(false);
-    } else if (event.target.value !== "") {
-      if (!address2Pattern.test(event.target.value)) {
-        console.log("Bad address 2 input.");
-        setMessage('');
-        setErrorMessage('Invalid address 2.');
-        address2Input.classList.add("invalid-input");
-        setAddress2Error(true);
-      }
     }
   }
 
@@ -149,7 +148,20 @@ const ProfileSettings = (props) => {
   }
 
   const handleStateChange = (event) => {
-      setState(event.target.value);
+    let stateInput = event.target;
+    stateInput.classList.remove("invalid-input");
+    setState(event.target.value);
+
+    if (event.target.value === "") {
+      stateInput.classList.add("invalid-input");
+      setMessage('');
+      setErrorMessage('Please select a state.');
+      setStateError(true);
+    }
+    else {
+      setMessage('');
+      setStateError(false);
+    }
   };
   
   const handleZipCodeChange = (event) => {
@@ -178,14 +190,18 @@ const ProfileSettings = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("First: ", firstError);
-    console.log("Last: ", lastError);
-    console.log("Add1: ", address1Error);
-    console.log("Add2: ", address2Error);
-    console.log("City: ", cityError);
-    console.log("Zip: ", zipError);
+    setErrorMessage("");
+    setMessage("");
 
-    if (!firstError && !lastError && !address1Error && !address2Error && !cityError && !zipError) {
+    console.log("First name error: ", firstError);
+    console.log("Last name error: ", lastError);
+    console.log("Add1 error: ", address1Error);
+    console.log("Add2 error: ", address2Error);
+    console.log("City error: ", cityError);
+    console.log("State error: ", stateError);
+    console.log("Zip error: ", zipError);
+
+    if (!firstError && !lastError && !address1Error && !address2Error && !cityError && !stateError && !zipError) {
       const updateProfObj = {
         firstName: firstName,
         lastName: lastName,
@@ -215,22 +231,21 @@ const ProfileSettings = (props) => {
                 setMessage("Profile updated successfully")
               } else {
                 console.log("isProfileComplate: false");
-                setMessage("Error updating profile.")
+                setErrorMessage("Error updating account.");
               }
             }
           })
           .catch(error => {
             console.error("Error updating profile: ", error);
-            setMessage("Error updating profile.")
+            setErrorMessage("Error updating account.");
           });
       } catch (error) {
         console.error("Error updating profile: ", error);
-        setMessage("Error updating profile.")
+        setErrorMessage("Error updating account.");
       }
-      setErrorMessage("");
     }
     else {
-      setErrorMessage("Please fill out all required forms.");
+      setErrorMessage("Invalid input.");
     }
   };
 
@@ -333,7 +348,6 @@ const ProfileSettings = (props) => {
                 name="state"
                 value={state}
                 onChange={handleStateChange}
-                required
               >
                 <option value=""> </option>
                 <option value="AL">Alabama</option>

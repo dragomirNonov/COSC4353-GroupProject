@@ -2,6 +2,7 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const router = express.Router();
 const users = require("../data/usersData");
+const states = require("../data/states");
 const jwt = require("jsonwebtoken");
 const { authUser } = require("../services/basicAuth");
 
@@ -26,55 +27,101 @@ router.get("/api/profile", (request, response) => {
 
 // Update user profile info
 router.put("/api/users/updateProfile", async (request, response) => {
-  // get token from headers
-  const token = request.headers["token"];
-  const decoded = jwt.verify(token, "secretkey");
-  const userID = decoded.userId;
-  try {
-    const userIndex = users.findIndex((user) => user.id === userID);
+    // get token from headers
+    const token = request.headers["token"];
+    const decoded = jwt.verify(token, "secretkey");
+    const userID = decoded.userId;
 
-    if (userIndex === -1) {
-      return response.status(404).json({ message: "User not found" });
-    } else {
-      const user = users[userIndex];
-      // Get information from input
-      const { firstName, lastName, address1, address2, city, state, zipCode } =
-        request.body;
+    try {
+        const userIndex = users.findIndex((user) => user.id === userID);
+        var { firstSuccess, lastSuccess, add1Success, add2Success, citySuccess, stateSuccess, zipSuccess, } = false;
+        const namePattern = /^[A-Za-z]{1,25}$/;
+        const address1Pattern = /^(?=\S*\s)(?=[^a-zA-Z]*[a-zA-Z])(?=\D*\d)[a-zA-Z\d\s',.#/-]*$/;
+        const address2Pattern = /^[A-Za-z]*[.]?[ ]+[0-9]*$/;
+        const cityPattern = /^[A-Za-z ]{1,25}$/;
+        const zipPattern = /[0-9]{5,9}/;
 
-      // Check for required fields
-      if (!firstName || !lastName || !address1 || !city || !state || !zipCode) {
-        return response
-          .status(400)
-          .json({ message: "Please fill out all required fields" });
-      }
+        if (userIndex === -1) {
+          return response.status(404).json({ message: "User not found" });
+        } else {
+            const user = users[userIndex];
+            // Get information from input
+            var { firstName, lastName, address1, address2, city, state, zipCode } = request.body;
 
-      console.log("Updated user:", user);
-      // Update user's profile information
-      user.firstName = firstName;
-      user.lastName = lastName;
-      user.address1 = address1;
-      user.address2 = address2;
-      user.city = city;
-      user.state = state;
-      user.zip = zipCode;
-      user.isProfileComplate = true;
+            if (!namePattern.test(firstName) || firstName === "") {
+                console.log("Bad firstName input.");
+                return response.status(401).json({ message: "Invalid first name input." });
+            } else {
+                firstSuccess = true;
+            }
 
-      // Update the user data in userData.js
-      users[userIndex] = user;
-      console.log("User is now: ", users[userIndex]);
+            if (!namePattern.test(lastName) || lastName === "") {
+                console.log("Bad lastName input.");
+                return response.status(401).json({ message: "Invalid first name input." });
+            } else {
+                lastSuccess = true;
+            }
 
-      // Save the updated user profile
-      return response
-        .status(200)
-        .json({
-          message: "Profile updated successfully",
-          isProfileComplate: true,
-        });
+            if (!address1Pattern.test(address1) || address1 === "") {
+                console.log("Bad address1 input.");
+                return response.status(401).json({ message: "Invalid address 1 input." });
+            } else {
+                add1Success = true;
+            }
+
+            if (!address2Pattern.test(address2) && address2 !== "") {
+                console.log("Bad address2 input.");
+                return response.status(401).json({ message: "Invalid address 2 input." });
+            } else {
+                if (!address2) {
+                    console.log("No address 2 change.");
+                    address2 = user.address2;
+                }
+                add2Success = true;
+            }
+
+            if (!cityPattern.test(city) || city === "") {
+                console.log("Bad city input.");
+                return response.status(401).json({ message: "Invalid city input." });
+            } else {
+                citySuccess = true;
+            }
+
+            if (states.includes(state)) {
+                stateSuccess = true;
+            }
+
+            if (!zipPattern.test(zipCode) || zipCode === "") {
+                console.log("Bad zipCode input.");
+                return response.status(401).json({ message: "Invalid zip code input." });
+            } else {
+                zipSuccess = true;
+            }
+
+            if (!firstSuccess || !lastSuccess || !add1Success || !add2Success || !citySuccess || !stateSuccess || !zipSuccess) {
+                return response.status(400).json({ message: "Error updating profile: invalid input." });
+            } else {
+                console.log("Updating user:", user);
+                // Update user's profile information
+                user.firstName = firstName;
+                user.lastName = lastName;
+                user.address1 = address1;
+                user.address2 = address2;
+                user.city = city;
+                user.state = state;
+                user.zip = zipCode;
+                user.isProfileComplate = true;
+
+                console.log("User is now: ", users[userIndex]);
+
+                // Save the updated user profile
+                return response.status(200).json({ message: "Profile updated successfully", isProfileComplate: true, });
+            }
+        }
+    } catch (error) {
+        console.error("Error updating profile: ", error);
+        response.status(500).json({message: "Internal server error"});
     }
-  } catch (error) {
-    console.error("Error updating profile: ", error);
-    response.status(500).json({ message: "Internal server error" });
-  }
 });
 
 // Update user account info
@@ -102,9 +149,7 @@ router.put("/api/users/updateAccount", async (request, response) => {
       // User can enter new email or new password or both
       if (!email && !enteredPassword) {
         console.log("Error: No email or password input.");
-        return response
-          .status(400)
-          .json({
+        return response.status(400).json({
             message:
               "Please enter a new email or password to update your account. ",
           });
@@ -115,9 +160,7 @@ router.put("/api/users/updateAccount", async (request, response) => {
           return response.status(401).json({ message: "Invalid email input." });
         } else if (email === user.email) {
           console.log("Error: New email is the same as current email.");
-          return response
-            .status(401)
-            .json({ message: "New email cannot be the same as old email." });
+          return response.status(401).json({ message: "New email cannot be the same as old email." });
         } else {
           console.log("New email: ", email);
           emailSuccess = true;
@@ -143,9 +186,7 @@ router.put("/api/users/updateAccount", async (request, response) => {
 
           if (passwordMatch) {
             console.log("Error: New password is the same as current password.");
-            return response
-              .status(401)
-              .json({
+            return response.status(401).json({
                 message: "New password cannot be the same as old password.",
               });
           } else {
@@ -155,9 +196,7 @@ router.put("/api/users/updateAccount", async (request, response) => {
           }
         } catch (err) {
           console.log("Error: Internal server error.");
-          return response
-            .status(500)
-            .json({ message: "Internal server error." });
+          return response.status(500).json({ message: "Internal server error." });
         }
       } else {
         hashedPassword = user.password;
@@ -178,9 +217,7 @@ router.put("/api/users/updateAccount", async (request, response) => {
         console.log(" New password: ", user.password);
 
         // Save the updated user profile
-        return response
-          .status(200)
-          .json({ message: "Account updated successfully. " });
+        return response.status(200).json({ message: "Account updated successfully. " });
       } else {
         return response.status(401).json({ message });
       }
