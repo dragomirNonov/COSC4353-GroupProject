@@ -2,9 +2,16 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const router = express.Router();
 const users = require("../data/usersData");
-const states = require("../data/states");
 const jwt = require("jsonwebtoken");
 const { authUser } = require("../services/basicAuth");
+
+let states = [
+  "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA",
+  "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD",
+  "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ",
+  "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC",
+  "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"
+];
 
 // Get user info
 router.get("/api/profile", (request, response) => {
@@ -13,11 +20,14 @@ router.get("/api/profile", (request, response) => {
     const decoded = jwt.verify(token, "secretkey");
     const userID = decoded.userId;
     const user = users.find((user) => user.id === userID);
+    console.log("userID: ", userID);
     console.log("User profile: ", user);
     if (!user) {
+      console.log("Profile get failed.")
       return response.status(404).json({ message: "User not found" });
     } else {
-      response.json({ message: "Profile get success", user });
+      console.log("Profile get success.")
+      response.status(200).json({ message: "Profile get success", user });
     }
   } catch (error) {
     console.error("Error getting profile: ", error);
@@ -57,7 +67,7 @@ router.put("/api/users/updateProfile", async (request, response) => {
 
             if (!namePattern.test(lastName) || lastName === "") {
                 console.log("Bad lastName input.");
-                return response.status(401).json({ message: "Invalid first name input." });
+                return response.status(401).json({ message: "Invalid last name input." });
             } else {
                 lastSuccess = true;
             }
@@ -88,7 +98,7 @@ router.put("/api/users/updateProfile", async (request, response) => {
             }
 
             if (states.includes(state)) {
-                stateSuccess = true;
+              stateSuccess = true;
             }
 
             if (!zipPattern.test(zipCode) || zipCode === "") {
@@ -98,7 +108,16 @@ router.put("/api/users/updateProfile", async (request, response) => {
                 zipSuccess = true;
             }
 
+            console.log("First: ", firstSuccess);
+            console.log("last: ", lastSuccess);
+            console.log("add1: ", add1Success);
+            console.log("add2: ", add2Success);
+            console.log("city: ", citySuccess);
+            console.log("stae: ", stateSuccess);
+            console.log("zip: ", zipSuccess);
+
             if (!firstSuccess || !lastSuccess || !add1Success || !add2Success || !citySuccess || !stateSuccess || !zipSuccess) {
+                console.log("Profile update failed. Invalid input.");
                 return response.status(400).json({ message: "Error updating profile: invalid input." });
             } else {
                 console.log("Updating user:", user);
@@ -115,6 +134,7 @@ router.put("/api/users/updateProfile", async (request, response) => {
                 console.log("User is now: ", users[userIndex]);
 
                 // Save the updated user profile
+                console.log("Profile update success.");
                 return response.status(200).json({ message: "Profile updated successfully", isProfileComplate: true, });
             }
         }
