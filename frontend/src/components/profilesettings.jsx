@@ -231,17 +231,17 @@ const ProfileSettings = (props) => {
                 setMessage("Profile updated successfully")
               } else {
                 console.log("isProfileComplate: false");
-                setErrorMessage("Error updating account.");
+                setErrorMessage("Error updating profile.");
               }
             }
           })
           .catch(error => {
             console.error("Error updating profile: ", error);
-            setErrorMessage("Error updating account.");
+            setErrorMessage("Error updating profile.");
           });
       } catch (error) {
         console.error("Error updating profile: ", error);
-        setErrorMessage("Error updating account.");
+        setErrorMessage("Error updating profile.");
       }
     }
     else {

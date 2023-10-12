@@ -2,9 +2,16 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const router = express.Router();
 const users = require("../data/usersData");
-const states = require("../data/states");
 const jwt = require("jsonwebtoken");
 const { authUser } = require("../services/basicAuth");
+
+let states = [
+  "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA",
+  "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD",
+  "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ",
+  "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC",
+  "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"
+];
 
 // Get user info
 router.get("/api/profile", (request, response) => {
@@ -87,8 +94,9 @@ router.put("/api/users/updateProfile", async (request, response) => {
                 citySuccess = true;
             }
 
+            console.log("State: ", state);
             if (states.includes(state)) {
-                stateSuccess = true;
+              stateSuccess = true;
             }
 
             if (!zipPattern.test(zipCode) || zipCode === "") {
@@ -97,6 +105,14 @@ router.put("/api/users/updateProfile", async (request, response) => {
             } else {
                 zipSuccess = true;
             }
+
+            console.log("First: ", firstSuccess);
+            console.log("last: ", lastSuccess);
+            console.log("add1: ", add1Success);
+            console.log("add2: ", add2Success);
+            console.log("city: ", citySuccess);
+            console.log("stae: ", stateSuccess);
+            console.log("zip: ", zipSuccess);
 
             if (!firstSuccess || !lastSuccess || !add1Success || !add2Success || !citySuccess || !stateSuccess || !zipSuccess) {
                 return response.status(400).json({ message: "Error updating profile: invalid input." });
