@@ -24,7 +24,7 @@ router.get("/api/profile", (request, response) => {
     if (!user) {
       return response.status(404).json({ message: "User not found" });
     } else {
-      response.json({ message: "Profile get success", user });
+      response.status(200).json({ message: "Profile get success", user });
     }
   } catch (error) {
     console.error("Error getting profile: ", error);
@@ -64,7 +64,7 @@ router.put("/api/users/updateProfile", async (request, response) => {
 
             if (!namePattern.test(lastName) || lastName === "") {
                 console.log("Bad lastName input.");
-                return response.status(401).json({ message: "Invalid first name input." });
+                return response.status(401).json({ message: "Invalid last name input." });
             } else {
                 lastSuccess = true;
             }
