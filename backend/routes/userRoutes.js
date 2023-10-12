@@ -6,11 +6,6 @@ const users = require("../data/usersData");
 const userAuthentication = require("../services/basicAuth");
 let authUser = userAuthentication.authUser;
 
-// Get all users
-router.get("/api/users", (request, response) => {
-  response.json(users);
-});
-
 // LOGIN
 router.post("/api/login", (request, response) => {
   const username = request.body.username;
@@ -42,20 +37,18 @@ router.post("/api/login", (request, response) => {
 
 // Get user by ID
 router.get("/api/users/id", authUser, (request, response) => {
-  const token = request.headers["token"];
-  const decoded = jwt.verify(token, "secretkey");
-  const userID = decoded.userId;
-  console.log(userID);
-  const user = users.filter((user) => user.id === userID);
-
-  response.json(user);
-});
-
-// Get user by firstName
-router.get("/api/users/:firstName", (request, response) => {
-  const firstName = request.params.firstName;
-  const user = users.find((user) => user.firstName === firstName);
-  response.json(user);
+  try {
+    const token = request.headers["token"];
+    const decoded = jwt.verify(token, "secretkey");
+    const userID = decoded.userId;
+    const user = users.find((user) => user.id === userID);
+    if (!user) {
+      return response.status(404).json({ message: "User not found" });
+    }
+    response.json(user);
+  } catch (error) {
+    return response.status(401).json({ message: "Unauthorized" });
+  }
 });
 
 // Register user

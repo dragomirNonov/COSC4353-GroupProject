@@ -10,11 +10,8 @@ router.get("/api/quotes", (request, response) => {
 
 //Get quotes based on userID
 router.get("/api/quotes/user", (request, response) => {
-  //get token from headers
   const token = request.headers["token"];
-  //decode jwt
   const decoded = jwt.verify(token, "secretkey");
-  //get user id from jwt
   const userID = decoded.userId;
 
   const quotes = usersHistoryData.filter((quote) => quote.userID === userID);
@@ -31,9 +28,10 @@ router.post("/api/quotes", (request, response) => {
   const year = today.getFullYear();
   const month = today.getMonth() + 1; // Months are zero-based, so add 1
   const day = today.getDate();
-
   const formattedDate = `${year}-${month}-${day}`;
+
   console.log(body);
+
   const quote = {
     userID: userID,
     requestDate: formattedDate,

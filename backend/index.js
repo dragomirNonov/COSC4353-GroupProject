@@ -12,7 +12,6 @@ const quoteRoutes = require("./routes/quoteHistory");
 // Import the route handlers from profileSettings.js
 const profileSettings = require("./routes/profileSettings");
 
-
 // Use the route handlers
 app.use("/", userRoutes);
 app.use("/", quoteRoutes);
@@ -22,3 +21,5 @@ const PORT = 3001;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+module.exports = app;
