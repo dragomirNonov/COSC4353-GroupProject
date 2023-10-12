@@ -20,10 +20,13 @@ router.get("/api/profile", (request, response) => {
     const decoded = jwt.verify(token, "secretkey");
     const userID = decoded.userId;
     const user = users.find((user) => user.id === userID);
+    console.log("userID: ", userID);
     console.log("User profile: ", user);
     if (!user) {
+      console.log("Profile get failed.")
       return response.status(404).json({ message: "User not found" });
     } else {
+      console.log("Profile get success.")
       response.status(200).json({ message: "Profile get success", user });
     }
   } catch (error) {
@@ -94,7 +97,6 @@ router.put("/api/users/updateProfile", async (request, response) => {
                 citySuccess = true;
             }
 
-            console.log("State: ", state);
             if (states.includes(state)) {
               stateSuccess = true;
             }
@@ -115,6 +117,7 @@ router.put("/api/users/updateProfile", async (request, response) => {
             console.log("zip: ", zipSuccess);
 
             if (!firstSuccess || !lastSuccess || !add1Success || !add2Success || !citySuccess || !stateSuccess || !zipSuccess) {
+                console.log("Profile update failed. Invalid input.");
                 return response.status(400).json({ message: "Error updating profile: invalid input." });
             } else {
                 console.log("Updating user:", user);
@@ -131,6 +134,7 @@ router.put("/api/users/updateProfile", async (request, response) => {
                 console.log("User is now: ", users[userIndex]);
 
                 // Save the updated user profile
+                console.log("Profile update success.");
                 return response.status(200).json({ message: "Profile updated successfully", isProfileComplate: true, });
             }
         }

@@ -6,11 +6,6 @@
     margin: 0;
 }
 
-body {
-    margin: 0;
-    padding: 0;
-}
-
 .main-container {
     border: none;
     display: flex;
@@ -161,6 +156,8 @@ select {
     width: 158px;
     border: 2px solid #acacac;
     border-radius: 5px;
+    font-size: 12pt;
+    padding-left: 8px;
 }
 
 .settings-container #zipCode {

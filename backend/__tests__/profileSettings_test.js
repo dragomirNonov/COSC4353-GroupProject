@@ -1,14 +1,9 @@
 const request = require("supertest");
-const express = require('express');
 const jwt = require("jsonwebtoken");
-const router = require('./profileSettings'); // Import your router
+const app = require("../index");
 const users = require("../data/usersData");
 
-jest.mock('jsonwebtoken', () => ({
-    verify: jest.fn(),
-}));
-
-describe ('profileSettings', () =>  {
+describe ('GET api/profile', () =>  {
 
     /* * * * * * * * * * *
     *     GET PROFILE    *
@@ -17,7 +12,7 @@ describe ('profileSettings', () =>  {
     it('GET /api/profile should return user profile', async () => {
         // Create a valid token for existing user
         const token = jwt.sign({userId: 300}, "secretkey")
-        const response = await request(express().use(router)).get('/api/profile')
+        const response = await request(app).get('/api/profile')
         .set('token', token);
 
         expect(response.status).toBe(200);
@@ -27,7 +22,7 @@ describe ('profileSettings', () =>  {
     it('GET /api/profile should return 404 with unknown user ID', async () => {
         // Create a valid token for non-existent user
         const token = jwt.sign({userId: 345}, "secretkey")
-        const response = await request(express().use(router)).get('/api/profile')
+        const response = await request(app).get('/api/profile')
         .set('token', token);
 
         expect(response.status).toBe(404);
@@ -36,12 +31,12 @@ describe ('profileSettings', () =>  {
 
     it('GET /api/profile should return 500 with bad token', async () => {
         // Create a valid token for existing user
-        const token = jwt.sign({userId: 300}, "secretkey")
+        const token = jwt.sign({userId: 300}, "secretkey", {
+            expiresIn: "1ms",
+          })
 
-        // Change token
-        const tamperedToken = token.replace('badUser', 'badKey');
-        const response = await request(express().use(router)).get('/api/profile')
-        .set('token', tamperedToken);
+        const response = await request(app).get('/api/profile')
+        .set('token', token);
 
         expect(response.status).toBe(500);
         expect(response.body.message).toBe('Internal server error');
@@ -63,10 +58,10 @@ describe ('profileSettings', () =>  {
             address2: "newApt 111",
             city: "newOnetown",
             state: "CA",
-            zip: "11111",
+            zipCode: "11111",
         };
 
-        const response = await request(express().use(router)).put('/api/users/updateProfile')
+        const response = await request(app).put('/api/users/updateProfile')
         .set('token', token)
         .send(userUpdateData);
 
@@ -86,10 +81,10 @@ describe ('profileSettings', () =>  {
             address2: "",
             city: "newOnetown",
             state: "CA",
-            zip: "11111",
+            zipCode: "11111",
         };
 
-        const response = await request(express().use(router)).put('/api/users/updateProfile')
+        const response = await request(app).put('/api/users/updateProfile')
         .set('token', token)
         .send(userUpdateData);
 
@@ -100,12 +95,12 @@ describe ('profileSettings', () =>  {
     
     it('PUT /api/users/updateProfile should return 500 with bad token', async () => {
         // Create a valid token for existing user
-        const token = jwt.sign({userId: 300}, "secretkey")
+        const token = jwt.sign({userId: 300}, "secretkey", {
+            expiresIn: "1ms",
+          })
 
-        // Change token
-        const tamperedToken = token.replace('badUser', 'badKey');
-        const response = await request(express().use(router)).put('/api/users/updateProfile')
-        .set('token', tamperedToken);
+        const response = await request(app).get('/api/profile')
+        .set('token', token);
 
         expect(response.status).toBe(500);
         expect(response.body.message).toBe('Internal server error');
@@ -123,10 +118,10 @@ describe ('profileSettings', () =>  {
             address2: "",
             city: "NewOnetown",
             state: "CA",
-            zip: "11111",
+            zipCode: "11111",
         };
 
-        const response = await request(express().use(router)).put('/api/users/updateProfile')
+        const response = await request(app).put('/api/users/updateProfile')
         .set('token', token)
         .send(userUpdateData);
 
@@ -146,10 +141,10 @@ describe ('profileSettings', () =>  {
             address2: "",
             city: "NewOnetown",
             state: "CA",
-            zip: "11111",
+            zipCode: "11111",
         };
 
-        const response = await request(express().use(router)).put('/api/users/updateProfile')
+        const response = await request(app).put('/api/users/updateProfile')
         .set('token', token)
         .send(userUpdateData);
 
@@ -169,10 +164,10 @@ describe ('profileSettings', () =>  {
             address2: "? No apt",
             city: "NewOnetown",
             state: "CA",
-            zip: "11111",
+            zipCode: "11111",
         };
 
-        const response = await request(express().use(router)).put('/api/users/updateProfile')
+        const response = await request(app).put('/api/users/updateProfile')
         .set('token', token)
         .send(userUpdateData);
 
@@ -189,13 +184,13 @@ describe ('profileSettings', () =>  {
             firstName: "newUser",
             lastName: "newUser",
             address1: "111 NewMain St",
-            address2: "? No apt",
+            address2: "",
             city: "",
             state: "CA",
-            zip: "11111",
+            zipCode: "11111",
         };
 
-        const response = await request(express().use(router)).put('/api/users/updateProfile')
+        const response = await request(app).put('/api/users/updateProfile')
         .set('token', token)
         .send(userUpdateData);
 
@@ -215,10 +210,10 @@ describe ('profileSettings', () =>  {
             address2: "",
             city: "NewOnetown",
             state: "ZZ",
-            zip: "11111",
+            zipCode: "11111",
         };
 
-        const response = await request(express().use(router)).put('/api/users/updateProfile')
+        const response = await request(app).put('/api/users/updateProfile')
         .set('token', token)
         .send(userUpdateData);
 
@@ -238,10 +233,10 @@ describe ('profileSettings', () =>  {
             address2: "",
             city: "NewOnetown",
             state: "CA",
-            zip: "1111",
+            zipCode: "1111",
         };
 
-        const response = await request(express().use(router)).put('/api/users/updateProfile')
+        const response = await request(app).put('/api/users/updateProfile')
         .set('token', token)
         .send(userUpdateData);
 
@@ -262,12 +257,12 @@ describe ('profileSettings', () =>  {
             password: "newPass1",
         };
 
-        const response = await request(express().use(router)).put('/api/users/updateAccount')
+        const response = await request(app).put('/api/users/updateAccount')
         .set('token', token)
         .send(accountUpdateData);
 
         expect(response.status).toBe(200);
-        expect(response.body.message).toBe('Account updated successfully');
+        expect(response.body.message).toBe('Account updated successfully. ');
     });
 
     it('PUT /api/users/updateAccount should return 404 with unknown user ID', async () => {
@@ -279,7 +274,7 @@ describe ('profileSettings', () =>  {
             password: "newPass1",
         };
 
-        const response = await request(express().use(router)).put('/api/users/updateAccount')
+        const response = await request(app).put('/api/users/updateAccount')
         .set('token', token)
         .send(accountUpdateData);
 
@@ -289,19 +284,12 @@ describe ('profileSettings', () =>  {
 
     it('PUT /api/users/updateAccount should return 500 with bad token', async () => {
         // Create a valid token for existing user
-        const token = jwt.sign({userId: 300}, "secretkey")
-        
-        // Change token
-        const tamperedToken = token.replace('badUser', 'badKey');
+        const token = jwt.sign({userId: 300}, "secretkey", {
+            expiresIn: "1ms",
+          })
 
-        const accountUpdateData = {
-            email: "newuser1@mail.com",
-            password: "newPass1",
-        };
-
-        const response = await request(express().use(router)).put('/api/users/updateAccount')
-        .set('token', tamperedToken)
-        .send(accountUpdateData);
+        const response = await request(app).get('/api/profile')
+        .set('token', token);
 
         expect(response.status).toBe(500);
         expect(response.body.message).toBe('Internal server error');
@@ -316,7 +304,7 @@ describe ('profileSettings', () =>  {
             password: "",
         };
 
-        const response = await request(express().use(router)).put('/api/users/updateAccount')
+        const response = await request(app).put('/api/users/updateAccount')
         .set('token', token)
         .send(accountUpdateData);
 
@@ -333,7 +321,7 @@ describe ('profileSettings', () =>  {
             password: "",
         };
 
-        const response = await request(express().use(router)).put('/api/users/updateAccount')
+        const response = await request(app).put('/api/users/updateAccount')
         .set('token', token)
         .send(accountUpdateData);
 
@@ -352,7 +340,7 @@ describe ('profileSettings', () =>  {
             password: "",
         };
 
-        const response = await request(express().use(router)).put('/api/users/updateAccount')
+        const response = await request(app).put('/api/users/updateAccount')
         .set('token', token)
         .send(accountUpdateData);
 
@@ -362,14 +350,14 @@ describe ('profileSettings', () =>  {
 
     it('PUT /api/users/updateAccount should return 401 with same password as current password', async () => {
         // Create a valid token for existing user
-        const token = jwt.sign({userId: 300}, "secretkey")
+        const token = jwt.sign({userId: 400}, "secretkey")
 
         const accountUpdateData = {
             email: "",
-            password: "asd",
+            password: "qwe",
         };
 
-        const response = await request(express().use(router)).put('/api/users/updateAccount')
+        const response = await request(app).put('/api/users/updateAccount')
         .set('token', token)
         .send(accountUpdateData);
 
