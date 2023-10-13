@@ -13,10 +13,10 @@ const QuoteForm = (props) => {
   const [address, setAdress] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
-
   useEffect(() => {
     usersService.getUserByID().then((res) => {
-      setAdress(res.data[0].address1);
+      console.log(res.data);
+      setAdress(res.data.address1);
     });
   }, []);
 
@@ -41,14 +41,12 @@ const QuoteForm = (props) => {
       address: address,
     };
     quoteService.createQuote(quote).then((res) => {
-      
       setSuccessMessage(res.data.message);
       console.log(res.data.message);
       setGallons("");
       setSelectedDate("");
       setProfitMargin("");
       ///setSuccessMessage("");
-      
     });
   };
 

@@ -3,8 +3,6 @@ import React, { useState, useEffect } from "react";
 import quotesService from "../services/quotes";
 import usersService from "../services/users";
 
-
-
 const QuoteHistory = (props) => {
   const [arrayOfOrders, setArrayOfOrders] = useState([]);
   const [address1, setAdress1] = useState("");
@@ -17,55 +15,26 @@ const QuoteHistory = (props) => {
     quotesService.getAllUserQuotes().then((res) => {
       setArrayOfOrders(res.data);
     });
-  }, []);
-
-  //address1
-  useEffect(() => {
     usersService.getUserByID().then((res) => {
-      setAdress1(res.data[0].address1);
-    });
-  }, []);
-
-
-  //address 2
-  useEffect(() => {
-    usersService.getUserByID().then((res) => {
-      setAdress2(res.data[0].address2);
-    });
-  }, []);
-
-  //city
-  useEffect(() => {
-    usersService.getUserByID().then((res) => {
-      setAdress3(res.data[0].city);
-    });
-  }, []);
-
-  //state
-  useEffect(() => {
-    usersService.getUserByID().then((res) => {
-      setAdress4(res.data[0].state);
-    });
-  }, []);
-
-  //zip
-  useEffect(() => {
-    usersService.getUserByID().then((res) => {
-      setAdress5(res.data[0].zip);
+      setAdress1(res.data.address1);
+      setAdress2(res.data.address2);
+      setAdress4(res.data.state);
+      setAdress3(res.data.city);
+      setAdress5(res.data.zip);
     });
   }, []);
 
   return (
     <div className="border">
       {arrayOfOrders.map((quote, index) => (
-        <Quote 
-        key={index} 
-        object={arrayOfOrders[index]} 
-        userAddress = {address1}
-        userAddress2 = {address2}
-        userAddress3 = {address3}
-        userAddress4 = {address4}
-        userAddress5 = {address5}
+        <Quote
+          key={index}
+          object={arrayOfOrders[index]}
+          userAddress={address1}
+          userAddress2={address2}
+          userAddress3={address3}
+          userAddress4={address4}
+          userAddress5={address5}
         />
       ))}
     </div>
