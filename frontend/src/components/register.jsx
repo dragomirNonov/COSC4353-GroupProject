@@ -32,12 +32,13 @@ const RegisterForm = (props) => {
       .then((res) => {
         setErrorMessage("");
         setSuccessMessage(res.data.message);
-        console.log(res.data.message);
+        setUsername("");
+        setEmail("");
+        setPassword("");
       })
       .catch((err) => {
         setSuccessMessage("");
         setErrorMessage(err.response.data.message);
-        console.log(err.response.data.message);
       });
   };
 

@@ -26,7 +26,7 @@ const LoginForm = (props) => {
         if (res.status == 200) {
           localStorage.setItem("token", res.data.token);
           console.log(res.data);
-          if (res.data.isProfileComplate == true) {
+          if (res.data.isProfileComplete == true) {
             navigate("/home");
           } else {
             navigate("/profilesettings");

@@ -5,34 +5,45 @@ const jwt = require("jsonwebtoken");
 const users = require("../data/usersData");
 const userAuthentication = require("../services/basicAuth");
 let authUser = userAuthentication.authUser;
+let { user } = require("../models/userSchemas");
 
 // LOGIN
-router.post("/api/login", (request, response) => {
-  const username = request.body.username;
-  const enteredPassword = request.body.password;
-  const user = users.find((user) => user.username === username);
+router.post("/api/login", async (req, res) => {
+  try {
+    const userExists = await user
+      .findOne({ username: req.body.username })
+      .exec();
 
-  if (!user) {
-    return response.status(401).json({ message: "User not found" });
+    if (!userExists) {
+      return res.status(401).json({
+        title: "User not found.",
+        message: "Invalid credentials.",
+      });
+    }
+
+    if (!bcrypt.compareSync(req.body.password, userExists.password)) {
+      return res.status(401).json({
+        title: "Login Failed.",
+        message: "Invalid Password.",
+      });
+    }
+
+    let token = jwt.sign({ userId: userExists._id }, "secretkey", {
+      expiresIn: "100min",
+    });
+
+    return res.status(200).json({
+      message: "Login success",
+      token: token,
+      isProfileComplete: userExists.profileComplete,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      title: "server error",
+      error: err.message,
+    });
   }
-
-  bcrypt.compare(enteredPassword, user.password, (err, result) => {
-    if (err) {
-      return response.status(500).json({ message: "Internal server error" });
-    }
-    if (result === true) {
-      let token = jwt.sign({ userId: user.id }, "secretkey", {
-        expiresIn: "500min",
-      });
-      return response.status(200).json({
-        message: "Login success",
-        token: token,
-        isProfileComplate: user.isProfileComplate,
-      });
-    } else {
-      return response.status(401).json({ message: "Wrong password" });
-    }
-  });
 });
 
 // Get user by ID
@@ -41,6 +52,7 @@ router.get("/api/users/id", authUser, (request, response) => {
     const token = request.headers["token"];
     const decoded = jwt.verify(token, "secretkey");
     const userID = decoded.userId;
+
     const user = users.find((user) => user.id === userID);
     if (!user) {
       return response.status(404).json({ message: "User not found" });
@@ -53,31 +65,37 @@ router.get("/api/users/id", authUser, (request, response) => {
 
 // Register user
 router.post("/api/users", async (request, response) => {
-  const maxId = users.length > 0 ? Math.max(...users.map((n) => n.id)) : 0;
-  const body = request.body;
-  const userExists = users.find((user) => user.username === body.username);
+  try {
+    const email = request.body.email;
+    const username = request.body.username;
 
-  if (userExists) {
-    response.status(400).json({ message: "User already exists" });
-  } else {
-    const hashedPassword = await bcrypt.hash(body.password, 10);
-    console.log(hashedPassword);
-    const user = {
-      id: maxId + 1,
-      isProfileComplate: false,
-      firstName: "",
-      lastName: "",
-      username: body.username,
-      password: hashedPassword,
-      email: body.email,
-      address: "",
-      address2: "",
-      city: "",
-      state: "",
-      zip: "",
-    };
-    users.push(user);
-    response.status(201).json({ message: "User added successfully" });
+    const existingUser = await user
+      .findOne({
+        $or: [{ email: email }, { username: username }],
+      })
+      .exec();
+    if (existingUser) {
+      return response.status(401).json({
+        title: "Existing Email",
+        message: "User already exists.",
+      });
+    }
+    const newUser = new user({
+      username: request.body.username,
+      email: request.body.email,
+      password: bcrypt.hashSync(request.body.password, 10),
+      profileComplete: false,
+    });
+    const savedUser = await newUser.save();
+    return response
+      .status(200)
+      .json({ savedUser: savedUser, message: "User added successfully." });
+  } catch (err) {
+    console.log(err);
+    response.status(500).json({
+      title: "server error",
+      error: err.message,
+    });
   }
 });
 

@@ -32,7 +32,7 @@ router.post("/api/quotes", (request, response) => {
   const day = today.getDate();
   const formattedDate = `${year}-${month}-${day}`;
 
-  console.log(body);
+  // console.log(body);
 
   const quote = {
     userID: userID,
