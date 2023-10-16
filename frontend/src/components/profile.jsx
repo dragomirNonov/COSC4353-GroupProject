@@ -3,6 +3,10 @@ import { useState, useEffect } from "react";
 import userService from "../services/users";
 
 const Profile = (props) => {
+    var [errorMessage, setErrorMessage] = useState("");
+    var [pName, setPName] = useState("");
+    var [pAddress, setPAddress] = useState("");
+    
     const [user, setUser] = useState({
         name: "",
         address: "",
@@ -11,19 +15,31 @@ const Profile = (props) => {
 
     useEffect(() => {
         userService.getUserProf().then((res) => {
-            const { firstName, lastName, address1, address2, city, state, zip } = res.data.user;
+            if(res.status === 200) {
+                setErrorMessage("");
+                const { firstName, lastName, address1, address2, city, state, zip } = res.data.user;
 
-            // Create a user object with the retrieved data
-            const userData = {
-                name: `${firstName} ${lastName}`,
-                address: `${address1} ${address2}`,
-                cityStateZip: `${city}, ${state} ${zip}`,
-            };
+                if (!firstName && !lastName && !address1 && !city && !state && !zip) {
+                    console.log("User profile not complete.");
+                    setErrorMessage("Please complete your profile.");
+                } else {
+                    // Create a user object with the retrieved data
+                    const userData = {
+                        name: `${firstName} ${lastName}`,
+                        address: `${address1} ${address2}`,
+                        cityStateZip: `${city}, ${state} ${zip}`,
+                    };
 
-            setUser(userData);
+                    setPName("Name: ");
+                    setPAddress("Address: ");
+
+                    setUser(userData);
+                }
+            }
         })
         .catch((error) => {
-            console.error("Error fetching user info: ", error);
+            console.error("Error fetching user profile: ", error);
+            setErrorMessage("Error fetching profile.");
         });
     }, []);
 
@@ -32,9 +48,10 @@ const Profile = (props) => {
             <div className="profilePage">
                 <h1>Your profile</h1>
                     <div className="profileInfo">
+                        <div id="errorMessage">{errorMessage}</div>
                         <div className="profileFormat">
-                            <p>Name: </p>
-                            <p>Address: </p>
+                            <p>{pName}</p>
+                            <p>{pAddress}</p>
                         </div>
                         <div className="userInfo">
                             <p>{user.name}</p>

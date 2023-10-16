@@ -11,16 +11,20 @@ const Account = (props) => {
 
     useEffect(() => {
         userService.getUserProf().then((res) => {
-            const { username, email, password } = res.data.user;
+            if(res.status === 200) {
+                const { username, email, password } = res.data.user;
 
-            // Create a user object with the retrieved data
-            const userData = {
-                userName: username,
-                email: email,
-                password: password,
-            };
+                // Create a user object with the retrieved data
+                const userData = {
+                    userName: username,
+                    email: email,
+                    password: password,
+                };
 
-            setUser(userData);
+                setUser(userData);
+            } else {
+                console.log("Error loading user account info.");
+            }
         })
         .catch((error) => {
             console.error("Error fetching user account: ", error);
