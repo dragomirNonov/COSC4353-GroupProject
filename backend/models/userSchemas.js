@@ -25,5 +25,38 @@ let userCredentials = new Schema({
 // create models from mongoose schemas
 const user = mongoose.model("users", userCredentials);
 
+let clientInformation = new Schema({
+  _id: { type: String, ref: "user" },
+  firstName: {
+    type: String,
+    require: true,
+  },
+  lastName: {
+    type: String,
+    require: true,
+  },
+  address1: {
+    type: String,
+    require: true,
+  },
+  address2: {
+    type: String,
+  },
+  city: {
+    type: String,
+    require: true,
+  },
+  state: {
+    type: String,
+    require: true,
+  },
+  zipCode: {
+    type: String,
+    require: true,
+  },
+});
+
+const profile = mongoose.model("profiles", clientInformation);
+
 // package the models in an object to export
-module.exports = { user };
+module.exports = { user, profile };
