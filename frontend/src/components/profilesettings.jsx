@@ -226,11 +226,11 @@ const ProfileSettings = (props) => {
           .then(response => {
             if (response.status === 200) {
               console.log(response.data.message);
-              if (response.data.isProfileComplate === true) {
-                console.log("isProfileComplate: true");
+              if (response.data.isProfileComplete === true) {
+                console.log("isProfileComplete: true");
                 setMessage("Profile updated successfully")
               } else {
-                console.log("isProfileComplate: false");
+                console.log("isProfileComplete: false");
                 setErrorMessage("Error updating profile.");
               }
             }

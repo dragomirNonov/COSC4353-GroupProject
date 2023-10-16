@@ -6,6 +6,7 @@ const Profile = (props) => {
     var [errorMessage, setErrorMessage] = useState("");
     var [pName, setPName] = useState("");
     var [pAddress, setPAddress] = useState("");
+
     
     const [user, setUser] = useState({
         name: "",
@@ -17,7 +18,8 @@ const Profile = (props) => {
         userService.getUserProf().then((res) => {
             if(res.status === 200) {
                 setErrorMessage("");
-                const { firstName, lastName, address1, address2, city, state, zip } = res.data.user;
+                var { firstName, lastName, address1, address2, city, state, zipCode } = res.data.existingProfile;
+                !address2 ? address2 = "" : address2;
 
                 if (!firstName && !lastName && !address1 && !city && !state && !zip) {
                     console.log("User profile not complete.");
@@ -27,12 +29,10 @@ const Profile = (props) => {
                     const userData = {
                         name: `${firstName} ${lastName}`,
                         address: `${address1} ${address2}`,
-                        cityStateZip: `${city}, ${state} ${zip}`,
+                        cityStateZip: `${city}, ${state} ${zipCode}`,
                     };
-
                     setPName("Name: ");
                     setPAddress("Address: ");
-
                     setUser(userData);
                 }
             }

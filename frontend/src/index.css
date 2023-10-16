@@ -17,11 +17,10 @@ body {
 }
 
 .login {
-  width: 25%;
+  width: 20%;
   margin: 0 auto;
   margin-top: 5%;
-  padding-top: 3vmax;
-  padding-bottom: 3vmax;
+  padding: 3vmax;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -32,16 +31,17 @@ body {
 
 .login .textarea {
   height: 40px;
+  width: 93%;
   font-size: 14pt;
   margin-bottom: 10px;
+  
 }
 
 .form {
   width: 100%;
   margin: 0 auto;
   margin-top: 10%;
-  padding-top: 3vmax;
-  padding-bottom: 3vmax;
+  padding: 3vmax;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -264,12 +264,12 @@ ul {
 .profileFormat {
   font-size: 14pt;
   color: rgb(112, 112, 112);
-  width: 30%;
+  width: 20%;
 }
 
 .userInfo {
   padding-left: none;
-  width: 50%;
+  width: 80%;
   font-family: "Lucida Console";
   font-size: 15pt;
 }
@@ -281,7 +281,7 @@ ul {
   background-color: #fd3438;
   color: white;
   border: none;
-  height: 30px;
+  height: 5%;
   width: 10%;
   border-radius: 5px;
   font-size: 12pt;

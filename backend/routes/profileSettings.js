@@ -15,22 +15,27 @@ let states = [
 ];
 
 // Get user info
-router.get("/api/profile", (request, response) => {
+router.get("/api/profile", async (request, response) => {
   try {
     const token = request.headers["token"];
     const decoded = jwt.verify(token, "secretkey");
     const userID = decoded.userId;
 
-    const userExists = user
+    const userExists = await user
       .findOne({ _id: userID })
+      .exec();
+
+    const existingProfile = await profile
+      .findOne({ _id: userExists._id })
       .exec();
 
     if(!userExists) {
       console.log("Profile get failed.");
       return response.status(404).json({ message: "User not found" });
     } else {
-      console.log("Profile get success.");
-      response.status(200).json({ message: "Profile get success", userExists });
+
+      console.log("Profile get success. User: ", userExists);
+      response.status(200).json({ message: "Profile get success", userExists, existingProfile });
     }
 
   } catch (error) {
@@ -46,8 +51,11 @@ router.put("/api/users/updateProfile", async (request, response) => {
   const decoded = jwt.verify(token, "secretkey");
   const userID = decoded.userId;
 
+  console.log("Token: ", token);
+  console.log("userID: ", userID);
+
   try {
-    const userExists = user
+    const userExists = await user
     .findOne({ _id: userID })
     .exec();
     var { firstSuccess, lastSuccess, add1Success, add2Success, citySuccess, stateSuccess, zipSuccess, } = false;
@@ -57,6 +65,8 @@ router.put("/api/users/updateProfile", async (request, response) => {
     const cityPattern = /^[A-Za-z ]{1,25}$/;
     const zipPattern = /[0-9]{5,9}/;
 
+    console.log("User exists: ", userExists);
+    console.log("Username: ", userExists.username);
     if (!userExists) {
       return response.status(404).json({ message: "User not found" });
     } else {
@@ -128,6 +138,7 @@ router.put("/api/users/updateProfile", async (request, response) => {
       } else {
 
         const existingProfile = await profile.findOne({ _id: userExists._id });
+        console.log("Profile exists: ", existingProfile);
 
         if (existingProfile) {
           existingProfile.firstName = firstName;
@@ -139,6 +150,9 @@ router.put("/api/users/updateProfile", async (request, response) => {
           existingProfile.zipCode = zipCode;
           await existingProfile.save();
         } else {
+
+          console.log("Inside profile not existing.");
+          console.log("userExists._id: ", userExists._id);
           //  If the user does not have an existing "profile" document, create a new one
           const newProfile = new profile({
             _id: userExists._id,
@@ -175,7 +189,7 @@ router.put("/api/users/updateAccount", async (request, response) => {
   const userID = decoded.userId;
 
   try {
-    const userExists = user
+    const userExists = await user
     .findOne({ _id: userID })
     .exec();
 

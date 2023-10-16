@@ -12,7 +12,7 @@ const Account = (props) => {
     useEffect(() => {
         userService.getUserProf().then((res) => {
             if(res.status === 200) {
-                const { username, email, password } = res.data.user;
+                const { username, email, password } = res.data.userExists;
 
                 // Create a user object with the retrieved data
                 const userData = {
