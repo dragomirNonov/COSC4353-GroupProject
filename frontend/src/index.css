@@ -257,7 +257,7 @@ ul {
   padding-left: 3%;
   display: flex;
   flex-direction: row;
-  align-items: last baseline;
+  align-items: baseline;
   margin-top: none;
 }
 

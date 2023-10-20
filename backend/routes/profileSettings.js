@@ -25,17 +25,23 @@ router.get("/api/profile", async (request, response) => {
       .findOne({ _id: userID })
       .exec();
 
-    const existingProfile = await profile
-      .findOne({ _id: userExists._id })
-      .exec();
-
     if(!userExists) {
       console.log("Profile get failed.");
       return response.status(404).json({ message: "User not found" });
     } else {
 
-      console.log("Profile get success. User: ", userExists);
-      response.status(200).json({ message: "Profile get success", userExists, existingProfile });
+      const existingProfile = await profile
+      .findOne({ _id: userExists._id })
+      .exec();
+
+      if (!existingProfile) {
+        console.log("Profile not created");
+        return response.status(404).json({ message: "User has not created profile" });
+      } else {
+        console.log("Profile get success. User: ", userExists);
+        response.status(200).json({ message: "Profile get success", userExists, existingProfile });
+      }
+
     }
 
   } catch (error) {
@@ -65,8 +71,6 @@ router.put("/api/users/updateProfile", async (request, response) => {
     const cityPattern = /^[A-Za-z ]{1,25}$/;
     const zipPattern = /[0-9]{5,9}/;
 
-    console.log("User exists: ", userExists);
-    console.log("Username: ", userExists.username);
     if (!userExists) {
       return response.status(404).json({ message: "User not found" });
     } else {
@@ -212,6 +216,9 @@ router.put("/api/users/updateAccount", async (request, response) => {
           });
       } else if (email) {
         const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,5}$/;
+
+        console.log("current email: ", userExists.email);
+        console.log("current password: ", userExists.password);
         if (!emailPattern.test(email)) {
           console.log("Error: Invalid email input.");
           return response.status(401).json({ message: "Invalid email input." });

@@ -30,21 +30,26 @@ let clientInformation = new Schema({
   firstName: {
     type: String,
     require: true,
+    maxlength: 25,
   },
   lastName: {
     type: String,
     require: true,
+    maxlength: 25,
   },
   address1: {
     type: String,
     require: true,
+    maxlength: 100,
   },
   address2: {
     type: String,
+    maxlength: 100,
   },
   city: {
     type: String,
     require: true,
+    maxlength: 100,
   },
   state: {
     type: String,
@@ -53,6 +58,7 @@ let clientInformation = new Schema({
   zipCode: {
     type: String,
     require: true,
+    maxlength: 9,
   },
 });
 

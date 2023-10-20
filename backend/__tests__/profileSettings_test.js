@@ -2,8 +2,36 @@ const request = require("supertest");
 const jwt = require("jsonwebtoken");
 const app = require("../index");
 const users = require("../data/usersData");
+let { user, profile } = require("../models/userSchemas");
 
 describe ('GET api/profile', () =>  {
+
+    beforeEach(async () => {
+        // Create a fake user.
+        const fakeUser = new user({
+            _id: 123,
+            username: "tester",
+            email: "tester@mail.com",
+            password: "$2b$10$0ho6JpXfypLJH6rBavUQu.8mNUsFlycs12qIZbUjeWeWFR.RBG8nu",
+            profileComplete: true,
+        });
+    
+        await fakeUser.save();
+    
+        // Create a fake profile associated with the fake user.
+        const fakeProfile = new profile({
+            _id: 123,
+            firstName: "Test",
+            lastName: "Account",
+            address1: "123 Test St",
+            address2: "Apt 1",
+            city: "Test",
+            state: "CA",
+            zipCode: "11111",
+        });
+    
+        await fakeProfile.save();
+    });
 
     /* * * * * * * * * * *
     *     GET PROFILE    *
@@ -11,7 +39,7 @@ describe ('GET api/profile', () =>  {
 
     it('GET /api/profile should return user profile', async () => {
         // Create a valid token for existing user
-        const token = jwt.sign({userId: 300}, "secretkey")
+        const token = jwt.sign({userId: 123}, "secretkey")
         const response = await request(app).get('/api/profile')
         .set('token', token);
 
@@ -31,7 +59,7 @@ describe ('GET api/profile', () =>  {
 
     it('GET /api/profile should return 500 with bad token', async () => {
         // Create a valid token for existing user
-        const token = jwt.sign({userId: 300}, "secretkey", {
+        const token = jwt.sign({userId: 123}, "secretkey", {
             expiresIn: "1ms",
           })
 
@@ -42,6 +70,27 @@ describe ('GET api/profile', () =>  {
         expect(response.body.message).toBe('Internal server error');
     });
 
+    it('GET /api/profile should return 404 with incomplete profile', async () => {
+        const fakeUser2 = new user({
+            _id: 345,
+            username: "tester2",
+            email: "tester2@mail.com",
+            password: "$2b$10$0ho6JpXfypLJH6rBavUQu.8mNUsFlycs12qIZbUjeWeWFR.RBG8nu",
+            profileComplete: false,
+        });
+        await fakeUser2.save();
+
+        // Create a valid token for new user
+        const token = jwt.sign({userId: 345}, "secretkey")
+        const response = await request(app).get('/api/profile')
+        .set('token', token);
+
+        expect(response.status).toBe(404);
+        expect(response.body.message).toBe('User has not created profile');
+        
+        await user.deleteOne({ _id: 345 });
+    })
+
     /* * * * * * * * * * *
     *   UPDATE PROFILE   *
     * * * * * * * * * * */
@@ -49,7 +98,7 @@ describe ('GET api/profile', () =>  {
     it('PUT /api/users/updateProfile should update user profile', async () => {
 
         // Create a valid token for existing user
-        const token = jwt.sign({userId: 300}, "secretkey")
+        const token = jwt.sign({userId: 123}, "secretkey")
 
         const userUpdateData = {
             firstName: "newUserFirst",
@@ -95,7 +144,7 @@ describe ('GET api/profile', () =>  {
     
     it('PUT /api/users/updateProfile should return 500 with bad token', async () => {
         // Create a valid token for existing user
-        const token = jwt.sign({userId: 300}, "secretkey", {
+        const token = jwt.sign({userId: 123}, "secretkey", {
             expiresIn: "1ms",
           })
 
@@ -109,7 +158,7 @@ describe ('GET api/profile', () =>  {
     it('PUT /api/users/updateProfile should return 401 with bad first name input', async () => {
 
         // Create a valid token for existing user
-        const token = jwt.sign({userId: 300}, "secretkey")
+        const token = jwt.sign({userId: 123}, "secretkey")
 
         const userUpdateData = {
             firstName: "???",
@@ -132,7 +181,7 @@ describe ('GET api/profile', () =>  {
     it('PUT /api/users/updateProfile should return 401 with bad address1 input', async () => {
 
         // Create a valid token for existing user
-        const token = jwt.sign({userId: 300}, "secretkey")
+        const token = jwt.sign({userId: 123}, "secretkey")
 
         const userUpdateData = {
             firstName: "newUser",
@@ -155,7 +204,7 @@ describe ('GET api/profile', () =>  {
     it('PUT /api/users/updateProfile should return 401 with bad address2 input', async () => {
 
         // Create a valid token for existing user
-        const token = jwt.sign({userId: 300}, "secretkey")
+        const token = jwt.sign({userId: 123}, "secretkey")
 
         const userUpdateData = {
             firstName: "newUser",
@@ -178,7 +227,7 @@ describe ('GET api/profile', () =>  {
     it('PUT /api/users/updateProfile should return 401 with bad city input', async () => {
 
         // Create a valid token for existing user
-        const token = jwt.sign({userId: 300}, "secretkey")
+        const token = jwt.sign({userId: 123}, "secretkey")
 
         const userUpdateData = {
             firstName: "newUser",
@@ -201,7 +250,7 @@ describe ('GET api/profile', () =>  {
     it('PUT /api/users/updateProfile should return 400 with bad state input', async () => {
 
         // Create a valid token for existing user
-        const token = jwt.sign({userId: 300}, "secretkey")
+        const token = jwt.sign({userId: 123}, "secretkey")
 
         const userUpdateData = {
             firstName: "newUser",
@@ -224,7 +273,7 @@ describe ('GET api/profile', () =>  {
     it('PUT /api/users/updateProfile should return 401 with bad zipCode input', async () => {
 
         // Create a valid token for existing user
-        const token = jwt.sign({userId: 300}, "secretkey")
+        const token = jwt.sign({userId: 123}, "secretkey")
 
         const userUpdateData = {
             firstName: "newUser",
@@ -250,7 +299,7 @@ describe ('GET api/profile', () =>  {
 
     it('PUT /api/users/updateAccount should update user account', async () => {
         // Create a valid token for existing user
-        const token = jwt.sign({userId: 300}, "secretkey")
+        const token = jwt.sign({userId: 123}, "secretkey")
 
         const accountUpdateData = {
             email: "newuser1@mail.com",
@@ -284,7 +333,7 @@ describe ('GET api/profile', () =>  {
 
     it('PUT /api/users/updateAccount should return 500 with bad token', async () => {
         // Create a valid token for existing user
-        const token = jwt.sign({userId: 300}, "secretkey", {
+        const token = jwt.sign({userId: 123}, "secretkey", {
             expiresIn: "1ms",
           })
 
@@ -297,7 +346,7 @@ describe ('GET api/profile', () =>  {
 
     it('PUT /api/users/updateAccount should return 400 with no email or password input', async () => {
         // Create a valid token for existing user
-        const token = jwt.sign({userId: 300}, "secretkey")
+        const token = jwt.sign({userId: 123}, "secretkey")
 
         const accountUpdateData = {
             email: "",
@@ -314,7 +363,7 @@ describe ('GET api/profile', () =>  {
 
     it('PUT /api/users/updateAccount should return 401 with bad email input', async () => {
         // Create a valid token for existing user
-        const token = jwt.sign({userId: 300}, "secretkey")
+        const token = jwt.sign({userId: 123}, "secretkey")
 
         const accountUpdateData = {
             email: "oogabooga",
@@ -331,9 +380,8 @@ describe ('GET api/profile', () =>  {
 
     it('PUT /api/users/updateAccount should return 401 with same email as current email', async () => {
         // Create a valid token for existing user
-        const token = jwt.sign({userId: 300}, "secretkey")
-        const currentUser = users.find((user) => user.id === 300);
-        const currentEmail = currentUser.email;
+        const token = jwt.sign({userId: 123}, "secretkey")
+        const currentEmail = "tester@mail.com";
 
         const accountUpdateData = {
             email: currentEmail,
@@ -350,11 +398,11 @@ describe ('GET api/profile', () =>  {
 
     it('PUT /api/users/updateAccount should return 401 with same password as current password', async () => {
         // Create a valid token for existing user
-        const token = jwt.sign({userId: 400}, "secretkey")
+        const token = jwt.sign({userId: 123}, "secretkey")
 
         const accountUpdateData = {
             email: "",
-            password: "qwe",
+            password: "123",
         };
 
         const response = await request(app).put('/api/users/updateAccount')
@@ -365,4 +413,11 @@ describe ('GET api/profile', () =>  {
         expect(response.body.message).toBe('New password cannot be the same as old password.');
     });
 
+    afterEach(async () => {
+        // Delete the mock user and profile data
+        await user.deleteOne({ _id: 123 });
+        await profile.deleteOne({ _id: 123 });
+      });
+
 });
+

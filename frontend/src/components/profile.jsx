@@ -19,7 +19,7 @@ const Profile = (props) => {
             if(res.status === 200) {
                 setErrorMessage("");
                 var { firstName, lastName, address1, address2, city, state, zipCode } = res.data.existingProfile;
-                !address2 ? address2 = "" : address2;
+                !address2 ? address2 = "" : address2 = `, ${address2}\n`;
 
                 if (!firstName && !lastName && !address1 && !city && !state && !zip) {
                     console.log("User profile not complete.");
@@ -28,7 +28,7 @@ const Profile = (props) => {
                     // Create a user object with the retrieved data
                     const userData = {
                         name: `${firstName} ${lastName}`,
-                        address: `${address1} ${address2}`,
+                        address: `${address1}${address2}`,
                         cityStateZip: `${city}, ${state} ${zipCode}`,
                     };
                     setPName("Name: ");
@@ -55,7 +55,7 @@ const Profile = (props) => {
                         </div>
                         <div className="userInfo">
                             <p>{user.name}</p>
-                            <p>{user.address} {user.cityStateZip}</p>
+                            <p>{user.address}<br></br> {user.cityStateZip}</p>
                         </div>
                     </div>
                 <Link to="/profilesettings">
