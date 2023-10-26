@@ -2,10 +2,10 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
-const users = require("../data/usersData");
 const userAuthentication = require("../services/basicAuth");
 let authUser = userAuthentication.authUser;
 let { user } = require("../models/userSchemas");
+let { profile } = require("../models/userSchemas");
 
 // LOGIN
 router.post("/api/login", async (req, res) => {
@@ -47,17 +47,21 @@ router.post("/api/login", async (req, res) => {
 });
 
 // Get user by ID
-router.get("/api/users/id", authUser, (request, response) => {
+router.get("/api/users/id", authUser, async (request, response) => {
   try {
     const token = request.headers["token"];
     const decoded = jwt.verify(token, "secretkey");
     const userID = decoded.userId;
 
-    const user = users.find((user) => user.id === userID);
-    if (!user) {
-      return response.status(404).json({ message: "User not found" });
+    const userExists = await profile.findOne({ _id: userID }).exec();
+
+    if (!userExists) {
+      return res.status(401).json({
+        title: "User not found.",
+        message: "Invalid credentials.",
+      });
     }
-    response.json(user);
+    response.json(userExists);
   } catch (error) {
     return response.status(401).json({ message: "Unauthorized" });
   }
@@ -87,9 +91,7 @@ router.post("/api/users", async (request, response) => {
       profileComplete: false,
     });
     const savedUser = await newUser.save();
-    return response
-      .status(200)
-      .json({ savedUser: savedUser, message: "User added successfully." });
+    return response.status(200).json({ message: "User added successfully." });
   } catch (err) {
     console.log(err);
     response.status(500).json({

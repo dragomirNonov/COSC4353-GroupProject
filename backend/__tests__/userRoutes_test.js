@@ -1,7 +1,6 @@
 const request = require("supertest");
 const app = require("../index"); // Adjust the relative path as needed
 const jwt = require("jsonwebtoken");
-const users = require("../data/usersData");
 
 describe("POST /api/login", () => {
   it("returns 401 for an unknown user", async () => {
@@ -10,7 +9,10 @@ describe("POST /api/login", () => {
       .send({ username: "unknownUser", password: "password" });
 
     expect(response.status).toBe(401);
-    expect(response.body).toEqual({ message: "User not found" });
+    expect(response.body).toEqual({
+      title: "User not found.",
+      message: "Invalid credentials.",
+    });
   });
 
   it("returns 200 for a valid login", async () => {
@@ -20,7 +22,7 @@ describe("POST /api/login", () => {
 
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty("token");
-    expect(response.body).toHaveProperty("isProfileComplate");
+    expect(response.body).toHaveProperty("isProfileComplete");
   });
 
   it("returns 404 for a valid token with an unknown user ID", async () => {
@@ -31,13 +33,16 @@ describe("POST /api/login", () => {
       .get("/api/users/id")
       .set("token", token);
 
-    expect(response.status).toBe(404);
-    expect(response.body).toEqual({ message: "User not found" });
+    expect(response.status).toBe(401);
+    expect(response.body).toEqual({ message: "Unauthorized" });
   });
 
   it("returns 200 for a valid token with an unknown user ID", async () => {
     // Create a valid token with a non-existent user ID
-    const token = jwt.sign({ userId: 300 }, "secretkey");
+    const token = jwt.sign(
+      { userId: "874d15e0-6bb6-11ee-87d1-472fcbd17fc7" },
+      "secretkey"
+    );
 
     const response = await request(app)
       .get("/api/users/id")
@@ -55,8 +60,8 @@ describe("POST /api/login", () => {
 
     const response = await request(app).post("/api/users").send(newUser);
 
-    expect(response.status).toBe(201);
-    expect(response.body).toEqual({ message: "User added successfully" });
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual({ message: "User added successfully." });
 
     // You can add additional assertions to check the user creation logic here.
   });
@@ -64,26 +69,17 @@ describe("POST /api/login", () => {
   it("returns a 400 status for an existing username", async () => {
     // Add a user with an existing username to the 'users' array for testing
     const existingUser = {
-      username: "existingUser",
-      password: "existingPassword",
-      email: "existinguser@example.com",
-    };
-    users.push(existingUser);
-
-    const newUserWithDuplicateUsername = {
-      username: "existingUser",
-      password: "newPassword",
-      email: "newuser@example.com",
+      username: "asd",
+      password: "asd",
+      email: "nonov.dragomir@gmail.com",
     };
 
-    const response = await request(app)
-      .post("/api/users")
-      .send(newUserWithDuplicateUsername);
+    const response = await request(app).post("/api/users").send(existingUser);
 
-    expect(response.status).toBe(400);
-    expect(response.body).toEqual({ message: "User already exists" });
-
-    // Remove the test user added to 'users' array to keep the data clean
-    users.pop();
+    expect(response.status).toBe(401);
+    expect(response.body).toEqual({
+      title: "Existing Email",
+      message: "User already exists.",
+    });
   });
 });

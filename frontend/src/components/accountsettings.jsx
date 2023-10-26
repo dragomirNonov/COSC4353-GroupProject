@@ -1,7 +1,8 @@
 import { BrowserRouter as Router, Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../settings.css";
 import userService from "../services/users";
+import { useNavigate } from "react-router-dom";
 
 const AccountSettings = (props) => {
   var [inputError, setInputError] = useState(false);
@@ -9,7 +10,7 @@ const AccountSettings = (props) => {
   const [password, setPassword] = useState("");
   var [message, setMessage] = useState("");
   var [errorMessage, setErrorMessage] = useState("");
-
+  const navigate = useNavigate();
   const handleEmailChange = (event) => {
     let emailInput = event.target;
     emailInput.classList.remove("invalid-input");
@@ -20,22 +21,21 @@ const AccountSettings = (props) => {
 
   const handleEmailBlur = (event) => {
     let emailInput = event.target;
-    
+
     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,5}$/;
 
     if (!emailPattern.test(event.target.value) && event.target.value !== "") {
       console.log("Bad email input.");
-      setMessage('');
-      setErrorMessage('Invalid input.');
+      setMessage("");
+      setErrorMessage("Invalid input.");
       emailInput.classList.add("invalid-input");
       setInputError(true);
-    }
-    else {
+    } else {
       setEmail(event.target.value);
-      setMessage('');
+      setMessage("");
       setInputError(false);
     }
-  }
+  };
 
   const handlePasswordChange = (event) => {
     setMessage("");
@@ -52,7 +52,10 @@ const AccountSettings = (props) => {
     console.log("Input error: ", inputError);
 
     // If form is not empty and emailInput matches pattern
-    if (!inputError && !(emailInput.value === "" && passwordInput.value ==="")) {
+    if (
+      !inputError &&
+      !(emailInput.value === "" && passwordInput.value === "")
+    ) {
       const updateAccObj = {
         email: email,
         password: password,
@@ -60,14 +63,15 @@ const AccountSettings = (props) => {
 
       try {
         // Make the API call with the token in the headers
-        userService.updateAccount(updateAccObj, {})
-          .then(response => {
+        userService
+          .updateAccount(updateAccObj, {})
+          .then((response) => {
             if (response.status === 200) {
               console.log(response.data.message);
-              setMessage(response.data.message)
+              setMessage(response.data.message);
             }
           })
-          .catch(error => {
+          .catch((error) => {
             console.error("Error updating account: ", error);
             setErrorMessage(error.response.data.message);
           });
@@ -77,12 +81,21 @@ const AccountSettings = (props) => {
       }
       setMessage("");
       setErrorMessage("");
-    }
-    else {
-      inputError ? setErrorMessage("Invalid input.") : setErrorMessage("Please enter a new email or password to update your account.");
+    } else {
+      inputError
+        ? setErrorMessage("Invalid input.")
+        : setErrorMessage(
+            "Please enter a new email or password to update your account."
+          );
     }
   };
 
+  useEffect(() => {
+    if (localStorage.getItem("token") === null) {
+      // Redirect to the login page
+      navigate("/");
+    }
+  }, [navigate]);
   return (
     <div className="gradient-background">
       <div className="main-container">

@@ -1,11 +1,10 @@
-import { BrowserRouter as Router, Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import usersService from "../services/users";
 import quoteService from "../services/quotes";
 
-const QuoteForm = (props) => {
+const QuoteForm = () => {
   const suggestedPrice = 2.8; //$ per gallon, fetch from pricing module
   const [gallons, setGallons] = useState("");
   const [selectedDate, setSelectedDate] = useState(null);
@@ -39,6 +38,8 @@ const QuoteForm = (props) => {
       gallons: gallons,
       date: selectedDate,
       address: address,
+      pricePerGalon: suggestedPrice,
+      totalAmount: suggestedPrice * gallons,
     };
     quoteService.createQuote(quote).then((res) => {
       setSuccessMessage(res.data.message);

@@ -1,7 +1,8 @@
 import { BrowserRouter as Router, Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../settings.css";
 import userService from "../services/users";
+import { useNavigate } from "react-router-dom";
 
 const ProfileSettings = (props) => {
   var [firstError, setFirstError] = useState(true);
@@ -11,8 +12,7 @@ const ProfileSettings = (props) => {
   var [cityError, setCityError] = useState(true);
   var [stateError, setStateError] = useState(true);
   var [zipError, setZipError] = useState(true);
-
-
+  const navigate = useNavigate();
   var [message, setMessage] = useState("");
   var [errorMessage, setErrorMessage] = useState("");
 
@@ -34,20 +34,20 @@ const ProfileSettings = (props) => {
 
   const handleFirstBlur = (event) => {
     let nameInput = event.target;
-    
+
     const namePattern = /^[A-Za-z]{1,25}$/;
 
     if (!namePattern.test(event.target.value) || event.target.value === "") {
       console.log("Bad name input.");
-      setMessage('');
-      setErrorMessage('Invalid first name.');
+      setMessage("");
+      setErrorMessage("Invalid first name.");
       nameInput.classList.add("invalid-input");
       setFirstError(true);
     } else {
-      setMessage('');
+      setMessage("");
       setFirstError(false);
     }
-  }
+  };
 
   const handleLastNameChange = (event) => {
     let lastInput = event.target;
@@ -58,20 +58,20 @@ const ProfileSettings = (props) => {
 
   const handleLastBlur = (event) => {
     let nameInput = event.target;
-    
+
     const namePattern = /^[A-Za-z]{1,25}$/;
 
     if (!namePattern.test(event.target.value) || event.target.value === "") {
       console.log("Bad name input.");
-      setMessage('');
-      setErrorMessage('Invalid last name.');
+      setMessage("");
+      setErrorMessage("Invalid last name.");
       nameInput.classList.add("invalid-input");
       setLastError(true);
     } else {
-      setMessage('');
+      setMessage("");
       setLastError(false);
     }
-  }
+  };
 
   const handleAddress1Change = (event) => {
     let address1Input = event.target;
@@ -82,20 +82,24 @@ const ProfileSettings = (props) => {
 
   const handleAddress1Blur = (event) => {
     let address1Input = event.target;
-    
-    const address1Pattern = /^(?=\S*\s)(?=[^a-zA-Z]*[a-zA-Z])(?=\D*\d)[a-zA-Z\d\s',.#/-]*$/;
 
-    if (!address1Pattern.test(event.target.value) || event.target.value === "") {
+    const address1Pattern =
+      /^(?=\S*\s)(?=[^a-zA-Z]*[a-zA-Z])(?=\D*\d)[a-zA-Z\d\s',.#/-]*$/;
+
+    if (
+      !address1Pattern.test(event.target.value) ||
+      event.target.value === ""
+    ) {
       console.log("Bad address 1 input.");
-      setMessage('');
-      setErrorMessage('Invalid address 1.');
+      setMessage("");
+      setErrorMessage("Invalid address 1.");
       address1Input.classList.add("invalid-input");
       setAddress1Error(true);
     } else {
-      setMessage('');
+      setMessage("");
       setAddress1Error(false);
     }
-  }
+  };
 
   const handleAddress2Change = (event) => {
     setMessage("");
@@ -107,21 +111,23 @@ const ProfileSettings = (props) => {
 
   const handleAddress2Blur = (event) => {
     let address2Input = event.target;
-    
+
     const address2Pattern = /^[A-Za-z]*[.]?[ ]+[0-9]*$/;
 
-    if (!address2Pattern.test(event.target.value) && event.target.value !== "") {
+    if (
+      !address2Pattern.test(event.target.value) &&
+      event.target.value !== ""
+    ) {
       console.log("Bad address 2 input.");
-      setMessage('');
-      setErrorMessage('Invalid address 2.');
+      setMessage("");
+      setErrorMessage("Invalid address 2.");
       address2Input.classList.add("invalid-input");
       setAddress2Error(true);
-    }
-    else {
-      setMessage('');
+    } else {
+      setMessage("");
       setAddress2Error(false);
     }
-  }
+  };
 
   const handleCityChange = (event) => {
     let cityInput = event.target;
@@ -132,20 +138,20 @@ const ProfileSettings = (props) => {
 
   const handleCityBlur = (event) => {
     let cityInput = event.target;
-    
+
     const cityPattern = /^[A-Za-z ]{1,25}$/;
 
     if (!cityPattern.test(event.target.value) || event.target.value === "") {
       console.log("Bad city input.");
-      setMessage('');
-      setErrorMessage('Invalid city.');
+      setMessage("");
+      setErrorMessage("Invalid city.");
       cityInput.classList.add("invalid-input");
       setCityError(true);
     } else {
-      setMessage('');
+      setMessage("");
       setCityError(false);
     }
-  }
+  };
 
   const handleStateChange = (event) => {
     let stateInput = event.target;
@@ -154,16 +160,15 @@ const ProfileSettings = (props) => {
 
     if (event.target.value === "") {
       stateInput.classList.add("invalid-input");
-      setMessage('');
-      setErrorMessage('Please select a state.');
+      setMessage("");
+      setErrorMessage("Please select a state.");
       setStateError(true);
-    }
-    else {
-      setMessage('');
+    } else {
+      setMessage("");
       setStateError(false);
     }
   };
-  
+
   const handleZipCodeChange = (event) => {
     let zipInput = event.target;
     zipInput.classList.remove("invalid-input");
@@ -173,20 +178,20 @@ const ProfileSettings = (props) => {
 
   const handleZipBlur = (event) => {
     let zipInput = event.target;
-    
+
     const zipPattern = /[0-9]{5,9}/;
 
     if (!zipPattern.test(event.target.value) || event.target.value === "") {
       console.log("Bad zip code input.");
-      setMessage('');
-      setErrorMessage('Invalid zip.');
+      setMessage("");
+      setErrorMessage("Invalid zip.");
       zipInput.classList.add("invalid-input");
       setZipError(true);
     } else {
-      setMessage('');
+      setMessage("");
       setZipError(false);
     }
-  }
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -201,7 +206,15 @@ const ProfileSettings = (props) => {
     console.log("State error: ", stateError);
     console.log("Zip error: ", zipError);
 
-    if (!firstError && !lastError && !address1Error && !address2Error && !cityError && !stateError && !zipError) {
+    if (
+      !firstError &&
+      !lastError &&
+      !address1Error &&
+      !address2Error &&
+      !cityError &&
+      !stateError &&
+      !zipError
+    ) {
       const updateProfObj = {
         firstName: firstName,
         lastName: lastName,
@@ -222,20 +235,21 @@ const ProfileSettings = (props) => {
 
       try {
         // Make the API call with the token in the headers
-        userService.updateProfile(updateProfObj, {})
-          .then(response => {
+        userService
+          .updateProfile(updateProfObj, {})
+          .then((response) => {
             if (response.status === 200) {
               console.log(response.data.message);
               if (response.data.isProfileComplete === true) {
                 console.log("isProfileComplete: true");
-                setMessage("Profile updated successfully")
+                setMessage("Profile updated successfully");
               } else {
                 console.log("isProfileComplete: false");
                 setErrorMessage("Error updating profile.");
               }
             }
           })
-          .catch(error => {
+          .catch((error) => {
             console.error("Error updating profile: ", error);
             setErrorMessage("Error updating profile.");
           });
@@ -243,12 +257,17 @@ const ProfileSettings = (props) => {
         console.error("Error updating profile: ", error);
         setErrorMessage("Error updating profile.");
       }
-    }
-    else {
+    } else {
       setErrorMessage("Invalid input.");
     }
   };
 
+  useEffect(() => {
+    if (localStorage.getItem("token") === null) {
+      // Redirect to the login page
+      navigate("/");
+    }
+  }, [navigate]);
   return (
     <div className="gradient-background">
       <div className="main-container">
@@ -330,15 +349,15 @@ const ProfileSettings = (props) => {
             </div>
             <div>
               <label htmlFor="city">City</label>
-                <input
-                  type="text"
-                  id="city"
-                  name="city"
-                  value={city}
-                  onChange={handleCityChange}
-                  onBlur={handleCityBlur}
-                  maxLength="100"
-                />
+              <input
+                type="text"
+                id="city"
+                name="city"
+                value={city}
+                onChange={handleCityChange}
+                onBlur={handleCityBlur}
+                maxLength="100"
+              />
             </div>
 
             <div>
@@ -428,6 +447,5 @@ const ProfileSettings = (props) => {
     </div>
   );
 };
-
 
 export default ProfileSettings;

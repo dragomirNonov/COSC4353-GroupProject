@@ -70,9 +70,11 @@ const quoteSchema = new Schema({
   requestDate: { type: Date, required: true },
   deliveryDate: { type: Date, required: true },
   gallons: { type: Number, required: true },
+  pricePerGallon: { type: Number },
+  totalAmount: { type: Number },
 });
 
-const Quote = mongoose.model("quotes", quoteSchema);
+const quote = mongoose.model("quotes", quoteSchema);
 
 // package the models in an object to export
-module.exports = { user, profile };
+module.exports = { user, profile, quote };
