@@ -4,7 +4,7 @@ const Quote = (props) => {
       <div className="main-sub-div">
         <button className="quote-button">View Quote</button>
         <div className="sub-div">
-          <p className="quote-p grey">Delivery Adress:</p>
+          <p className="quote-p grey">Delivery Address:</p>
           <p className="quote-p grey">Gallons:</p>
           <p className="quote-p grey">Fuel Rates:</p>
         </div>

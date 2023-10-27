@@ -72,9 +72,9 @@ const quoteSchema = new Schema({
   gallons: { type: Number, required: true },
   pricePerGallon: { type: Number },
   totalAmount: { type: Number },
+  fuelRate: { type: Number },
 });
 
 const quote = mongoose.model("quotes", quoteSchema);
-
 // package the models in an object to export
 module.exports = { user, profile, quote };

@@ -1,7 +1,6 @@
 const request = require("supertest");
 const jwt = require("jsonwebtoken");
 const app = require("../index");
-const users = require("../data/usersData");
 let { user, profile } = require("../models/userSchemas");
 
 describe("GET api/profile", () => {
