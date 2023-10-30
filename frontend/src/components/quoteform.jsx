@@ -5,17 +5,27 @@ import usersService from "../services/users";
 import quoteService from "../services/quotes";
 
 const QuoteForm = () => {
-  const suggestedPrice = 2.8; //$ per gallon, fetch from pricing module
   const [gallons, setGallons] = useState("");
+  const [quoteHistory, setQuoteHistory] = useState(0);
+  const [state, setState] = useState("");
+
   const [selectedDate, setSelectedDate] = useState(null);
-  const [profitMargin, setProfitMargin] = useState("");
+  // const [profitMargin, setProfitMargin] = useState(3);
   const [address, setAdress] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
+  const [suggestedPrice, setSuggestedPrice] = useState(0);
+  const [totalAmount, setTotalAmount] = useState(0);
+
   useEffect(() => {
     usersService.getUserByID().then((res) => {
-      console.log(res.data);
-      setAdress(res.data.address1);
+      // console.log(res.data);
+      setAdress(`${res.data.address1}, ${res.data.city}, ${res.data.state}`);
+      setState(res.data.state);
+    });
+    quoteService.getAllUserQuotes().then((res) => {
+      // console.log(res.data.length);
+      setQuoteHistory(res.data.length);
     });
   }, []);
 
@@ -27,9 +37,9 @@ const QuoteForm = () => {
     setSelectedDate(date);
   };
 
-  const handleProfitMarginChange = (event) => {
-    setProfitMargin(event.target.value);
-  };
+  // const handleProfitMarginChange = (event) => {
+  //   setProfitMargin(event.target.value);
+  // };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -39,15 +49,29 @@ const QuoteForm = () => {
       date: selectedDate,
       address: address,
       pricePerGalon: suggestedPrice,
-      totalAmount: suggestedPrice * gallons,
+      totalAmount: totalAmount,
     };
     quoteService.createQuote(quote).then((res) => {
       setSuccessMessage(res.data.message);
       console.log(res.data.message);
       setGallons("");
       setSelectedDate("");
-      setProfitMargin("");
-      ///setSuccessMessage("");
+      // setProfitMargin("");
+      setSuggestedPrice(0);
+      setTotalAmount(0);
+    });
+  };
+
+  const handleGetQuote = (event) => {
+    event.preventDefault();
+    const quote = {
+      gallons: gallons,
+      state: state,
+      quoteHistory: quoteHistory,
+    };
+    quoteService.getQuote(quote).then((res) => {
+      setSuggestedPrice(res.data.suggestedPricePerGallon);
+      setTotalAmount(res.data.totalAmount);
     });
   };
 
@@ -91,7 +115,7 @@ const QuoteForm = () => {
             dateFormat="MM/dd/yyyy"
           />
         </div>
-        <div>
+        {/* <div>
           <p>What is your company's profit margin</p>
           <input
             className="textarea"
@@ -103,7 +127,7 @@ const QuoteForm = () => {
             onChange={handleProfitMarginChange}
             required
           />
-        </div>
+        </div> */}
         <div>
           <p>Suggested Price per gallon:</p>
           <input
@@ -122,7 +146,7 @@ const QuoteForm = () => {
             type="text"
             id="total"
             name="total"
-            value={suggestedPrice * gallons}
+            value={totalAmount}
             readOnly
           />
         </div>
@@ -130,6 +154,10 @@ const QuoteForm = () => {
 
         <button className="button" type="submit">
           Submit
+        </button>
+
+        <button className="button" onClick={handleGetQuote}>
+          Get Quote
         </button>
 
         <p className="text">

@@ -2,9 +2,11 @@ const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 const { quote } = require("../models/userSchemas");
-
+const { getSuggestedPrice } = require("../services/pricingModule");
+const userAuthentication = require("../services/basicAuth");
+let authUser = userAuthentication.authUser;
 // Get all quotes
-router.get("/api/quotes", async (request, response) => {
+router.get("/api/quotes", authUser, async (request, response) => {
   try {
     const quotes = await quote.find();
     response.json(quotes);
@@ -14,7 +16,7 @@ router.get("/api/quotes", async (request, response) => {
 });
 
 // Get quotes based on userID
-router.get("/api/quotes/user", async (request, response) => {
+router.get("/api/quotes/user", authUser, async (request, response) => {
   const token = request.headers["token"];
   const decoded = jwt.verify(token, "secretkey");
   const userID = decoded.userId;
@@ -27,8 +29,17 @@ router.get("/api/quotes/user", async (request, response) => {
   }
 });
 
+// Get quote
+router.get("/api/quotes/getquote", authUser, (request, response) => {
+  const quoteObj = request.query;
+  console.log(quoteObj);
+  const finalQuote = getSuggestedPrice(quoteObj);
+  console.log(finalQuote);
+  response.status(201).json(finalQuote);
+});
+
 //Create new Quote
-router.post("/api/quotes", async (request, response) => {
+router.post("/api/quotes", authUser, async (request, response) => {
   const body = request.body;
   const token = request.headers["token"];
   const decoded = jwt.verify(token, "secretkey");

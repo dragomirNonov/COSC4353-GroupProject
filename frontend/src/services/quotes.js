@@ -13,8 +13,17 @@ const getAllUserQuotes = () => {
   });
 };
 
+//Create new quote
 const createQuote = (quoteObj) => {
   return axios.post(baseUrl, quoteObj, {
+    headers: { token: localStorage.getItem("token") },
+  });
+};
+
+//Get final quote
+const getQuote = (quoteObj) => {
+  return axios.get(`${baseUrl}/getquote`, {
+    params: quoteObj,
     headers: { token: localStorage.getItem("token") },
   });
 };
@@ -23,4 +32,5 @@ export default {
   getAll,
   getAllUserQuotes,
   createQuote,
+  getQuote,
 };
