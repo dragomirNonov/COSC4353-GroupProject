@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">24.24% </span>
+                <span class="strong">28.57% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>8/33</span>
+                <span class='fraction'>12/42</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">24.24% </span>
+                <span class="strong">28.57% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>8/33</span>
+                <span class='fraction'>12/42</span>
             </div>
         
             
@@ -125,12 +125,25 @@
 <a name='L60'></a><a href='#L60'>60</a>
 <a name='L61'></a><a href='#L61'>61</a>
 <a name='L62'></a><a href='#L62'>62</a>
-<a name='L63'></a><a href='#L63'>63</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -152,6 +165,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -191,9 +213,11 @@
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 const { quote } = require("../models/userSchemas");
-&nbsp;
+const { getSuggestedPrice } = require("../services/pricingModule");
+const userAuthentication = require("../services/basicAuth");
+let authUser = userAuthentication.authUser;
 // Get all quotes
-router.get("/api/quotes", <span class="fstat-no" title="function not covered" >as</span>ync (request, response) =&gt; {
+router.get("/api/quotes", authUser, <span class="fstat-no" title="function not covered" >as</span>ync (request, response) =&gt; {
 <span class="cstat-no" title="statement not covered" >  try {</span>
     const quotes = <span class="cstat-no" title="statement not covered" >await quote.find();</span>
 <span class="cstat-no" title="statement not covered" >    response.json(quotes);</span>
@@ -203,7 +227,7 @@ router.get("/api/quotes", <span class="fstat-no" title="function not covered" >a
 });
 &nbsp;
 // Get quotes based on userID
-router.get("/api/quotes/user", <span class="fstat-no" title="function not covered" >as</span>ync (request, response) =&gt; {
+router.get("/api/quotes/user", authUser, <span class="fstat-no" title="function not covered" >as</span>ync (request, response) =&gt; {
   const token = <span class="cstat-no" title="statement not covered" >request.headers["token"];</span>
   const decoded = <span class="cstat-no" title="statement not covered" >jwt.verify(token, "secretkey");</span>
   const userID = <span class="cstat-no" title="statement not covered" >decoded.userId;</span>
@@ -216,8 +240,17 @@ router.get("/api/quotes/user", <span class="fstat-no" title="function not covere
   }
 });
 &nbsp;
+// Get quote
+router.get("/api/quotes/getquote", authUser, <span class="fstat-no" title="function not covered" >(r</span>equest, response) =&gt; {
+  const quoteObj = <span class="cstat-no" title="statement not covered" >request.query;</span>
+<span class="cstat-no" title="statement not covered" >  console.log(quoteObj);</span>
+  const finalQuote = <span class="cstat-no" title="statement not covered" >getSuggestedPrice(quoteObj);</span>
+<span class="cstat-no" title="statement not covered" >  console.log(finalQuote);</span>
+<span class="cstat-no" title="statement not covered" >  response.status(201).json(finalQuote);</span>
+});
+&nbsp;
 //Create new Quote
-router.post("/api/quotes", <span class="fstat-no" title="function not covered" >as</span>ync (request, response) =&gt; {
+router.post("/api/quotes", authUser, <span class="fstat-no" title="function not covered" >as</span>ync (request, response) =&gt; {
   const body = <span class="cstat-no" title="statement not covered" >request.body;</span>
   const token = <span class="cstat-no" title="statement not covered" >request.headers["token"];</span>
   const decoded = <span class="cstat-no" title="statement not covered" >jwt.verify(token, "secretkey");</span>
@@ -256,7 +289,7 @@ module.exports = router;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-10-27T19:35:58.487Z
+                at 2023-11-18T03:50:53.099Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

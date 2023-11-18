@@ -38,7 +38,6 @@ router.post("/api/login", async (req, res) => {
       isProfileComplete: userExists.profileComplete,
     });
   } catch (err) {
-    console.log(err);
     res.status(500).json({
       title: "server error",
       error: err.message,

@@ -1,6 +1,7 @@
 const request = require("supertest");
 const app = require("../index"); // Adjust the relative path as needed
 const jwt = require("jsonwebtoken");
+const userModel = require("../models/userSchemas").user;
 
 describe("POST /api/login", () => {
   it("returns 401 for an unknown user", async () => {
@@ -15,6 +16,18 @@ describe("POST /api/login", () => {
     });
   });
 
+  it("returns 401 for an unknown user", async () => {
+    const response = await request(app)
+      .post("/api/login")
+      .send({ username: "asd", password: "password" });
+
+    expect(response.status).toBe(401);
+    expect(response.body).toEqual({
+      title: "Login Failed.",
+      message: "Invalid Password.",
+    });
+  });
+
   it("returns 200 for a valid login", async () => {
     const response = await request(app)
       .post("/api/login")
@@ -23,6 +36,27 @@ describe("POST /api/login", () => {
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty("token");
     expect(response.body).toHaveProperty("isProfileComplete");
+  });
+
+  it("returns 500 for a server error", async () => {
+    // Mocking the findOne method to throw an error
+    jest.spyOn(userModel, "findOne").mockImplementation(() => {
+      throw new Error("Simulated server error");
+    });
+
+    const response = await request(app)
+      .post("/api/login")
+      .send({ username: "existingUser", password: "password" });
+
+    // Expecting a 500 status code and the error response
+    expect(response.status).toBe(500);
+    expect(response.body).toEqual({
+      title: "server error",
+      error: "Simulated server error",
+    });
+
+    // Restoring the original implementation of findOne after the test
+    jest.spyOn(userModel, "findOne").mockRestore();
   });
 
   it("returns 404 for a valid token with an unknown user ID", async () => {
