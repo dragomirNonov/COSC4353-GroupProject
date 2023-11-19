@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1700424674446" clover="3.2.0">
-  <project timestamp="1700424674446" name="All files">
-    <metrics statements="291" coveredstatements="241" conditionals="85" coveredconditionals="80" methods="18" coveredmethods="13" elements="394" coveredelements="334" complexity="0" loc="291" ncloc="291" packages="4" files="7" classes="7"/>
+<coverage generated="1700425513539" clover="3.2.0">
+  <project timestamp="1700425513540" name="All files">
+    <metrics statements="291" coveredstatements="236" conditionals="85" coveredconditionals="78" methods="18" coveredmethods="13" elements="394" coveredelements="327" complexity="0" loc="291" ncloc="291" packages="4" files="7" classes="7"/>
     <package name="backend">
       <metrics statements="20" coveredstatements="19" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="2"/>
-      <file name="index.js" path="C:\Users\drago\Desktop\COSC4353-GroupProjectNew\backend\index.js">
+      <file name="index.js" path="C:\Users\ulisucksweinwer.DESKTOP-ACLRN6B\Desktop\School\Fall 2023\COSC_4353\Group_App\COSC4353-GroupProject\backend\index.js">
         <metrics statements="20" coveredstatements="19" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="2"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
@@ -30,7 +30,7 @@
     </package>
     <package name="backend.models">
       <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="userSchemas.js" path="C:\Users\drago\Desktop\COSC4353-GroupProjectNew\backend\models\userSchemas.js">
+      <file name="userSchemas.js" path="C:\Users\ulisucksweinwer.DESKTOP-ACLRN6B\Desktop\School\Fall 2023\COSC_4353\Group_App\COSC4353-GroupProject\backend\models\userSchemas.js">
         <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="3" type="stmt"/>
         <line num="2" count="3" type="stmt"/>
@@ -45,9 +45,9 @@
       </file>
     </package>
     <package name="backend.routes">
-      <metrics statements="243" coveredstatements="194" conditionals="75" coveredconditionals="70" methods="12" coveredmethods="8"/>
-      <file name="profileSettings.js" path="C:\Users\drago\Desktop\COSC4353-GroupProjectNew\backend\routes\profileSettings.js">
-        <metrics statements="161" coveredstatements="142" conditionals="67" coveredconditionals="62" methods="5" coveredmethods="5"/>
+      <metrics statements="243" coveredstatements="189" conditionals="75" coveredconditionals="68" methods="12" coveredmethods="8"/>
+      <file name="profileSettings.js" path="C:\Users\ulisucksweinwer.DESKTOP-ACLRN6B\Desktop\School\Fall 2023\COSC_4353\Group_App\COSC4353-GroupProject\backend\routes\profileSettings.js">
+        <metrics statements="161" coveredstatements="140" conditionals="67" coveredconditionals="61" methods="5" coveredmethods="5"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
         <line num="3" count="2" type="stmt"/>
@@ -56,20 +56,20 @@
         <line num="6" count="2" type="stmt"/>
         <line num="8" count="2" type="stmt"/>
         <line num="62" count="2" type="stmt"/>
-        <line num="63" count="6" type="stmt"/>
-        <line num="64" count="6" type="stmt"/>
-        <line num="65" count="6" type="stmt"/>
-        <line num="66" count="3" type="stmt"/>
-        <line num="68" count="3" type="stmt"/>
-        <line num="70" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="63" count="5" type="stmt"/>
+        <line num="64" count="5" type="stmt"/>
+        <line num="65" count="5" type="stmt"/>
+        <line num="66" count="2" type="stmt"/>
+        <line num="68" count="2" type="stmt"/>
+        <line num="70" count="2" type="cond" truecount="2" falsecount="0"/>
         <line num="71" count="1" type="stmt"/>
         <line num="72" count="1" type="stmt"/>
-        <line num="74" count="2" type="stmt"/>
-        <line num="78" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="74" count="1" type="stmt"/>
+        <line num="78" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="79" count="1" type="stmt"/>
         <line num="80" count="1" type="stmt"/>
-        <line num="84" count="1" type="stmt"/>
-        <line num="85" count="1" type="stmt"/>
+        <line num="84" count="0" type="stmt"/>
+        <line num="85" count="0" type="stmt"/>
         <line num="95" count="3" type="stmt"/>
         <line num="96" count="3" type="stmt"/>
         <line num="101" count="2" type="stmt"/>
@@ -210,7 +210,7 @@
         <line num="374" count="0" type="stmt"/>
         <line num="378" count="2" type="stmt"/>
       </file>
-      <file name="quoteHistory.js" path="C:\Users\drago\Desktop\COSC4353-GroupProjectNew\backend\routes\quoteHistory.js">
+      <file name="quoteHistory.js" path="C:\Users\ulisucksweinwer.DESKTOP-ACLRN6B\Desktop\School\Fall 2023\COSC_4353\Group_App\COSC4353-GroupProject\backend\routes\quoteHistory.js">
         <metrics statements="42" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
@@ -255,8 +255,8 @@
         <line num="69" count="0" type="stmt"/>
         <line num="73" count="2" type="stmt"/>
       </file>
-      <file name="userRoutes.js" path="C:\Users\drago\Desktop\COSC4353-GroupProjectNew\backend\routes\userRoutes.js">
-        <metrics statements="40" coveredstatements="40" conditionals="8" coveredconditionals="8" methods="3" coveredmethods="3"/>
+      <file name="userRoutes.js" path="C:\Users\ulisucksweinwer.DESKTOP-ACLRN6B\Desktop\School\Fall 2023\COSC_4353\Group_App\COSC4353-GroupProject\backend\routes\userRoutes.js">
+        <metrics statements="40" coveredstatements="37" conditionals="8" coveredconditionals="7" methods="3" coveredmethods="3"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
         <line num="3" count="2" type="stmt"/>
@@ -290,18 +290,18 @@
         <line num="72" count="4" type="stmt"/>
         <line num="73" count="4" type="stmt"/>
         <line num="75" count="4" type="stmt"/>
-        <line num="80" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="81" count="1" type="stmt"/>
-        <line num="86" count="1" type="stmt"/>
-        <line num="92" count="1" type="stmt"/>
-        <line num="93" count="1" type="stmt"/>
+        <line num="80" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="81" count="2" type="stmt"/>
+        <line num="86" count="0" type="stmt"/>
+        <line num="92" count="0" type="stmt"/>
+        <line num="93" count="0" type="stmt"/>
         <line num="95" count="2" type="stmt"/>
         <line num="102" count="2" type="stmt"/>
       </file>
     </package>
     <package name="backend.services">
       <metrics statements="18" coveredstatements="18" conditionals="10" coveredconditionals="10" methods="3" coveredmethods="3"/>
-      <file name="basicAuth.js" path="C:\Users\drago\Desktop\COSC4353-GroupProjectNew\backend\services\basicAuth.js">
+      <file name="basicAuth.js" path="C:\Users\ulisucksweinwer.DESKTOP-ACLRN6B\Desktop\School\Fall 2023\COSC_4353\Group_App\COSC4353-GroupProject\backend\services\basicAuth.js">
         <metrics statements="10" coveredstatements="10" conditionals="4" coveredconditionals="4" methods="2" coveredmethods="2"/>
         <line num="1" count="3" type="stmt"/>
         <line num="3" count="3" type="stmt"/>
@@ -314,7 +314,7 @@
         <line num="14" count="2" type="stmt"/>
         <line num="18" count="3" type="stmt"/>
       </file>
-      <file name="pricingModule.js" path="C:\Users\drago\Desktop\COSC4353-GroupProjectNew\backend\services\pricingModule.js">
+      <file name="pricingModule.js" path="C:\Users\ulisucksweinwer.DESKTOP-ACLRN6B\Desktop\School\Fall 2023\COSC_4353\Group_App\COSC4353-GroupProject\backend\services\pricingModule.js">
         <metrics statements="8" coveredstatements="8" conditionals="6" coveredconditionals="6" methods="1" coveredmethods="1"/>
         <line num="1" count="3" type="stmt"/>
         <line num="3" count="2" type="cond" truecount="2" falsecount="0"/>
