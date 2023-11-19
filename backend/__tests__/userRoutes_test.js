@@ -116,4 +116,59 @@ describe("POST /api/login", () => {
       message: "User already exists.",
     });
   });
+
+  it("should handle server error", async () => {
+    // Mocking findOne to simulate a server error
+    jest.spyOn(userModel, "findOne").mockImplementation(() => {
+      throw new Error("Simulated server error");
+    });
+
+    const userData = {
+      username: "testuser",
+      email: "test@example.com",
+      password: "testpassword",
+    };
+
+    const response = await request(app).post("/api/users").send(userData);
+
+    // Expect a 500 server error response
+    expect(response.status).toBe(500);
+    expect(response.body).toEqual({
+      title: "server error",
+      error: "Simulated server error",
+    });
+
+    // Restore the original implementation of findOne
+    userModel.findOne.mockRestore();
+  });
+
+  it("should register a new user", async () => {
+    // Mocking findOne to simulate that the user does not exist
+    jest.spyOn(userModel, "findOne").mockResolvedValue(null);
+
+    // Mocking the save method to simulate a successful user creation
+    jest.spyOn(userModel.prototype, "save").mockResolvedValue({
+      _id: "someuserid",
+      username: "testuser",
+      email: "test@example.com",
+      password: "hashedpassword",
+      profileComplete: false,
+    });
+
+    const userData = {
+      username: "testuser",
+      email: "test@example.com",
+      password: "testpassword",
+    };
+
+    const response = await request(app).post("/api/users").send(userData);
+
+    // Expect a 200 OK response
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual({ message: "User added successfully." });
+
+    // Restore the original implementations
+    userModel.findOne.mockRestore();
+    userModel.prototype.save.mockRestore();
+  });
 });

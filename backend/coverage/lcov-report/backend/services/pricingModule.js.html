@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">12.5% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>1/8</span>
+                <span class='fraction'>8/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">12.5% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>1/8</span>
+                <span class='fraction'>8/8</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -82,40 +82,40 @@
 <a name='L17'></a><a href='#L17'>17</a>
 <a name='L18'></a><a href='#L18'>18</a>
 <a name='L19'></a><a href='#L19'>19</a>
-<a name='L20'></a><a href='#L20'>20</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L20'></a><a href='#L20'>20</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">module.exports.getSuggestedPrice = <span class="fstat-no" title="function not covered" >(a</span>rgs) =&gt; {
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">module.exports.getSuggestedPrice = (args) =&gt; {
   // Constants for factors and margins
-  const GALLONS_REQUESTED_FACTOR = <span class="cstat-no" title="statement not covered" >args.gallons &lt; 1000 ? 0.03 : 0.02;</span>
-  const RATE_HISTORY_FACTOR = <span class="cstat-no" title="statement not covered" >args.quoteHistory === 0 ? 0 : 0.01;</span>
-  const LOCATION_FACTOR = <span class="cstat-no" title="statement not covered" >args.state === "TX" ? 0.02 : 0.04;</span>
+  const GALLONS_REQUESTED_FACTOR = args.gallons &lt; 1000 ? 0.03 : 0.02;
+  const RATE_HISTORY_FACTOR = args.quoteHistory === 0 ? 0 : 0.01;
+  const LOCATION_FACTOR = args.state === "TX" ? 0.02 : 0.04;
   const MARGIN =
-<span class="cstat-no" title="statement not covered" >    1.5 *</span>
+    1.5 *
     (LOCATION_FACTOR - RATE_HISTORY_FACTOR + GALLONS_REQUESTED_FACTOR + 0.1);
 &nbsp;
   // Calculate suggested price and total amount
-  const suggestedPricePerGallon = <span class="cstat-no" title="statement not covered" >1.5 + MARGIN;</span>
-  const totalAmount = <span class="cstat-no" title="statement not covered" >args.gallons * suggestedPricePerGallon;</span>
+  const suggestedPricePerGallon = 1.5 + MARGIN;
+  const totalAmount = args.gallons * suggestedPricePerGallon;
 &nbsp;
   // Return the results
-<span class="cstat-no" title="statement not covered" >  return {</span>
+  return {
     totalAmount: totalAmount,
     suggestedPricePerGallon: suggestedPricePerGallon,
   };
@@ -127,7 +127,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-11-18T03:50:53.099Z
+                at 2023-11-19T20:11:14.425Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

@@ -92,7 +92,6 @@ router.post("/api/users", async (request, response) => {
     const savedUser = await newUser.save();
     return response.status(200).json({ message: "User added successfully." });
   } catch (err) {
-    console.log(err);
     response.status(500).json({
       title: "server error",
       error: err.message,
