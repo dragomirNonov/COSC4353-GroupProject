@@ -46,6 +46,9 @@ const QuoteForm = () => {
   //   setProfitMargin(event.target.value);
   // };
 
+
+
+/*
   const handleSubmit = (event) => {
     event.preventDefault();
     const quote = {
@@ -55,6 +58,7 @@ const QuoteForm = () => {
       address: address,
       pricePerGalon: suggestedPrice,
       totalAmount: totalAmount,
+      
     };
     quoteService.createQuote(quote).then((res) => {
       setSuccessMessage(res.data.message);
@@ -71,6 +75,52 @@ const QuoteForm = () => {
 
     });
   };
+
+*/
+const handleSubmit = (event) => {
+  event.preventDefault();
+
+  // Check if gallons is greater than 0 and a date is selected
+  if (parseFloat(gallons) > 0 && selectedDate) {
+    // Calculate fuelRate
+    const fuelRate = parseFloat(gallons) / parseFloat(totalAmount);
+
+    const quote = {
+      suggestedPrice: suggestedPrice,
+      gallons: gallons,
+      date: selectedDate,
+      address: address,
+      pricePerGalon: suggestedPrice,
+      totalAmount: totalAmount,
+      fuelRate: fuelRate, // Include fuelRate in the quote
+    };
+
+    quoteService.createQuote(quote).then((res) => {
+      setSuccessMessage(res.data.message);
+      console.log(res.data.message);
+      setGallons("");
+      setSelectedDate("");
+      setSuggestedPrice(0);
+      setTotalAmount(0);
+      setSubmitDisabled(true); // Disable the submit button after submission
+    });
+  } else {
+    if (parseFloat(gallons) <= 0) {
+      console.log('Please enter a valid number of gallons.');
+    }
+    if (!selectedDate) {
+      console.log('Please select a delivery date.');
+    }
+  }
+};
+
+
+
+
+
+
+
+
 
 /*
   const handleGetQuote = (event) => {
@@ -148,7 +198,6 @@ const handleGetQuote = (event) => {
     <div className="bigform">
       <form onSubmit={handleSubmit}>
 
-
         <h2 className="inline">Request a quote</h2>
         <h5>Please fill out the following: </h5>
         <div>
@@ -210,6 +259,7 @@ const handleGetQuote = (event) => {
             readOnly
           />
         </div>
+
         <div>
           <p>Total Amount Due:</p>
           <input
@@ -221,8 +271,8 @@ const handleGetQuote = (event) => {
             readOnly
           />
         </div>
+
         <div className="success">{successMessage}</div>
-         
         <button className="button" type="submit" disabled={submitDisabled}>
           Submit
         </button>
