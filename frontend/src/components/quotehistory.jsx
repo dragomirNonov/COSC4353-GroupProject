@@ -35,6 +35,7 @@ const QuoteHistory = (props) => {
           userAddress3={address3}
           userAddress4={address4}
           userAddress5={address5}
+          index={index}
         />
       ))}
     </div>

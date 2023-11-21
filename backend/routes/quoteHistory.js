@@ -4,7 +4,9 @@ const jwt = require("jsonwebtoken");
 const { quote } = require("../models/userSchemas");
 const { getSuggestedPrice } = require("../services/pricingModule");
 const userAuthentication = require("../services/basicAuth");
+
 let authUser = userAuthentication.authUser;
+
 // Get all quotes
 router.get("/api/quotes", authUser, async (request, response) => {
   try {
@@ -44,7 +46,6 @@ router.post("/api/quotes", authUser, async (request, response) => {
   const token = request.headers["token"];
   const decoded = jwt.verify(token, "secretkey");
   const userID = decoded.userId;
-
   const today = new Date();
   const year = today.getFullYear();
   const month = today.getMonth() + 1; // Months are zero-based, so add 1
@@ -59,7 +60,6 @@ router.post("/api/quotes", authUser, async (request, response) => {
     pricePerGallon: body.pricePerGalon,
     totalAmount: body.totalAmount,
   });
-  console.log(newQuote);
 
   try {
     const savedQuote = await newQuote.save();

@@ -222,6 +222,26 @@ ul {
 .quote-button:hover {
   background-color: f57a7c;
 }
+.container {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  /* border: solid 1px rgb(195, 195, 195); */
+}
+.logout-button {
+  background-color: #f32525;
+  padding: 0.5vmax 1vmax;
+  border-radius: 10px;
+  border: none;
+  color: white;
+}
+.logout-button:hover {
+  background-color: #811414;
+  padding: 0.5vmax 1vmax;
+  border-radius: 10px;
+  border: none;
+  color: white;
+}
 .sub-div {
   /* display: flex; */
   /* justify-content: center; */
