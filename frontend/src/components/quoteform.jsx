@@ -165,13 +165,15 @@ const QuoteForm = () => {
 
         <div className="success">{successMessage}</div>
         <div className="error">{errorMessage}</div>
+        <button className="button" onClick={handleGetQuote}>
+          Get Quote
+        </button>
+        
         <button className="button" type="submit" disabled={submitDisabled}>
           Submit
         </button>
 
-        <button className="button" onClick={handleGetQuote}>
-          Get Quote
-        </button>
+        
 
         {/* <button>Cancel</button> */}
       </form>
