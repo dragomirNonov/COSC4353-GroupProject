@@ -56,9 +56,10 @@ router.post("/api/quotes", authUser, async (request, response) => {
     requestDate: formattedDate,
     deliveryDate: body.date,
     gallons: body.gallons,
-    pricePerGallon: body.pricePerGallon,
+    pricePerGallon: body.pricePerGalon,
     totalAmount: body.totalAmount,
   });
+  console.log(newQuote);
 
   try {
     const savedQuote = await newQuote.save();

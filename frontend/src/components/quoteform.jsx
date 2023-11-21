@@ -17,12 +17,10 @@ const QuoteForm = () => {
   const [suggestedPrice, setSuggestedPrice] = useState(0);
   const [totalAmount, setTotalAmount] = useState(0);
 
-
   //
   const [submitDisabled, setSubmitDisabled] = useState(true);
   //
   useEffect(() => {
-    
     usersService.getUserByID().then((res) => {
       // console.log(res.data);
       setAdress(`${res.data.address1}, ${res.data.city}, ${res.data.state}`);
@@ -46,9 +44,7 @@ const QuoteForm = () => {
   //   setProfitMargin(event.target.value);
   // };
 
-
-
-/*
+  /*
   const handleSubmit = (event) => {
     event.preventDefault();
     const quote = {
@@ -77,52 +73,43 @@ const QuoteForm = () => {
   };
 
 */
-const handleSubmit = (event) => {
-  event.preventDefault();
+  const handleSubmit = (event) => {
+    event.preventDefault();
 
-  // Check if gallons is greater than 0 and a date is selected
-  if (parseFloat(gallons) > 0 && selectedDate) {
-    // Calculate fuelRate
-    const fuelRate = parseFloat(gallons) / parseFloat(totalAmount);
+    // Check if gallons is greater than 0 and a date is selected
+    if (parseFloat(gallons) > 0 && selectedDate) {
+      // Calculate fuelRate
+      const fuelRate = parseFloat(gallons) / parseFloat(totalAmount);
 
-    const quote = {
-      suggestedPrice: suggestedPrice,
-      gallons: gallons,
-      date: selectedDate,
-      address: address,
-      pricePerGalon: suggestedPrice,
-      totalAmount: totalAmount,
-      fuelRate: fuelRate, // Include fuelRate in the quote
-    };
+      const quote = {
+        gallons: gallons,
+        date: selectedDate,
+        address: address,
+        pricePerGalon: suggestedPrice,
+        totalAmount: totalAmount,
+        fuelRate: fuelRate, // Include fuelRate in the quote
+      };
 
-    quoteService.createQuote(quote).then((res) => {
-      setSuccessMessage(res.data.message);
-      console.log(res.data.message);
-      setGallons("");
-      setSelectedDate("");
-      setSuggestedPrice(0);
-      setTotalAmount(0);
-      setSubmitDisabled(true); // Disable the submit button after submission
-    });
-  } else {
-    if (parseFloat(gallons) <= 0) {
-      console.log('Please enter a valid number of gallons.');
+      quoteService.createQuote(quote).then((res) => {
+        setSuccessMessage(res.data.message);
+        console.log(res.data.message);
+        setGallons("");
+        setSelectedDate("");
+        setSuggestedPrice(0);
+        setTotalAmount(0);
+        setSubmitDisabled(true); // Disable the submit button after submission
+      });
+    } else {
+      if (parseFloat(gallons) <= 0) {
+        console.log("Please enter a valid number of gallons.");
+      }
+      if (!selectedDate) {
+        console.log("Please select a delivery date.");
+      }
     }
-    if (!selectedDate) {
-      console.log('Please select a delivery date.');
-    }
-  }
-};
+  };
 
-
-
-
-
-
-
-
-
-/*
+  /*
   const handleGetQuote = (event) => {
     event.preventDefault();
     const quote = {
@@ -143,7 +130,7 @@ const handleSubmit = (event) => {
   };
 */
 
-/*
+  /*
 const handleGetQuote = (event) => {
   event.preventDefault();
 
@@ -166,38 +153,37 @@ const handleGetQuote = (event) => {
 };
 */
 
-const handleGetQuote = (event) => {
-  event.preventDefault();
+  const handleGetQuote = (event) => {
+    event.preventDefault();
 
-  // Check if gallons is greater than 0 and a date is selected before making the quote request
-  if (parseFloat(gallons) > 0 && selectedDate) {
-    const quote = {
-      gallons: gallons,
-      state: state,
-      quoteHistory: quoteHistory,
-    };
-    quoteService.getQuote(quote).then((res) => {
-      console.log('Get Quote Response:', res.data);
-      setSuggestedPrice(res.data.suggestedPricePerGallon);
-      setTotalAmount(res.data.totalAmount);
-      setSubmitDisabled(!(res.data.suggestedPricePerGallon > 0 && res.data.totalAmount > 0));
-    });
-  } else {
-    if (parseFloat(gallons) <= 0) {
-      console.log('Please enter a valid number of gallons.');
+    // Check if gallons is greater than 0 and a date is selected before making the quote request
+    if (parseFloat(gallons) > 0 && selectedDate) {
+      const quote = {
+        gallons: gallons,
+        state: state,
+        quoteHistory: quoteHistory,
+      };
+      quoteService.getQuote(quote).then((res) => {
+        console.log("Get Quote Response:", res.data);
+        setSuggestedPrice(res.data.suggestedPricePerGallon);
+        setTotalAmount(res.data.totalAmount);
+        setSubmitDisabled(
+          !(res.data.suggestedPricePerGallon > 0 && res.data.totalAmount > 0)
+        );
+      });
+    } else {
+      if (parseFloat(gallons) <= 0) {
+        console.log("Please enter a valid number of gallons.");
+      }
+      if (!selectedDate) {
+        console.log("Please select a delivery date.");
+      }
     }
-    if (!selectedDate) {
-      console.log('Please select a delivery date.');
-    }
-  }
-};
-
-
+  };
 
   return (
     <div className="bigform">
       <form onSubmit={handleSubmit}>
-
         <h2 className="inline">Request a quote</h2>
         <h5>Please fill out the following: </h5>
         <div>
@@ -276,7 +262,7 @@ const handleGetQuote = (event) => {
         <button className="button" type="submit" disabled={submitDisabled}>
           Submit
         </button>
-      
+
         <button className="button" onClick={handleGetQuote}>
           Get Quote
         </button>
@@ -285,7 +271,6 @@ const handleGetQuote = (event) => {
           Cancel
           {/* Cancel <Link to="/">Profile</Link> */}
         </p>
-
       </form>
     </div>
   );
