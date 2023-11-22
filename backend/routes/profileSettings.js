@@ -68,7 +68,7 @@ router.get("/api/profile", async (request, response) => {
     const userExists = await user.findOne({ _id: userID }).exec();
 
     if (!userExists) {
-      console.log("Profile get failed.");
+      // console.log("Profile get failed.");
       return response.status(404).json({ message: "User not found" });
     } else {
       const existingProfile = await profile
@@ -76,23 +76,21 @@ router.get("/api/profile", async (request, response) => {
         .exec();
 
       if (!existingProfile) {
-        console.log("Profile not created");
+        // console.log("Profile not created");
         return response
           .status(404)
           .json({ message: "User has not created profile" });
       } else {
-        console.log("Profile get success. User: ", userExists);
-        response
-          .status(200)
-          .json({
-            message: "Profile get success",
-            userExists,
-            existingProfile,
-          });
+        // console.log("Profile get success. User: ", userExists);
+        response.status(200).json({
+          message: "Profile get success",
+          userExists,
+          existingProfile,
+        });
       }
     }
   } catch (error) {
-    console.error("Error getting profile: ", error);
+    // console.error("Error getting profile: ", error);
     response.status(500).json({ message: "Internal server error" });
   }
 });
@@ -104,8 +102,8 @@ router.put("/api/users/updateProfile", async (request, response) => {
   const decoded = jwt.verify(token, "secretkey");
   const userID = decoded.userId;
 
-  console.log("Token: ", token);
-  console.log("userID: ", userID);
+  // console.log("Token: ", token);
+  // console.log("userID: ", userID);
 
   try {
     const userExists = await user.findOne({ _id: userID }).exec();
@@ -133,7 +131,7 @@ router.put("/api/users/updateProfile", async (request, response) => {
         request.body;
 
       if (!namePattern.test(firstName) || firstName === "") {
-        console.log("Bad firstName input.");
+        // console.log("Bad firstName input.");
         return response
           .status(401)
           .json({ message: "Invalid first name input." });
@@ -142,7 +140,7 @@ router.put("/api/users/updateProfile", async (request, response) => {
       }
 
       if (!namePattern.test(lastName) || lastName === "") {
-        console.log("Bad lastName input.");
+        // console.log("Bad lastName input.");
         return response
           .status(401)
           .json({ message: "Invalid last name input." });
@@ -151,7 +149,7 @@ router.put("/api/users/updateProfile", async (request, response) => {
       }
 
       if (!address1Pattern.test(address1) || address1 === "") {
-        console.log("Bad address1 input.");
+        // console.log("Bad address1 input.");
         return response
           .status(401)
           .json({ message: "Invalid address 1 input." });
@@ -160,20 +158,20 @@ router.put("/api/users/updateProfile", async (request, response) => {
       }
 
       if (!address2Pattern.test(address2) && address2 !== "") {
-        console.log("Bad address2 input.");
+        // console.log("Bad address2 input.");
         return response
           .status(401)
           .json({ message: "Invalid address 2 input." });
       } else {
         if (!address2) {
-          console.log("No address 2 change.");
+          // console.log("No address 2 change.");
           address2 = userExists.address2;
         }
         add2Success = true;
       }
 
       if (!cityPattern.test(city) || city === "") {
-        console.log("Bad city input.");
+        // console.log("Bad city input.");
         return response.status(401).json({ message: "Invalid city input." });
       } else {
         citySuccess = true;
@@ -184,7 +182,7 @@ router.put("/api/users/updateProfile", async (request, response) => {
       }
 
       if (!zipPattern.test(zipCode) || zipCode === "") {
-        console.log("Bad zipCode input.");
+        // console.log("Bad zipCode input.");
         return response
           .status(401)
           .json({ message: "Invalid zip code input." });
@@ -192,13 +190,13 @@ router.put("/api/users/updateProfile", async (request, response) => {
         zipSuccess = true;
       }
 
-      console.log("First: ", firstSuccess);
-      console.log("last: ", lastSuccess);
-      console.log("add1: ", add1Success);
-      console.log("add2: ", add2Success);
-      console.log("city: ", citySuccess);
-      console.log("stae: ", stateSuccess);
-      console.log("zip: ", zipSuccess);
+      // console.log("First: ", firstSuccess);
+      // console.log("last: ", lastSuccess);
+      // console.log("add1: ", add1Success);
+      // console.log("add2: ", add2Success);
+      // console.log("city: ", citySuccess);
+      // console.log("stae: ", stateSuccess);
+      // console.log("zip: ", zipSuccess);
 
       if (
         !firstSuccess ||
@@ -215,7 +213,7 @@ router.put("/api/users/updateProfile", async (request, response) => {
           .json({ message: "Error updating profile: invalid input." });
       } else {
         const existingProfile = await profile.findOne({ _id: userExists._id });
-        console.log("Profile exists: ", existingProfile);
+        // console.log("Profile exists: ", existingProfile);
 
         if (existingProfile) {
           existingProfile.firstName = firstName;
@@ -227,8 +225,8 @@ router.put("/api/users/updateProfile", async (request, response) => {
           existingProfile.zipCode = zipCode;
           await existingProfile.save();
         } else {
-          console.log("Inside profile not existing.");
-          console.log("userExists._id: ", userExists._id);
+          // console.log("Inside profile not existing.");
+          // console.log("userExists._id: ", userExists._id);
           //  If the user does not have an existing "profile" document, create a new one
           const newProfile = new profile({
             _id: userExists._id,
@@ -247,17 +245,15 @@ router.put("/api/users/updateProfile", async (request, response) => {
         }
 
         // Save the updated user profile
-        console.log("Profile update success.");
-        return response
-          .status(200)
-          .json({
-            message: "Profile updated successfully",
-            isProfileComplete: userExists.profileComplete,
-          });
+        // console.log("Profile update success.");
+        return response.status(200).json({
+          message: "Profile updated successfully",
+          isProfileComplete: userExists.profileComplete,
+        });
       }
     }
   } catch (error) {
-    console.error("Error updating profile: ", error);
+    // console.error("Error updating profile: ", error);
     response.status(500).json({ message: "Internal server error" });
   }
 });
@@ -284,7 +280,7 @@ router.put("/api/users/updateAccount", async (request, response) => {
 
       // User can enter new email or new password or both
       if (!email && !enteredPassword) {
-        console.log("Error: No email or password input.");
+        // console.log("Error: No email or password input.");
         return response.status(400).json({
           message:
             "Please enter a new email or password to update your account. ",
@@ -292,23 +288,23 @@ router.put("/api/users/updateAccount", async (request, response) => {
       } else if (email) {
         const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,5}$/;
 
-        console.log("current email: ", userExists.email);
-        console.log("current password: ", userExists.password);
+        // console.log("current email: ", userExists.email);
+        // console.log("current password: ", userExists.password);
         if (!emailPattern.test(email)) {
-          console.log("Error: Invalid email input.");
+          // console.log("Error: Invalid email input.");
           return response.status(401).json({ message: "Invalid email input." });
         } else if (email === userExists.email) {
-          console.log("Error: New email is the same as current email.");
+          // console.log("Error: New email is the same as current email.");
           return response
             .status(401)
             .json({ message: "New email cannot be the same as old email." });
         } else {
-          console.log("New email: ", email);
+          // console.log("New email: ", email);
           emailSuccess = true;
         }
       } else {
         email = userExists.email;
-        console.log("No email change.");
+        // console.log("No email change.");
         emailSuccess = true;
       }
 
@@ -330,24 +326,24 @@ router.put("/api/users/updateAccount", async (request, response) => {
           });
 
           if (passwordMatch) {
-            console.log("Error: New password is the same as current password.");
+            // console.log("Error: New password is the same as current password.");
             return response.status(401).json({
               message: "New password cannot be the same as old password.",
             });
           } else {
             hashedPassword = await bcrypt.hash(request.body.password, 10);
-            console.log("New password: ", hashedPassword);
+            // console.log("New password: ", hashedPassword);
             passwordSuccess = true;
           }
         } catch (err) {
-          console.log("Error: Internal server error.");
+          // console.log("Error: Internal server error.");
           return response
             .status(500)
             .json({ message: "Internal server error." });
         }
       } else {
         hashedPassword = userExists.password;
-        console.log("No password change.");
+        // console.log("No password change.");
         passwordSuccess = true;
       }
 
@@ -356,8 +352,8 @@ router.put("/api/users/updateAccount", async (request, response) => {
         userExists.password = hashedPassword;
         userExists.save();
 
-        console.log(" New email: ", userExists.email);
-        console.log(" New password: ", userExists.password);
+        // console.log(" New email: ", userExists.email);
+        // console.log(" New password: ", userExists.password);
 
         // Save the updated user profile
         return response
@@ -370,7 +366,7 @@ router.put("/api/users/updateAccount", async (request, response) => {
       }
     }
   } catch (error) {
-    console.error("Error updating account: ", error);
+    // console.error("Error updating account: ", error);
     response.status(500).json({ message: "Internal server error" });
   }
 });

@@ -7,22 +7,21 @@ const userAuthentication = require("../services/basicAuth");
 
 let authUser = userAuthentication.authUser;
 
-// Get all quotes
-router.get("/api/quotes", authUser, async (request, response) => {
-  try {
-    const quotes = await quote.find();
-    response.json(quotes);
-  } catch (error) {
-    response.status(500).json({ error: "An error occurred" });
-  }
-});
+// // Get all quotes
+// router.get("/api/quotes", authUser, async (request, response) => {
+//   try {
+//     const quotes = await quote.find();
+//     response.json(quotes);
+//   } catch (error) {
+//     response.status(500).json({ error: "An error occurred" });
+//   }
+// });
 
 // Get quotes based on userID
 router.get("/api/quotes/user", authUser, async (request, response) => {
   const token = request.headers["token"];
   const decoded = jwt.verify(token, "secretkey");
   const userID = decoded.userId;
-
   try {
     const quotes = await quote.find({ userID });
     response.json(quotes);
@@ -34,9 +33,7 @@ router.get("/api/quotes/user", authUser, async (request, response) => {
 // Get quote
 router.get("/api/quotes/getquote", authUser, (request, response) => {
   const quoteObj = request.query;
-  console.log(quoteObj);
   const finalQuote = getSuggestedPrice(quoteObj);
-  console.log(finalQuote);
   response.status(201).json(finalQuote);
 });
 

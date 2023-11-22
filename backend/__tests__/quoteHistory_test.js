@@ -1,151 +1,159 @@
 const express = require("express");
 const request = require("supertest");
-const app = express("../index");
+const app = require("../index");
 const jwt = require("jsonwebtoken");
 const { quote } = require("../models/userSchemas");
+const quoteModel = require("../models/userSchemas").quote;
+const userSchemas = require("../models/userSchemas");
 
-    // Define the route handler for GET /api/quotes/user
-    app.get("/api/quotes/user", async (req, res) => {
-      try {
-        // Get the user ID from the token in the request headers
-        const token = req.headers["token"];
-        const decoded = jwt.verify(token, "secretkey");
-        const userID = decoded.userId;
+describe("GET /api/quotes/user", () => {
+  it("should return quotes for a valid user", async () => {
+    // Assuming you have a valid token for testing
+    const userId = "user123";
+    const token = jwt.sign({ userId }, "secretkey", { expiresIn: "1h" });
+    // Make the request
+    const res = await request(app).get("/api/quotes/user").set("token", token);
 
-        // Use the quote model to fetch user-specific quotes from the database
-        const quotes = await quote.find({ userID });
+    // Expectations
+    expect(res.statusCode).toBe(200);
+    expect(res.body).toHaveProperty("length");
+    expect(Array.isArray(res.body)).toBe(true);
+  });
+});
 
-        // Return the quotes as a JSON response
-        res.json(quotes);
-      } catch (error) {
-        // Handle any errors and return an error response if needed
-        res.status(500).json({ error: "An error occurred" });
-      }
-    });
+describe("GET /api/quotes/user", () => {
+  it("should return 401 if the token is missing", async () => {
+    const res = await request(app).get("/api/quotes/user");
 
-    // Define the route handler for GET /api/quotes
-    app.get("/api/quotes", async (req, res) => {
-      try {
-        // Use the quote model to fetch all quotes from the database
-        const quotes = await quote.find();
-
-        // Return the quotes as a JSON response
-        res.json(quotes);
-      } catch (error) {
-        // Handle any errors and return an error response if needed
-        res.status(500).json({ error: "An error occurred" });
-      }
-    });
-
-describe("quoteRoutes", () => {
-  jest.setTimeout(30000);
-  it("GET /api/quotes/user should return user-specific quotes", async () => {
-    
-    // Define a valid token for testing
-    const validToken = jwt.sign({ userId: "testUserId" }, "secretkey");
-
-    // Test GET /api/quotes/user
-    const responseUser = await request(app)
-      .get("/api/quotes/user")
-      .set("token", validToken);
-
-    // Expect a 200 status code
-    expect(responseUser.status).toBe(200);
-
-    // Test GET /api/quotes
-    const responseQuotes = await request(app).get("/api/quotes");
-
-    // Expect a 200 status code
-    expect(responseQuotes.status).toBe(200);
+    expect(res.statusCode).toBe(401);
   });
 
-  it("GET /api/quotes should handle errors", async () => {
-    // Create a fake user ID for testing
-    const fakeUserId = "fakeUserId";
+  it("should return 401 if the token is invalid", async () => {
+    const res = await request(app)
+      .get("/api/quotes/user")
+      .set("token", "invalid_token");
 
-    // Mock the behavior of quote.find to throw an error
-    const quoteFind = quote.find;
-    quote.find = () => {
-      throw new Error("Test error");
+    expect(res.statusCode).toBe(401);
+  });
+});
+
+describe("GET /api/quotes/getquote", () => {
+  it("should return a suggested price for a valid request", async () => {
+    // Replace with the actual quote object for testing
+    const quoteObj = {
+      // Your quote object properties go here
     };
 
-    // Test GET /api/quotes with the fake user
-    const response = await request(app)
-      .get("/api/quotes")
-      .set("token", jwt.sign({ userId: fakeUserId }, "secretkey"));
+    const userId = "user123";
+    const token = jwt.sign({ userId }, "secretkey", { expiresIn: "1h" });
+    // Make the request
+    const res = await request(app)
+      .get("/api/quotes/getquote")
+      .set("token", token)
+      .query(quoteObj);
 
-    // Expect a 500 status code due to the error
-    expect(response.status).toBe(500);
+    // Expectations
+    expect(res.status).toBe(201);
+  });
+});
 
-    // Restore the original implementation of quote.find
-    quote.find = quoteFind;
+describe("POST /api/quotes", () => {
+  it("should create a new quote for a valid request", async () => {
+    // Replace with the actual quote data for testing
+    const quoteData = {
+      date: "2023-12-01",
+      gallons: 100,
+      pricePerGalon: 2,
+      totalAmount: 200,
+    };
+
+    // Replace with the actual token for testing
+    const userId = "user123";
+    const token = jwt.sign({ userId }, "secretkey", { expiresIn: "1h" });
+
+    // Make the request
+    const res = await request(app)
+      .post("/api/quotes")
+      .set("token", token)
+      .send(quoteData);
+
+    // Expectations
+    expect(res.status).toBe(201);
+    expect(res.body).toHaveProperty("message", "Quote added successfully");
+    expect(res.body).toHaveProperty("quote");
+  });
+});
+
+describe("POST /api/quotes", () => {
+  it("should return 401 if the token is missing", async () => {
+    const res = await request(app)
+      .post("/api/quotes")
+      .send(/* Replace with valid quote data */);
+
+    expect(res.status).toBe(401);
   });
 
-
-  it("POST /api/quotes should handle errors", async () => {
-    // Define the route handler for POST /api/quotes
-    app.post("/api/quotes", async (req, res) => {
-      try {
-        // Simulate an error by throwing an exception
-        throw new Error("Test error");
-      } catch (error) {
-        // Handle the error and return a 500 status code
-        res.status(500).json({ error: "An error occurred" });
-      }
-    });
-
-    // Test POST /api/quotes
-    const response = await request(app)
+  it("should return 401 if the token is invalid", async () => {
+    const res = await request(app)
       .post("/api/quotes")
-      .set("token", jwt.sign({ userId: "testUserId" }, "secretkey"))
-      .send({
-        date: "2023-10-30",
-        gallons: 100,
-        pricePerGallon: 3.5,
-        totalAmount: 350,
-      });
+      .set("token", "invalid_token")
+      .send(/* Replace with valid quote data */);
 
-    // Expect a 500 status code due to the error
-    expect(response.status).toBe(500);
+    expect(res.status).toBe(401);
   });
+});
 
-  
-  it("POST /api/quotes should handle errors", async () => {
-    // Define the route handler for POST /api/quotes
-    app.post("/api/quotes", async (req, res) => {
-      try {
-        // Simulate a successful quote creation
-        const newQuote = new quote({
-          userID: "testUserId",
-          requestDate: "2023-10-30",
-          deliveryDate: "2023-11-15",
-          gallons: 100,
-          pricePerGallon: 3.5,
-          totalAmount: 350,
-        });
-        const savedQuote = await newQuote.save();
-        res.status(201).json({ message: "Quote added successfully", quote: savedQuote });
-      } catch (error) {
-        res.status(500).json({ error: "An error occurred" });
-      }
+describe("POST /api/quotes", () => {
+  it("should handle server error during quote creation", async () => {
+    // Mocking save to simulate a server error
+    jest.spyOn(userSchemas.quote.prototype, "save").mockImplementation(() => {
+      throw new Error("Simulated server error");
     });
 
-    // Test POST /api/quotes
+    const quoteData = {
+      // Your valid quote data goes here
+    };
+
+    const userId = "user123";
+    const token = jwt.sign({ userId }, "secretkey", { expiresIn: "1h" });
+
     const response = await request(app)
       .post("/api/quotes")
-      .set("token", jwt.sign({ userId: "testUserId" }, "secretkey"))
-      .send({
-        date: "2023-10-30",
-        gallons: 100,
-        pricePerGallon: 3.5,
-        totalAmount: 350,
-      });
+      .set("token", token)
+      .send(quoteData);
 
-    // Expect a 201 status code for a successful quote creation
-    expect(response.status).toBe(201);
-    // Expect the response message to indicate successful quote creation
-    expect(response.body.message).toBe("Quote added successfully");
-    // Ensure the response contains the saved quote data
-    expect(response.body.quote).toBeDefined();
+    // Expect a 500 server error response
+    expect(response.status).toBe(500);
+    expect(response.body).toEqual({
+      error: "An error occurred",
+    });
+
+    // Restore the original implementation of save
+    userSchemas.quote.prototype.save.mockRestore();
+  });
+});
+
+describe("GET /api/quotes/user", () => {
+  it("should handle server error during quote retrieval", async () => {
+    // Mocking find to simulate a server error
+    jest.spyOn(userSchemas.quote, "find").mockImplementation(() => {
+      throw new Error("Simulated server error");
+    });
+
+    const userId = "user123";
+    const token = jwt.sign({ userId }, "secretkey", { expiresIn: "1h" });
+
+    const response = await request(app)
+      .get("/api/quotes/user")
+      .set("token", token);
+
+    // Expect a 500 server error response
+    expect(response.status).toBe(500);
+    expect(response.body).toEqual({
+      error: "An error occurred",
+    });
+
+    // Restore the original implementation of find
+    userSchemas.quote.find.mockRestore();
   });
 });

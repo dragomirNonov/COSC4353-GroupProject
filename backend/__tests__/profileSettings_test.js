@@ -170,6 +170,29 @@ describe("GET api/profile", () => {
     expect(response.body.message).toBe("Invalid first name input.");
   });
 
+  it("PUT /api/users/updateProfile should return 401 with bad first name input", async () => {
+    // Create a valid token for existing user
+    const token = jwt.sign({ userId: 123 }, "secretkey");
+
+    const userUpdateData = {
+      firstName: "John",
+      lastName: "???",
+      address1: "111 NewMain St",
+      address2: "",
+      city: "NewOnetown",
+      state: "CA",
+      zipCode: "11111",
+    };
+
+    const response = await request(app)
+      .put("/api/users/updateProfile")
+      .set("token", token)
+      .send(userUpdateData);
+
+    expect(response.status).toBe(401);
+    expect(response.body.message).toBe("Invalid last name input.");
+  });
+
   it("PUT /api/users/updateProfile should return 401 with bad address1 input", async () => {
     // Create a valid token for existing user
     const token = jwt.sign({ userId: 123 }, "secretkey");
@@ -314,8 +337,8 @@ describe("GET api/profile", () => {
     const token = jwt.sign({ userId: 345 }, "secretkey");
 
     const accountUpdateData = {
-      email: "newuser1@mail.com",
-      password: "newPass1",
+      email: "newuser2@mail.com",
+      password: "newPass2",
     };
 
     const response = await request(app)
@@ -423,4 +446,70 @@ describe("GET api/profile", () => {
     await user.deleteOne({ _id: 123 });
     await profile.deleteOne({ _id: 123 });
   });
+});
+
+describe("PUT /api/users/updateProfile", () => {
+  it("should handle server error during profile update", async () => {
+    // Mocking findOne to simulate a server error
+    jest.spyOn(user, "findOne").mockImplementation(() => {
+      throw new Error("Simulated server error");
+    });
+
+    const token = jwt.sign({ userId: "user123" }, "secretkey", {
+      expiresIn: "1h",
+    });
+
+    const response = await request(app)
+      .put("/api/users/updateProfile")
+      .set("token", token)
+      .send({
+        firstName: "John",
+        lastName: "Doe",
+        // Add other necessary fields for your request body
+      });
+
+    // Expect a 500 server error response
+    expect(response.status).toBe(500);
+    expect(response.body).toEqual({
+      message: "Internal server error",
+    });
+
+    // Restore the original implementation of findOne
+    user.findOne.mockRestore();
+  });
+
+  // Add more test cases for different scenarios
+});
+
+describe("PUT /api/users/updateProfile", () => {
+  it("should handle server error during profile update", async () => {
+    // Mocking findOne to simulate a server error
+    jest.spyOn(user, "findOne").mockImplementation(() => {
+      throw new Error("Simulated server error");
+    });
+
+    const token = jwt.sign({ userId: "user123" }, "secretkey", {
+      expiresIn: "1h",
+    });
+
+    const response = await request(app)
+      .put("/api/users/updateAccount")
+      .set("token", token)
+      .send({
+        firstName: "John",
+        lastName: "Doe",
+        // Add other necessary fields for your request body
+      });
+
+    // Expect a 500 server error response
+    expect(response.status).toBe(500);
+    expect(response.body).toEqual({
+      message: "Internal server error",
+    });
+
+    // Restore the original implementation of findOne
+    user.findOne.mockRestore();
+  });
+
+  // Add more test cases for different scenarios
 });
