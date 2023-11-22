@@ -229,17 +229,22 @@ ul {
   /* border: solid 1px rgb(195, 195, 195); */
 }
 .logout-button {
-  background-color: white;
-  padding: 0.5vmax 1vmax;
-  border-radius: 10px;
+  background: none;
+  font-size: larger;
+  width: 10%;
+  height: 40px;
+  margin-bottom: 5px;
+  color: rgb(146, 146, 146);
+  padding: 0.4vmax 2vmax;
+  /* padding-left: 0.8vmax; */
   border: none;
-  color: #f32525;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
 }
 .logout-button:hover {
   background-color: #811414;
-  padding: 0.5vmax 1vmax;
-  border-radius: 10px;
-  border: none;
   color: white;
 }
 .sub-div {

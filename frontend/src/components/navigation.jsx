@@ -3,9 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Profile from "./profile";
 import Account from "./accountinfo";
 import QuoteForm from "./quoteform";
-import Quote from "./quote";
 import QuoteHistory from "./quotehistory";
-import axios from "axios";
 
 const Navigation = () => {
   const [component, setComponent] = useState(<Profile />);
@@ -14,23 +12,10 @@ const Navigation = () => {
   const setActiveCmponents = (component) => {
     setComponent(component);
   };
-
-  //TESTING TOKEN*************************************************************
-  // Token needs to be sent to headers avery time the axios is called.a
-  // const baseUrl = "http://localhost:3001/api/users";
-  // axios
-  //   .get(baseUrl, { headers: { token: localStorage.getItem("token") } })
-  //   .then((res) => {
-  //     console.log(res.data);
-  //   })
-  //   .catch((err) => {
-  //     console.log(err.response.status === 401);
-  //     if (err.response.status === 401) {
-  //       navigate("/");
-  //     }
-  //   });
-  //************************************************************************** */
-
+  const handleLogout = (event) => {
+    localStorage.clear();
+    window.location.reload();
+  };
   //Checks if token is present, if not redirects to login
   useEffect(() => {
     if (localStorage.getItem("token") === null) {
@@ -68,6 +53,9 @@ const Navigation = () => {
               onClick={() => setActiveCmponents(<QuoteHistory />)}
             >
               View Quote History
+            </button>
+            <button onClick={handleLogout} className="logout-button">
+              Log out
             </button>
           </div>
         </div>
