@@ -1,6 +1,8 @@
 # final_project
 
-To run the project:
+<p align="center">
+  <b style="font-size:24px;">To run the project:</b>
+</p>
 
 1. Code Execution Environment
 
