@@ -13,7 +13,7 @@ To run the project:
 
    Installation:
 
-   pip install torch torchvision scikit-learn matplotlib
+   `pip install torch torchvision scikit-learn matplotlib`
 
    b. Project Setup:
 
