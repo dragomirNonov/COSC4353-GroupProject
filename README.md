@@ -1,10 +1,8 @@
 # final_project
 
-<div align="center">
-  <b style="font-size:60px;">To run the project:</b>
-</div>
+## To run the project:
 
-<b style="font-size:20px;"> 1. Code Execution Environment </b>
+### 1. Code Execution Environment
 
 a. Libraries that need to be installed to run the code:
 
@@ -15,7 +13,9 @@ a. Libraries that need to be installed to run the code:
 
 Installation:
 
-`pip install torch torchvision scikit-learn matplotlib`
+```
+pip install torch torchvision scikit-learn matplotlib
+```
 
 b. Project Setup:
 
@@ -24,12 +24,12 @@ b. Project Setup:
 
 The dataset ("Data" folder) utilized in this project is the 'Brain tumors 256x256' dataset, available for download [here](https://www.kaggle.com/datasets/thomasdubail/brain-tumors-256x256/code).
 
-<b style="font-size:20px;"> 2. Running the Code </b>
+### 2. Running the Code
 
 a. Training the Model:
 
-- Execute the model_train.py file to train the model. This process may take several minutes. Upon completion (approximately 10 minutes), a new file named tumors_model will be generated.
+- Execute the `model_train.py` file to train the model. This process may take several minutes. Upon completion (approximately 10 minutes), a new file named tumors_model will be generated.
 
 b. Testing the Model:
 
-- Run the model_test.py file to assess the model. The conclusion will feature essential graphs and a confusion matrix. Additionally, a classification report will be printed.
+- Run the `model_test.py` file to assess the model. The conclusion will feature essential graphs and a confusion matrix. Additionally, a classification report will be printed.
