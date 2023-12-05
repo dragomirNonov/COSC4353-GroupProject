@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1700642516720" clover="3.2.0">
-  <project timestamp="1700642516721" name="All files">
-    <metrics statements="245" coveredstatements="235" conditionals="85" coveredconditionals="81" methods="17" coveredmethods="16" elements="347" coveredelements="332" complexity="0" loc="245" ncloc="245" packages="4" files="7" classes="7"/>
+<coverage generated="1701542766363" clover="3.2.0">
+  <project timestamp="1701542766363" name="All files">
+    <metrics statements="245" coveredstatements="229" conditionals="85" coveredconditionals="76" methods="17" coveredmethods="16" elements="347" coveredelements="321" complexity="0" loc="245" ncloc="245" packages="4" files="7" classes="7"/>
     <package name="backend">
       <metrics statements="20" coveredstatements="19" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="2"/>
       <file name="index.js" path="C:\Users\drago\Desktop\COSC4353-GroupProjectNew\backend\index.js">
@@ -45,9 +45,9 @@
       </file>
     </package>
     <package name="backend.routes">
-      <metrics statements="197" coveredstatements="188" conditionals="75" coveredconditionals="71" methods="11" coveredmethods="11"/>
+      <metrics statements="197" coveredstatements="182" conditionals="75" coveredconditionals="66" methods="11" coveredmethods="11"/>
       <file name="profileSettings.js" path="C:\Users\drago\Desktop\COSC4353-GroupProjectNew\backend\routes\profileSettings.js">
-        <metrics statements="122" coveredstatements="113" conditionals="67" coveredconditionals="63" methods="5" coveredmethods="5"/>
+        <metrics statements="122" coveredstatements="112" conditionals="67" coveredconditionals="62" methods="5" coveredmethods="5"/>
         <line num="1" count="3" type="stmt"/>
         <line num="2" count="3" type="stmt"/>
         <line num="3" count="3" type="stmt"/>
@@ -56,17 +56,17 @@
         <line num="6" count="3" type="stmt"/>
         <line num="8" count="3" type="stmt"/>
         <line num="62" count="3" type="stmt"/>
-        <line num="63" count="6" type="stmt"/>
-        <line num="64" count="6" type="stmt"/>
-        <line num="65" count="6" type="stmt"/>
-        <line num="66" count="3" type="stmt"/>
-        <line num="68" count="3" type="stmt"/>
-        <line num="70" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="63" count="5" type="stmt"/>
+        <line num="64" count="5" type="stmt"/>
+        <line num="65" count="5" type="stmt"/>
+        <line num="66" count="2" type="stmt"/>
+        <line num="68" count="2" type="stmt"/>
+        <line num="70" count="2" type="cond" truecount="2" falsecount="0"/>
         <line num="72" count="1" type="stmt"/>
-        <line num="74" count="2" type="stmt"/>
-        <line num="78" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="74" count="1" type="stmt"/>
+        <line num="78" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="80" count="1" type="stmt"/>
-        <line num="85" count="1" type="stmt"/>
+        <line num="85" count="0" type="stmt"/>
         <line num="94" count="3" type="stmt"/>
         <line num="99" count="3" type="stmt"/>
         <line num="101" count="10" type="stmt"/>
@@ -210,7 +210,7 @@
         <line num="71" count="3" type="stmt"/>
       </file>
       <file name="userRoutes.js" path="C:\Users\drago\Desktop\COSC4353-GroupProjectNew\backend\routes\userRoutes.js">
-        <metrics statements="40" coveredstatements="40" conditionals="8" coveredconditionals="8" methods="3" coveredmethods="3"/>
+        <metrics statements="40" coveredstatements="35" conditionals="8" coveredconditionals="4" methods="3" coveredmethods="3"/>
         <line num="1" count="3" type="stmt"/>
         <line num="2" count="3" type="stmt"/>
         <line num="3" count="3" type="stmt"/>
@@ -222,12 +222,12 @@
         <line num="11" count="3" type="stmt"/>
         <line num="12" count="4" type="stmt"/>
         <line num="13" count="4" type="stmt"/>
-        <line num="17" count="3" type="cond" truecount="2" falsecount="0"/>
-        <line num="18" count="1" type="stmt"/>
-        <line num="24" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="25" count="1" type="stmt"/>
-        <line num="31" count="1" type="stmt"/>
-        <line num="35" count="1" type="stmt"/>
+        <line num="17" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="18" count="3" type="stmt"/>
+        <line num="24" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="25" count="0" type="stmt"/>
+        <line num="31" count="0" type="stmt"/>
+        <line num="35" count="0" type="stmt"/>
         <line num="41" count="1" type="stmt"/>
         <line num="49" count="3" type="stmt"/>
         <line num="50" count="2" type="stmt"/>
@@ -244,11 +244,11 @@
         <line num="72" count="3" type="stmt"/>
         <line num="73" count="3" type="stmt"/>
         <line num="75" count="3" type="stmt"/>
-        <line num="80" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="81" count="1" type="stmt"/>
-        <line num="86" count="1" type="stmt"/>
-        <line num="92" count="1" type="stmt"/>
-        <line num="93" count="1" type="stmt"/>
+        <line num="80" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="81" count="0" type="stmt"/>
+        <line num="86" count="2" type="stmt"/>
+        <line num="92" count="2" type="stmt"/>
+        <line num="93" count="2" type="stmt"/>
         <line num="95" count="1" type="stmt"/>
         <line num="102" count="3" type="stmt"/>
       </file>
