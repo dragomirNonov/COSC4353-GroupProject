@@ -1,7 +1,7 @@
 # final_project
 
 <div align="center">
-  <b style="font-size:24px;">To run the project:</b>
+  <b style="font-size:60px;">To run the project:</b>
 </div>
 
 <b style="font-size:20px;"> 1. Code Execution Environment </b>
